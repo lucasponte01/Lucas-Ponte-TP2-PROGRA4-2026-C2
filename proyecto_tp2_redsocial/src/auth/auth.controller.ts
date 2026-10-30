@@ -10,7 +10,7 @@ import { TokenGuard } from './token.guard.js';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('register')
+  @Post('registro')
   
   @HttpCode(HttpStatus.CREATED) // Status 201 requerido por el TP
   @UseInterceptors(
