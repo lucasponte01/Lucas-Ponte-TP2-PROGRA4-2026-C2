@@ -1,0 +1,75 @@
+.card-registro {
+  max-width: 450px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e1e4e8;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: sans-serif;
+}
+
+.titulo-registro {
+  text-align: center;
+  color: #333333;
+  margin-bottom: 24px;
+  font-size: 24px;
+}
+
+.campo-formulario {
+  margin-bottom: 16px;
+}
+
+.etiqueta {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 6px;
+}
+
+.input-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.input-control:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+.texto-error {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.boton-enviar {
+  width: 100%;
+  padding: 12px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.boton-enviar:hover {
+  background-color: #1d4ed8;
+}
+
+.mensaje-exito {
+  margin-top: 16px;
+  padding: 10px;
+  background-color: #d1fae5;
+  color: #065f46;
+  text-align: center;
+  border-radius: 4px;
+}

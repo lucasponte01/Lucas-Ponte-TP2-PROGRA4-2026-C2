@@ -1,0 +1,64 @@
+<div class="card-registro">
+  <h2 class="titulo-registro">Crear Cuenta</h2>
+
+  <form [formGroup]="registro_form" (ngSubmit)="enviar()">
+    
+    <!-- Nombre -->
+    <div class="campo-formulario"> 
+      <app-campo-input label="nombre" id="nombre" type="text" [control]="registro_form.controls.nombre">
+        <app-error-requerido mensaje="El Nombre es requerido" [errors]="registro_form.controls.nombre.errors"></app-error-requerido>
+        <app-error-minlenght mensaje="El Nombre debe tener como minimo 2 caracteres" [errors]="registro_form.controls.nombre.errors"></app-error-minlenght>
+      </app-campo-input>
+    </div>
+
+    <!-- Apellido -->
+    <div class="campo-formulario">
+      <app-campo-input label="apellido" id="apellido" type="text" [control]="registro_form.controls.apellido">
+        <app-error-requerido mensaje="El Apellido es requerido" [errors]="registro_form.controls.apellido.errors"></app-error-requerido>
+        <app-error-minlenght mensaje="El Apellido debe tener como minimo 2 caracteres" [errors]="registro_form.controls.apellido.errors"></app-error-minlenght>
+      </app-campo-input>
+    </div>
+
+    <!-- Correo -->
+    <div class="campo-formulario">
+       <app-campo-input label="Correo" id="Correo" type="text" [control]="registro_form.controls.correo">
+        <app-error-requerido mensaje="El Correo es requerido" [errors]="registro_form.controls.correo.errors"></app-error-requerido>
+        <app-error-email mensaje="El Correo debe tener un formato especifico , ejemplo:ejemplo@gmail.com" [errors]="registro_form.controls.correo.errors"></app-error-email>
+      </app-campo-input>
+    </div>
+
+    <!-- Nombre de Usuario -->
+    <div class="campo-formulario">
+      <app-campo-input label="Nombre de Usuario" id="Nombre de Usuario" type="text" [control]="registro_form.controls.nombreUsuario">
+        <app-error-requerido mensaje="El Nombre de Usuario es requerido" [errors]="registro_form.controls.nombreUsuario.errors"></app-error-requerido>
+        <app-error-minlenght mensaje="El Nombre de Usuario debe tener como minimo 4 caracteres" [errors]="registro_form.controls.nombreUsuario.errors"></app-error-minlenght>
+      </app-campo-input>
+    </div>
+
+    <!-- Contraseña -->
+    <div class="campo-formulario">
+      
+      <app-campo-input label="Contraseña" id="Contraseña" type="text" [control]="registro_form.controls.contrasena">
+        <app-error-requerido mensaje="La Contraseña es requerido" [errors]="registro_form.controls.contrasena.errors"></app-error-requerido>
+        <app-error-minlenght mensaje="La Contraseña debe tener como minimo 8 caracteres" [errors]="registro_form.controls.contrasena.errors"></app-error-minlenght>
+        <app-error-pattern mensaje="La Contraseña debe tener una mayuscula , una minuscaula y un numero" [errors]="registro_form.controls.contrasena.errors"></app-error-pattern>
+      </app-campo-input>
+    </div>
+
+    <!-- Fecha de Nacimiento -->
+    <div class="campo-formulario">
+      <label class="etiqueta">Fecha de Nacimiento</label>
+      <input type="date" formControlName="fechaNacimiento" class="input-control" />
+    </div>
+
+    <!-- Descripción Breve -->
+    <div class="campo-formulario">
+      <app-campo-textarea label="Descripción Breve" id="descripcion" [control]="registro_form.controls.descripcionBreve"></app-campo-textarea>
+    </div>
+
+    <!-- Botón de Envío -->
+    <button type="submit" class="boton-enviar" [disabled]="!registro_form.valid">
+      Registrarse 
+    </button>
+  </form>
+</div>
