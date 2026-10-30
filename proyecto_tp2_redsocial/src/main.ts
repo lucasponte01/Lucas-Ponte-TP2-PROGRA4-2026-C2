@@ -10,7 +10,7 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: "http://localhost:4200",
+    origin: ["http://localhost:4200", "https://tp2-progra4-frontend.onrender.com"],
     credentials: true,
   });
   

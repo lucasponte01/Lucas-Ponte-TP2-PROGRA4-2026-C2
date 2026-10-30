@@ -1,3 +1,3 @@
 export const environment = {
-  API_URL: 'http://localhost:3000',
+  API_URL: 'https://lucas-ponte-tp2-progra4-2026-c2.onrender.com',
 };
