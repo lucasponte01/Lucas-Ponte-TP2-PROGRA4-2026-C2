@@ -45,6 +45,7 @@ export class Registro {
       next: (data: any) => {
         this.error.set(false);
         this.mensaje.set("¡Registro exitoso!");
+        
       },
       error: (err: HttpErrorResponse) => {
         console.error('Error en el registro:', err);

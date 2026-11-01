@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, UseInterceptors, UploadedFile, UseGuards, Get, Req } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthService } from './auth.service.js';
 import { CreateUsuarioDto } from '../usuarios/dto/create-usuario.dto.js';
@@ -23,4 +23,15 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
+  @Get('verificar')
+  @UseGuards(TokenGuard) 
+  verificarToken(@Req() req: any) {
+    
+    return { 
+      valido: true, 
+      user: req.body.user 
+    };
+  }
 }
+
+
