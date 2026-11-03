@@ -16,6 +16,7 @@
       <app-campo-input label="Contraseña" id="Contraseña" type="text" [control]="login_form.controls.contrasena">
         <app-error-requerido mensaje="Es requerido" [errors]="login_form.controls.contrasena.errors"></app-error-requerido>
         <app-error-minlenght mensaje="Debe tener como minimo 8 caracteres" [errors]="login_form.controls.contrasena.errors"></app-error-minlenght>
+        <app-error-pattern mensaje="La Contraseña debe tener una mayuscula , una minuscaula y un numero" [errors]="login_form.controls.contrasena.errors"></app-error-pattern>
       </app-campo-input>
     </div>
 
@@ -24,8 +25,11 @@
       Ingresar
     </button>
 
-    <p>no tenes cuenta ? <a href="../registro">registrate</a></p>
+     @if (error()) {
+      <p class="mensaje-error">{{ mensaje() }}</p>
+    }
 
-
+    <p>no tenes cuenta ? <a routerLink="../registro">registrate</a></p>
+      
   </form>
 </div>

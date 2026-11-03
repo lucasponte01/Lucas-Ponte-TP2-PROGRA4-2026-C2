@@ -9,6 +9,7 @@ import { ErrorEmail } from '../../components/ui/error-email/error-email';
 import { ErrorPattern } from '../../components/ui/error-pattern/error-pattern';
 import { CampoTextarea } from '../../components/ui/campo-textarea/campo-textarea';
 import { AuthService } from '../../services/authServices';
+import { contrasena_igual } from '../../validators/validator_contrasena';
 @Component({
   imports: [ReactiveFormsModule, CampoInput, ErrorRequerido, ErrorMinlenght, ErrorEmail, ErrorPattern, CampoTextarea],
   selector: 'app-registro',
@@ -18,6 +19,7 @@ import { AuthService } from '../../services/authServices';
 export class Registro {
   error = signal(false)
   mensaje = signal("")
+  archivoSeleccionado: File | null = null;
   private authService = inject(AuthService);
 
 
@@ -27,21 +29,40 @@ export class Registro {
     correo: new FormControl('', [Validators.required, Validators.email]),
     nombreUsuario: new FormControl('', [Validators.required, Validators.minLength(4)]),
     contrasena: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*\d)/)]),
+    repetir_contrasena: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*\d)/)]),
     fechaNacimiento: new FormControl('', Validators.required),
     descripcionBreve: new FormControl(''),
-    imagenPerfil: new FormControl(null)
-  });
+    
+  }, { validators: [contrasena_igual] });
+
+  alElegirArchivo(evento: Event) {
+  const input = evento.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    this.archivoSeleccionado = input.files[0];
+  }
+}
 
   async enviar() {
     this.mensaje.set("");
     this.error.set(false);
 
-    if (!this.registro_form.valid) {
-      this.registro_form.markAllAsTouched();
-      return;
+    const valores = this.registro_form.value;
+    const formData = new FormData();
+
+    formData.append('nombre', valores.nombre || '');
+    formData.append('apellido', valores.apellido || '');
+    formData.append('correo', valores.correo || '');
+    formData.append('nombreUsuario', valores.nombreUsuario || '');
+    formData.append('contrasena', valores.contrasena || '');
+    formData.append('repetir_contrasena', valores.repetir_contrasena || '');
+    formData.append('fechaNacimiento', valores.fechaNacimiento || '');
+    formData.append('descripcionBreve', valores.descripcionBreve || '');
+
+    if (this.archivoSeleccionado) {
+      formData.append('imagenPerfil', this.archivoSeleccionado);
     }
 
-    this.authService.register(this.registro_form.value).subscribe({
+    this.authService.register(formData).subscribe({
       next: (data: any) => {
         this.error.set(false);
         this.mensaje.set("¡Registro exitoso!");
@@ -50,7 +71,7 @@ export class Registro {
       error: (err: HttpErrorResponse) => {
         console.error('Error en el registro:', err);
         this.error.set(true);
-        this.mensaje.set(err.error?.message || 'Ocurrió un error al registrarse.');
+        this.mensaje.set('Ocurrió un error al registrarse .' + (err.error?.message || ''));
       }
     });
   }

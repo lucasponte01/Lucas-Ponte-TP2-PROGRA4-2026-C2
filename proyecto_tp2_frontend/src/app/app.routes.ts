@@ -18,4 +18,14 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/registro/registro').then(m => m.Registro),
         //canActivate: [authGuard]
     }, 
+    {
+        path: 'feed',
+        loadComponent: () => import('./pages/feed/feed').then(m => m.Feed),
+        canActivate: [authGuard]
+    }, 
+    {
+        path: 'perfil',
+        loadComponent: () => import('./pages/perfil/perfil').then(m => m.Perfil),
+        canActivate: [authGuard]
+    }, 
 ];

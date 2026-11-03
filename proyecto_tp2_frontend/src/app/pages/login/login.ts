@@ -3,12 +3,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CampoInput } from '../../components/ui/campo-input/campo-input';
 import { ErrorRequerido } from '../../components/ui/error-requerido/error-requerido';
 import { ErrorMinlenght } from '../../components/ui/error-minlenght/error-minlenght';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/authServices';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorPattern } from '../../components/ui/error-pattern/error-pattern';
 
 @Component({
-  imports: [ReactiveFormsModule, CampoInput, ErrorRequerido, ErrorMinlenght, RouterLink],
+  imports: [ReactiveFormsModule, CampoInput, ErrorRequerido, ErrorMinlenght, RouterLink, ErrorPattern],
   selector: 'app-login',
   styleUrl: './login.css',
   templateUrl: './login.html',
@@ -17,7 +18,7 @@ export class Login {
   error = signal(false)
   mensaje = signal("")
   private authService = inject(AuthService);
-
+  
   
   login_form= new FormGroup({
     identificador: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(4)] }),
@@ -33,10 +34,11 @@ export class Login {
       next: () => {
         this.error.set(false)
         this.mensaje.set("login exitoso")
+        
       },
       error: (err: HttpErrorResponse) => {
         this.error.set(true)
-        this.mensaje.set(err.error?.message || 'Ocurrió un error al iniciar sesion.');
+        this.mensaje.set('Ocurrió un error al iniciar sesion.' + (err.error?.message || ''));
       }
     });
   }

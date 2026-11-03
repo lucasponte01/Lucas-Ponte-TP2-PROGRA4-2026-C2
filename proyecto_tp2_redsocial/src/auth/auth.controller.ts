@@ -5,16 +5,19 @@ import { CreateUsuarioDto } from '../usuarios/dto/create-usuario.dto.js';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { TokenGuard } from './token.guard.js';
+import { CloudinaryService } from './cloudinary-service.js';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService, private readonly cloudinaryService: CloudinaryService) {}
 
   @Post('registro')
   @HttpCode(HttpStatus.CREATED)
-  async register(@Body() createUserDto: CreateUsuarioDto) {
-    // Como aún no hay imágenes, pasamos un string vacío o directo el DTO
-    return this.authService.register(createUserDto, '');
+  @UseInterceptors(FileInterceptor('imagenPerfil'))
+  async register(@Body() createUserDto: CreateUsuarioDto , @UploadedFile() file?: Express.Multer.File) {
+    console.log('REGISTRO v2 - BODY:', createUserDto);
+    console.log('REGISTRO v2 - FILE:', file);
+    return this.authService.register(createUserDto , file);
   }
 
   @Post('login')
