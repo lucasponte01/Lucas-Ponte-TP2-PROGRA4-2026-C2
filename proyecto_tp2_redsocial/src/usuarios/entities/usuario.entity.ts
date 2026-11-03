@@ -17,8 +17,6 @@ export class Usuario {
     @Prop({ required: true })
     contrasena: string;
 
-    @Prop({ required: true })
-    repetir_contrasena: string;
 
     @Prop({ required: true })
     fechaNacimiento: string;
