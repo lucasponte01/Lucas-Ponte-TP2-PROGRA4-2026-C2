@@ -4,15 +4,15 @@ import { v2 as cloudinary } from 'cloudinary';
 
 @Injectable()
 export class CloudinaryService {
-    private readonly APY_KEY = process.env.CLOUDINARY_APY_KEY || '';
-    private readonly APY_SECRET = process.env.CLOUDINARY_APY_SECRET || '';
-    private readonly APY_CLOUD_NAME = process.env.CLOUDINARY_APY_CLOUD_NAME || '';
+    private readonly API_KEY = process.env.CLOUDINARY_API_KEY;
+    private readonly API_SECRET = process.env.CLOUDINARY_API_SECRET;
+    private readonly API_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 
   async subirArchivo(file: Express.Multer.File): Promise<string> {
      cloudinary.config({
-      api_key: this.APY_KEY,
-      api_secret: this.APY_SECRET,
-      cloud_name: this.APY_CLOUD_NAME,
+      api_key: this.API_KEY,
+      api_secret: this.API_SECRET,
+      cloud_name: this.API_CLOUD_NAME,
     });
     cloudinary.api.ping().then(console.log).catch(console.log);
     if (!file) return '';
