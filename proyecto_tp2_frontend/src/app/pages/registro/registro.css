@@ -1,19 +1,37 @@
+body {
+  background-color: #1a0517; 
+  color: #ffffff;
+  font-family: 'Manrope', sans-serif, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .card-registro {
-  max-width: 450px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  border: 1px solid #e1e4e8;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 90%;
+  max-width: 500px; 
+  margin: 50px auto;
+  padding: 35px 30px;
+  background-color: #2b0826;
+  border-radius: 12px;
+  border: 2px solid #59124D; 
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   font-family: sans-serif;
+  color: #ffffff;
+  box-sizing: border-box;
 }
 
 .titulo-registro {
   text-align: center;
-  color: #333333;
+  color: #F2A649; 
   margin-bottom: 24px;
-  font-size: 24px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .campo-formulario {
@@ -24,26 +42,30 @@
   display: block;
   font-size: 14px;
   font-weight: 600;
-  color: #4b5563;
+  color: #F2A649;
   margin-bottom: 6px;
 }
 
 .input-control {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
+  padding: 12px;
+  background-color: #1a0517; 
+  border: 1px solid #59124D;
+  border-radius: 6px;
   font-size: 14px;
+  color: #ffffff;
   box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input-control:focus {
-  border-color: #2563eb;
+  border-color: #F28705; 
   outline: none;
+  box-shadow: 0 0 0 3px rgba(242, 135, 5, 0.2);
 }
 
 .texto-error {
-  color: #dc2626;
+  color: #F21905; 
   font-size: 12px;
   margin-top: 4px;
   display: block;
@@ -52,31 +74,62 @@
 .boton-enviar {
   width: 100%;
   padding: 12px;
-  background-color: #2563eb;
+  background: linear-gradient(135deg, #F28705, #F21905);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 15px;
+  transition: opacity 0.2s ease, transform 0.1s ease;
 }
 
-.boton-enviar:hover {
-  background-color: #1d4ed8;
+.boton-enviar:hover:not(:disabled) {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.boton-enviar:disabled {
+  background: #4a2c44;
+  color: #8c7686;
+  cursor: not-allowed;
 }
 
 .mensaje-exito {
   margin-top: 16px;
-  padding: 10px;
-  background-color: #d1fae5;
-  color: #065f46;
+  padding: 12px;
+  background-color: rgba(16, 185, 129, 0.15);
+  border: 1px solid #10b981;
+  color: #34d399;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-weight: 500;
 }
 
-.mensaje-error{
-  color: #dc2626;
+.mensaje-error {
+  color: #F21905;
   font-size: 14px;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 12px;
+  font-weight: 500;
+}
+
+.texto-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #e2d8e0;
+}
+
+.link-login {
+  color: #F2A649;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.link-login:hover {
+  color: #F28705;
+  text-decoration: underline;
 }

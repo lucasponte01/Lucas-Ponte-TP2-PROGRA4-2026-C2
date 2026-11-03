@@ -21,11 +21,16 @@ export const routes: Routes = [
     {
         path: 'feed',
         loadComponent: () => import('./pages/feed/feed').then(m => m.Feed),
-        canActivate: [authGuard]
+        //canActivate: [authGuard]
+    }, 
+    {
+        path: 'crear-publicacion',
+        loadComponent: () => import('./pages/crear-publi/crear-publi').then(m => m.CrearPubli),
+        //canActivate: [authGuard]
     }, 
     {
         path: 'perfil',
         loadComponent: () => import('./pages/perfil/perfil').then(m => m.Perfil),
-        canActivate: [authGuard]
+        //canActivate: [authGuard]
     }, 
 ];

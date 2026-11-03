@@ -1,35 +1,39 @@
-<div class="card-login">
-  <h2 class="titulo-login">Iniciar Sesión</h2>
+<body>
 
-  <form [formGroup]="login_form" (ngSubmit)="enviar()">
-    
-    <!-- Identificador (Correo o Usuario) -->
-    <div class="campo-formulario">
-      <app-campo-input label="Correo o nombre de Usuario" id="identificador" type="text" [control]="login_form.controls.identificador">
-        <app-error-requerido mensaje="Es requerido" [errors]="login_form.controls.identificador.errors"></app-error-requerido>
-        <app-error-minlenght mensaje="Debe tener como minimo 4 caracteres" [errors]="login_form.controls.identificador.errors"></app-error-minlenght>
-      </app-campo-input>
-    </div>
+  <div class="card-login">
+    <h2 class="titulo-login">Iniciar Sesión</h2>
 
-    <!-- Contraseña -->
-    <div class="campo-formulario">
-      <app-campo-input label="Contraseña" id="Contraseña" type="text" [control]="login_form.controls.contrasena">
-        <app-error-requerido mensaje="Es requerido" [errors]="login_form.controls.contrasena.errors"></app-error-requerido>
-        <app-error-minlenght mensaje="Debe tener como minimo 8 caracteres" [errors]="login_form.controls.contrasena.errors"></app-error-minlenght>
-        <app-error-pattern mensaje="La Contraseña debe tener una mayuscula , una minuscaula y un numero" [errors]="login_form.controls.contrasena.errors"></app-error-pattern>
-      </app-campo-input>
-    </div>
-
-    <!-- Botón de Ingreso -->
-    <button type="submit" class="boton-login" [disabled]="!login_form.valid">
-      Ingresar
-    </button>
-
-     @if (error()) {
-      <p class="mensaje-error">{{ mensaje() }}</p>
-    }
-
-    <p>no tenes cuenta ? <a routerLink="../registro">registrate</a></p>
+    <form [formGroup]="login_form" (ngSubmit)="enviar()">
       
-  </form>
-</div>
+    
+      <div class="campo-formulario">
+        <app-campo-input label="Correo o nombre de Usuario" id="identificador" type="text" [control]="login_form.controls.identificador">
+          <app-error-requerido mensaje="Es requerido" [errors]="login_form.controls.identificador.errors"></app-error-requerido>
+          <app-error-minlenght mensaje="Debe tener como minimo 4 caracteres" [errors]="login_form.controls.identificador.errors"></app-error-minlenght>
+        </app-campo-input>
+      </div>
+
+
+      <div class="campo-formulario">
+        <app-campo-input label="Contraseña" id="Contraseña" type="text" [control]="login_form.controls.contrasena">
+          <app-error-requerido mensaje="Es requerido" [errors]="login_form.controls.contrasena.errors"></app-error-requerido>
+          <app-error-minlenght mensaje="Debe tener como minimo 8 caracteres" [errors]="login_form.controls.contrasena.errors"></app-error-minlenght>
+          <app-error-pattern mensaje="La Contraseña debe tener una mayuscula , una minuscaula y un numero" [errors]="login_form.controls.contrasena.errors"></app-error-pattern>
+        </app-campo-input>
+      </div>
+
+    
+      <button type="submit" class="boton-login" [disabled]="!login_form.valid">
+        Ingresar
+      </button>
+
+      @if (error()) {
+        <p class="mensaje-error">{{ mensaje() }}</p>
+      }
+
+      <p class="texto-registro">no tenes cuenta ? <a routerLink="/registro" class="link-registro">registrate</a></p>
+        
+    </form>
+  </div>
+
+</body>

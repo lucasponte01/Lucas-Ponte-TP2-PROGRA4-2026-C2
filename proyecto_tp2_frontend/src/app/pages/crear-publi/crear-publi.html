@@ -1,0 +1,33 @@
+<body>
+ 
+    <div class="form-card">
+        <h3>Crear nueva publicación</h3>
+        
+        @if (error()) {
+        <div class="error-banner">{{ error() }}</div>
+        }
+
+        <form [formGroup]="publi_form" (ngSubmit)="crear_publi()">
+        <div class="campo">
+            <label>Título</label>
+            <input type="text" formControlName="titulo" placeholder="Escribí un título..." />
+        </div>
+
+        <div class="campo">
+            <label>Mensaje</label>
+            <textarea formControlName="mensaje" rows="4" placeholder="¿Qué estás pensando?"></textarea>
+        </div>
+
+        <div class="campo">
+            <label>Imagen (URL opcional)</label>
+            <input type="text" formControlName="imagen" placeholder="https://..." />
+        </div>
+
+        <div class="acciones">
+            <button type="submit" class="btn-publicar">Publicar</button>
+            <button type="button" routerLink="/feed" class="btn-cancelar">Cancelar</button>
+        </div>
+        </form>
+    </div>
+    
+</body>

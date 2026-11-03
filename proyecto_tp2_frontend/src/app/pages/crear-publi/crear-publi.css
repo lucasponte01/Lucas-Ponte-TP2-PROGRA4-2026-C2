@@ -1,0 +1,123 @@
+body {
+  background-color: #1a0517; 
+  color: #ffffff;
+  font-family: 'Manrope', sans-serif, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.crear-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
+}
+
+.form-card {
+  background: #59124D;
+  border: 2px solid #F28705;
+  padding: 30px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+}
+
+.form-card h3 {
+  margin-top: 0;
+  color: #F28705;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.campo {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.campo label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #F2A649;
+}
+
+.form-card input, 
+.form-card textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #F2A649;
+  background: #2c0826;
+  color: #fff;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.form-card input:focus, 
+.form-card textarea:focus {
+  outline: none;
+  border-color: #F28705;
+  box-shadow: 0 0 5px rgba(242, 135, 5, 0.5);
+}
+
+.acciones {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-publicar {
+  flex: 1;
+  background: #F28705;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-publicar:hover {
+  background: #d67504;
+}
+
+.btn-cancelar {
+  flex: 1;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #F2A649;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.btn-cancelar:hover {
+  background: rgba(242, 166, 73, 0.1);
+}
+
+.error-banner {
+  background: #8C0303;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}

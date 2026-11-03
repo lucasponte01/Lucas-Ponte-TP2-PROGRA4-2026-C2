@@ -10,8 +10,9 @@ import { ErrorPattern } from '../../components/ui/error-pattern/error-pattern';
 import { CampoTextarea } from '../../components/ui/campo-textarea/campo-textarea';
 import { AuthService } from '../../services/authServices';
 import { contrasena_igual } from '../../validators/validator_contrasena';
+import { RouterLink } from '@angular/router';
 @Component({
-  imports: [ReactiveFormsModule, CampoInput, ErrorRequerido, ErrorMinlenght, ErrorEmail, ErrorPattern, CampoTextarea],
+  imports: [ReactiveFormsModule, CampoInput, ErrorRequerido, ErrorMinlenght, ErrorEmail, ErrorPattern, CampoTextarea , RouterLink],
   selector: 'app-registro',
   styleUrl: './registro.css',
   templateUrl: './registro.html',
@@ -35,7 +36,7 @@ export class Registro {
     
   }, { validators: [contrasena_igual] });
 
-  alElegirArchivo(evento: Event) {
+  ElegirArchivo(evento: Event) {
   const input = evento.target as HTMLInputElement;
   if (input.files && input.files.length > 0) {
     this.archivoSeleccionado = input.files[0];
