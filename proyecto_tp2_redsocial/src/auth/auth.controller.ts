@@ -15,8 +15,6 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(FileInterceptor('imagenPerfil'))
   async register(@Body() createUserDto: CreateUsuarioDto , @UploadedFile() file?: Express.Multer.File) {
-    console.log('REGISTRO v2 - BODY:', createUserDto);
-    console.log('REGISTRO v2 - FILE:', file);
     return this.authService.register(createUserDto , file);
   }
 

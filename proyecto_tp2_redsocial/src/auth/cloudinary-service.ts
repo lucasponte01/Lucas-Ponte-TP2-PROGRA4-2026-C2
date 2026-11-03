@@ -14,7 +14,7 @@ export class CloudinaryService {
       api_secret: this.API_SECRET,
       cloud_name: this.API_CLOUD_NAME,
     });
-    cloudinary.api.ping().then(console.log).catch(console.log);
+   
     if (!file) return '';
 
     const base64 = file.buffer.toString('base64');
