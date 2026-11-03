@@ -23,9 +23,6 @@ export class CreateUsuarioDto {
   @Matches(/^(?=.*[A-Z])(?=.*\d)/, { message: 'La contraseña debe contener al menos una letra mayúscula y un número',})
   contrasena: string;
   
-  @MinLength(8, { message: 'La contraseña debe tener al menos 8 caracteres' })
-  @Matches(/^(?=.*[A-Z])(?=.*\d)/, { message: 'La contraseña debe contener al menos una letra mayúscula y un número',})
-  repetir_contrasena: string;
 
   @IsNotEmpty({ message: 'La fecha de nacimiento es obligatoria' })
   @IsString()

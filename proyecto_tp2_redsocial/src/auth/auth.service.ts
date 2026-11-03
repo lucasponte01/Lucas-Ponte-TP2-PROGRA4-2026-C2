@@ -19,10 +19,6 @@ export class AuthService {
 
     async register(createUserDto: CreateUsuarioDto, file?: Express.Multer.File) {
         
-        if (createUserDto.contrasena !== createUserDto.repetir_contrasena) {
-            throw new BadRequestException('Las contraseñas no coinciden');
-        }
-
 
         const { nombre, apellido, correo, nombreUsuario, contrasena, fechaNacimiento, descripcionBreve } = createUserDto;
     
