@@ -11,7 +11,7 @@ export class Publicaciones {
     private apiUrl = `${environment.API_URL}/publicaciones`;
     private router = inject(Router);
 
-    crearPublicacion(publicacion: { titulo: string; mensaje: string; imagen?: string }): Observable<Publicacion> {
+    crearPublicacion(publicacion: FormData): Observable<Publicacion> {
       return this.http.post<Publicacion>(`${this.apiUrl}/crear`, publicacion).pipe(
         tap({
           next: (data) => {

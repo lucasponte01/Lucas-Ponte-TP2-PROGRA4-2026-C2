@@ -19,8 +19,8 @@
         </div>
 
         <div class="campo">
-            <label>Imagen (URL opcional)</label>
-            <input type="text" formControlName="imagen" placeholder="https://..." />
+            <label>Imagen (opcional)</label>
+            <input type="file" (change)="ElegirArchivo($event)" accept="image/*" />
         </div>
 
         <div class="acciones">

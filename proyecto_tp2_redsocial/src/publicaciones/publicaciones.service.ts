@@ -4,12 +4,27 @@ import { UpdatePublicacioneDto } from './dto/update-publicacione.dto.js';
 import { InjectModel } from '@nestjs/mongoose';
 import { Publicacione } from './entities/publicacione.entity.js';
 import { Model } from 'mongoose';
+import { CloudinaryService } from '../auth/cloudinary-service.js';
 
 @Injectable()
 export class PublicacionesService {
-  constructor(@InjectModel(Publicacione.name) private publiModel: Model<Publicacione>,) {}
-  create(createPublicacioneDto: CreatePublicacioneDto) {
-    const nuevaPubli = new this.publiModel(createPublicacioneDto);
+  constructor(@InjectModel(Publicacione.name) private publiModel: Model<Publicacione>,private readonly cloudinaryService: CloudinaryService,) {}
+
+  async create(createPublicacioneDto: CreatePublicacioneDto , file?: Express.Multer.File) {
+    const { titulo, mensaje } = createPublicacioneDto;
+    
+    let imagen_url = '';
+    if (file) {
+      imagen_url = await this.cloudinaryService.subirArchivo(file , 'Publicaciones');
+    }
+
+    const nuevaPubli = new this.publiModel({
+      titulo,
+      mensaje,
+      imagen: imagen_url,
+    });
+    
+
     return nuevaPubli.save();
   }
 

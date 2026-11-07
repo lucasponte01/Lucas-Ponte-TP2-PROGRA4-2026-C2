@@ -27,8 +27,9 @@ export class AuthService {
         }   
        let imagen_url = '';
             if (file) {
-            imagen_url = await this.cloudinaryService.subirArchivo(file);
+            imagen_url = await this.cloudinaryService.subirArchivo(file , 'perfil');
             }
+            
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(contrasena, salt);
         const newUser = new this.usermodel({

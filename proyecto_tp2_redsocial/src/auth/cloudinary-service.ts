@@ -8,7 +8,7 @@ export class CloudinaryService {
     private readonly API_SECRET = process.env.CLOUDINARY_API_SECRET;
     private readonly API_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
 
-  async subirArchivo(file: Express.Multer.File): Promise<string> {
+  async subirArchivo(file: Express.Multer.File , folder: string ): Promise<string> {
      cloudinary.config({
       api_key: this.API_KEY,
       api_secret: this.API_SECRET,
@@ -21,8 +21,8 @@ export class CloudinaryService {
     const uri = `data:${file.mimetype};base64,${base64}`;
 
     const uploadStream = await cloudinary.uploader.upload(uri, {
-      folder: 'red-social-tp',
-      public_id: `${Date.now()}-perfil`,
+      folder: folder,
+      public_id: `${Date.now()}-${folder}`,
     });
 
     return uploadStream.url; 
