@@ -31,10 +31,14 @@ export class AuthService {
       return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
         tap((data: any) => {
           const token = data.access_token 
+          const userId = data.userId || data.usuario?._id || data.id;
           
           if (token) {
             localStorage.setItem('token', token);
-            console.log("Token guardado exitosamente en localStorage");
+            if (userId) {
+              localStorage.setItem('userId', userId); // <--- Guardamos el ID acá
+            }
+
             this.router.navigateByUrl('/feed');
           } else {
             console.error("No se encontró el token en la respuesta:", data);
@@ -56,6 +60,11 @@ export class AuthService {
   verifyToken(): Observable<any> {
     return this.http.get(`${this.apiUrl}/verificar`);
   }
+
+  getUserId(): string | null {
+        return localStorage.getItem('userId');
+      }
+
 
   logout(): void {
     localStorage.removeItem('token');

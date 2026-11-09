@@ -3,5 +3,7 @@ export interface Publicacion {
   titulo: string;
   mensaje: string;
   imagen?: string;
-  createdAt?: string;
+  likesCount?: number;   
+  likes?: string[];     
+  activo?: boolean;
 }

@@ -1,0 +1,20 @@
+<div class="post-card">
+      <h4>{{ publicacion().titulo }}</h4>
+      <p>{{ publicacion().mensaje }}</p>
+      
+      @if (publicacion().imagen) {
+        <img [src]="publicacion().imagen" alt="Imagen del post" class="post-img" />
+      }
+
+      <div class="post-actions">
+        <!-- Botón de Me Gusta -->
+        <button (click)="onLikeToggle()">
+          ❤️ {{ publicacion().likesCount || 0 }} Me gusta
+        </button>
+
+        <!-- Botón de Eliminar (Baja lógica) -->
+        <button class="btn-delete" (click)="onDelete()">
+          🗑️ Eliminar
+        </button>
+      </div>
+    </div>

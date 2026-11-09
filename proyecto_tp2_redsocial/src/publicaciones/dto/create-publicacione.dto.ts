@@ -14,5 +14,7 @@ export class CreatePublicacioneDto {
   @IsString()
   @IsOptional()
   imagen?: string;
+
+  
 }
 

@@ -2,25 +2,37 @@
   <div class="feed-container">
     <div class="feed-header">
       <h2>Muro de Publicaciones</h2>
-      <!-- Botón que te lleva a la otra página usando ruta absoluta -->
-      <router-link routerLink="/crear-publicacion" class="btn-ir-crear">
+      <a routerLink="/crear-publicacion" class="btn-ir-crear">
         + Crear Publicación
-      </router-link>
+      </a>
     </div>
 
-  
+    <!-- Controles de ordenamiento exigidos por el Sprint 2 -->
+    <div class="feed-controls">
+      <label>Ordenar por:</label>
+      <select (change)="cambiarOrden($event)">
+        <option value="fecha">Más recientes (Fecha)</option>
+        <option value="likes">Cantidad de Me gusta</option>
+      </select>
+    </div>
+
+    <!-- Mensaje de error si lo hay -->
+    @if (error()) {
+      <p class="error-msg">{{ error() }}</p>
+    }
+
     <div class="posts-list">
       @for (pub of publicaciones(); track pub._id) {
-        <div class="post-card">
-          <h4>{{ pub.titulo }}</h4>
-          <p>{{ pub.mensaje }}</p>
-          @if (pub.imagen) {
-            <img [src]="pub.imagen" alt="Imagen del post" class="post-img" />
-          }
-        </div>
+        <!-- Usamos el componente independiente de publicación -->
+        <app-publicaciones-ind 
+          [publicacion]="pub" 
+          (like)="darLike($event)"
+          (delete)="eliminarPublicacion($event)">
+        </app-publicaciones-ind>
+          
       } @empty {
         <p class="no-posts">No hay publicaciones todavía. ¡Sé el primero en compartir algo!</p>
       }
     </div>
   </div>
-</body>  
+</body>
