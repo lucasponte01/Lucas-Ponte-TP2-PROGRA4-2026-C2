@@ -67,6 +67,7 @@ export class AuthService {
         return {
             message: 'Login exitoso',
             access_token: token, 
+            userId: user._id.toString(),
         };
     }
 
