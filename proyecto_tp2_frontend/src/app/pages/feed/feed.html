@@ -1,38 +1,86 @@
-<body>
-  <div class="feed-container">
-    <div class="feed-header">
-      <h2>Muro de Publicaciones</h2>
-      <a routerLink="/crear-publicacion" class="btn-ir-crear">
-        + Crear Publicación
-      </a>
-    </div>
+<!-- Navbar Superior -->
+<header class="bloop-navbar">
+  <div class="bloop-logo">
+    <a routerLink="/feed">
+      <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
+    </a>
+  </div>
 
-    <!-- Controles de ordenamiento exigidos por el Sprint 2 -->
+  <nav class="bloop-nav-links">
+    <a routerLink="/crear-publicacion" class="nav-link">Crear Publi</a>
+    <a routerLink="/perfil" class="nav-link">Mi Perfil</a>
+    
+  </nav>
+</header>
+
+<!-- Contenedor Principal -->
+<main class="feed-container">
+  
+  <!-- Cabecera de la sección -->
+  <div class="feed-header">
+    <h1 class="feed-title">Muro de Publicaciones</h1>
+    
     <div class="feed-controls">
-      <label>Ordenar por:</label>
-      <select (change)="cambiarOrden($event)">
+      <select (change)="cambiarOrden($event)" class="feed-select-orden">
         <option value="fecha">Más recientes (Fecha)</option>
-        <option value="likes">Cantidad de Me gusta</option>
+        <option value="likes">Con más likes ⭐</option>
       </select>
-    </div>
-
-    <!-- Mensaje de error si lo hay -->
-    @if (error()) {
-      <p class="error-msg">{{ error() }}</p>
-    }
-
-    <div class="posts-list">
-      @for (pub of publicaciones(); track pub._id) {
-        <!-- Usamos el componente independiente de publicación -->
-        <app-publicaciones-ind 
-          [publicacion]="pub" 
-          (like)="darLike($event)"
-          (delete)="eliminarPublicacion($event)">
-        </app-publicaciones-ind>
-          
-      } @empty {
-        <p class="no-posts">No hay publicaciones todavía. ¡Sé el primero en compartir algo!</p>
-      }
+      
+      <a routerLink="/crear-publicacion" class="btn-crear-publi">+ Crear</a>
     </div>
   </div>
-</body>
+
+  <!-- Lista de Publicaciones -->
+  <div class="feed-list">
+    @for (publi of publicaciones(); track publi._id) {
+      <article class="publi-card">
+    
+
+        <!-- Contenido de texto -->
+        <div class="publi-body">
+          <h2 class="publi-titulo">{{ publi.titulo }}</h2>
+          <p class="publi-mensaje">{{ publi.mensaje }}</p>
+        </div>
+
+        <!-- Imagen del post (contenida correctamente) -->
+        @if (publi.imagen) {
+          <div class="publi-imagen-wrapper">
+            <img [src]="publi.imagen" alt="Imagen de publicación" class="publi-imagen">
+          </div>
+        }
+
+        <!-- Botones de Interacción -->
+        <div class="publi-footer">
+          <button (click)="darLike(publi._id!)" class="btn-like">
+            <span class="heart-icon">❤️</span>
+            <span>{{ publi.likes?.length || 0 }} Me gusta</span>
+          </button>
+
+          <button (click)="eliminarPublicacion(publi._id!)" class="btn-eliminar">
+            <span>🗑️</span>
+            <span>Eliminar</span>
+          </button>
+        </div>
+
+      </article>
+    } @empty {
+      <div class="feed-empty">
+        <p>No hay publicaciones disponibles todavía.</p>
+      </div>
+    }
+  </div>
+
+  <!-- Paginación Inferior -->
+  <div class="pagination-container">
+    <button (click)="paginaAnterior()" [disabled]="currentPage === 0" class="btn-pagination">
+      ← Anterior
+    </button>
+
+    <span class="pagination-info">Página {{ currentPage + 1 }}</span>
+
+    <button (click)="paginaSiguiente()" [disabled]="!hasMore" class="btn-pagination">
+      Siguiente →
+    </button>
+  </div>
+
+</main>

@@ -14,12 +14,17 @@ import { AuthService } from '../../services/authServices';
 })
 export class Feed implements OnInit{
   error = signal("");
+  
   publi_services = inject(Publicaciones);
   publicaciones = signal<Publicacion[]>([]);
   private authService = inject(AuthService);
-  currentSort = signal('fecha'); // 'fecha' o 'likes'
+  currentSort = signal(''); // 'fecha' o 'likes'
   limit = 5;
   offset = 0;
+  
+  currentPage = 0;
+  
+  hasMore = true;
 
 ngOnInit(): void {
     this.cargarFeed();
@@ -68,5 +73,19 @@ ngOnInit(): void {
             this.error.set("Error al eliminar la publicación: " + (error.error?.message || error.message));
           }
     })};
-  }
 
+
+    paginaSiguiente() {
+      if (this.hasMore) {
+        this.currentPage++;
+        this.cargarFeed();
+      }
+    }
+
+    paginaAnterior() {
+      if (this.currentPage > 0) {
+        this.currentPage--;
+        this.cargarFeed();
+      }
+  }
+}

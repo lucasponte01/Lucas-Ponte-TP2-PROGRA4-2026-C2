@@ -2,9 +2,13 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Publicaciones } from '../../services/publi/publicaciones';
+import { CampoInput } from '../../components/ui/campo-input/campo-input';
+import { CampoTextarea } from '../../components/ui/campo-textarea/campo-textarea';
+import { ErrorRequerido } from '../../components/ui/error-requerido/error-requerido';
+import { ErrorMinlenght } from '../../components/ui/error-minlenght/error-minlenght';
 
 @Component({
-  imports: [ReactiveFormsModule , RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, CampoInput, CampoTextarea, ErrorRequerido, ErrorMinlenght],
   selector: 'app-crear-publi',
   styleUrl: './crear-publi.css',
   templateUrl: './crear-publi.html',
