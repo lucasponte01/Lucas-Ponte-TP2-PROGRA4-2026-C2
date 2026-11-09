@@ -32,13 +32,14 @@ export class AuthService {
         tap((data: any) => {
           const token = data.access_token 
           const userId = data.userId || data.usuario?._id || data.id;
+
+          if (userId) {
+              localStorage.setItem('userId', userId); 
+              console.log("User ID guardado exitosamente en localStorage:", userId);
+            }
           
           if (token) {
             localStorage.setItem('token', token);
-            if (userId) {
-              localStorage.setItem('userId', userId); // <--- Guardamos el ID acá
-            }
-
             this.router.navigateByUrl('/feed');
           } else {
             console.error("No se encontró el token en la respuesta:", data);
