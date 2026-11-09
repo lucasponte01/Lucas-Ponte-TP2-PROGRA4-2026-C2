@@ -26,8 +26,17 @@ export class PublicacionesController {
     return this.publicacionesService.findAll({ limit, offset, sort, userId });
   }
 
+  @Post(':id/like')
+  darLike(@Param('id') id: string, @Body('userId') userId: string) {
+    return this.publicacionesService.darLike(id, userId);
+  }
+
+  @Delete(':id/like')
+  quitarLike(@Param('id') id: string, @Body('userId') userId: string) {
+    return this.publicacionesService.quitarLike(id, userId);
+  }
+
   @Get(':id')
-  
   findOne(@Param('id') id: string) {
     return this.publicacionesService.findOne(+id);
   }

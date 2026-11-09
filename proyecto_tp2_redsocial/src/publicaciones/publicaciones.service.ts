@@ -115,7 +115,7 @@ export class PublicacionesService {
   
 
   findOne(id: number) {
-    return `This action returns a #${id} publicacione`;
+    return this.publiModel.findById(id);
   }
 
   update(id: number, updatePublicacioneDto: UpdatePublicacioneDto) {
@@ -123,6 +123,6 @@ export class PublicacionesService {
   }
 
   remove(id: number, userId: string, p0: boolean) {
-    return `This action removes a #${id} publicacione`;
+    return this.publiModel.findByIdAndUpdate(id, UpdatePublicacioneDto, { new: true })
   }
 }
