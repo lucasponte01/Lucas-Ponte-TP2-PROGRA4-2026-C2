@@ -12,8 +12,9 @@ export class PublicacionesController {
   @UseInterceptors(FileInterceptor('imagen'))
   create(
   @Body() createPublicacioneDto: CreatePublicacioneDto, 
-  @UploadedFile() file?: Express.Multer.File) {
-    return this.publicacionesService.create(createPublicacioneDto, file);
+  @UploadedFile() file?: Express.Multer.File,
+  @Body('userId') userId?: string) {
+    return this.publicacionesService.create(createPublicacioneDto, file ,userId);
   }
 //limit y offset son para paginacion de bd sql, sort es para ordenar y userId es para filtrar por usuario
   @Get('listar')

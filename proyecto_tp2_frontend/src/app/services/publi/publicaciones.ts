@@ -9,11 +9,17 @@ import { AuthService } from '../authServices';
 @Service()
 export class Publicaciones {
     private http = inject(HttpClient);
-    
+    private authService = inject(AuthService);
     private apiUrl = `${environment.API_URL}/publicaciones`;
     private router = inject(Router);
 
     crearPublicacion(publicacion: FormData): Observable<Publicacion> {
+      const userId = this.authService.getUserId();
+
+      if (userId) {
+        
+        publicacion.append('userId', userId);
+      }
       return this.http.post<Publicacion>(`${this.apiUrl}/crear`, publicacion).pipe(
         tap({
           next: (data) => {

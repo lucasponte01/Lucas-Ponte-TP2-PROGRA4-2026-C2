@@ -10,7 +10,7 @@ import { CloudinaryService } from '../auth/cloudinary-service.js';
 export class PublicacionesService {
   constructor(@InjectModel(Publicacione.name) private publiModel: Model<Publicacione>,private readonly cloudinaryService: CloudinaryService,) {}
 
-  async create(createPublicacioneDto: CreatePublicacioneDto , file?: Express.Multer.File) {
+  async create(createPublicacioneDto: CreatePublicacioneDto , file?: Express.Multer.File , userId?: string) {
     const { titulo, mensaje } = createPublicacioneDto;
     
     let imagen_url = '';
@@ -22,6 +22,7 @@ export class PublicacionesService {
       titulo,
       mensaje,
       imagen: imagen_url,
+      usuario: userId ? new Types.ObjectId(userId) : null,
     });
     
 
