@@ -49,14 +49,8 @@ export class Publicaciones {
       return this.http.get<Publicacion[]>(`${this.apiUrl}/listar`, { params });
     }
 
-  darLike(id: string, userId: string): Observable<any> {
-    
+  toggleLike(id: string, userId: string): Observable<any> {
       return this.http.post(`${this.apiUrl}/${id}/like`, { userId });
-    }
-
-    // Quitar Me Gusta
-  quitarLike(id: string, userId: string): Observable<any> {
-      return this.http.request('delete', `${this.apiUrl}/${id}/like`, { body: { userId } });
     }
 
     // Baja lógica de publicación

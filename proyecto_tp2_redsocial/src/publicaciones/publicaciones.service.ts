@@ -55,8 +55,11 @@ export class PublicacionesService {
   }
 
 
-  // --- DAR ME GUSTA ---
-  async darLike(publiId: string, userId: string) {
+  async toggleLike(publiId: string, userId: string) {
+    if (!userId) {
+      throw new BadRequestException('Usuario no válido o no autenticado');
+    }
+
     const publicacion = await this.publiModel.findById(publiId);
     if (!publicacion) {
       throw new NotFoundException('Publicación no encontrada');
@@ -66,36 +69,19 @@ export class PublicacionesService {
       publicacion.likes = [];
     }
 
-    // Verificamos si el usuario ya le dio like
-    const yaDioLike = publicacion.likes.some((id) => id.toString() === userId);
-    if (yaDioLike) {
-      throw new BadRequestException('Ya le diste me gusta a esta publicación');
+    // Vemos si el usuario ya está en el array de likes
+    const index = publicacion.likes.findIndex((id) => id.toString() === userId.toString());
+
+    if (index !== -1) {
+      // YA LE DIO LIKE: Lo quitamos (Unlike)
+      publicacion.likes.splice(index, 1);
+    } else {
+      // NO LE HABÍA DADO LIKE: Se lo agregamos (Like)
+      publicacion.likes.push(new Types.ObjectId(userId));
     }
 
-
-    // Agregamos el usuario al array y aumentamos el contador
-    publicacion.likes.push(new Types.ObjectId(userId));
+    // Actualizamos el contador y guardamos
     publicacion.likesCount = publicacion.likes.length;
-
-    return publicacion.save();
-  }
-
-  // --- QUITAR ME GUSTA ---
-  async quitarLike(publiId: string, userId: string) {
-    const publicacion = await this.publiModel.findById(publiId);
-    if (!publicacion) {
-      throw new NotFoundException('Publicación no encontrada');
-    }
-
-    // Filtramos el array sacando al usuario
-    const index = publicacion.likes.findIndex((id) => id.toString() === userId);
-    if (index === -1) {
-      throw new BadRequestException('No habías dado me gusta a esta publicación');
-    }
-
-    publicacion.likes.splice(index, 1);
-    publicacion.likesCount = publicacion.likes.length;
-
     return publicacion.save();
   }
 
@@ -123,11 +109,11 @@ export class PublicacionesService {
     return this.publiModel.findById(id);
   }
 
-  update(id: number, updatePublicacioneDto: UpdatePublicacioneDto) {
-    return `This action updates a #${id} publicacione`;
+  update(id: string, updatePublicacioneDto: UpdatePublicacioneDto) {
+    return this.publiModel.findByIdAndUpdate(id, updatePublicacioneDto, { new: true });
   }
 
-  remove(id: number, userId: string, p0: boolean) {
-    return this.publiModel.findByIdAndUpdate(id, UpdatePublicacioneDto, { new: true })
+  remove(Id: string, userId: string, esAdmin: boolean) {
+    return this.bajaLogica(Id, userId, esAdmin);
   }
 }

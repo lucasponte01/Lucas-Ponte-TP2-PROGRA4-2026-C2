@@ -28,12 +28,7 @@ export class PublicacionesController {
 
   @Post(':id/like')
   darLike(@Param('id') id: string, @Body('userId') userId: string) {
-    return this.publicacionesService.darLike(id, userId);
-  }
-
-  @Delete(':id/like')
-  quitarLike(@Param('id') id: string, @Body('userId') userId: string) {
-    return this.publicacionesService.quitarLike(id, userId);
+    return this.publicacionesService.toggleLike(id, userId);
   }
 
   @Get(':id')
@@ -43,13 +38,13 @@ export class PublicacionesController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePublicacioneDto: UpdatePublicacioneDto) {
-    return this.publicacionesService.update(+id, updatePublicacioneDto);
+    return this.publicacionesService.update(id, updatePublicacioneDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string, 
     @Body('userId') userId: string,
     @Body('esAdmin') esAdmin: boolean) {
-    return this.publicacionesService.remove(+id, userId, esAdmin || false );
+    return this.publicacionesService.remove(id, userId, esAdmin || false );
   }
 }

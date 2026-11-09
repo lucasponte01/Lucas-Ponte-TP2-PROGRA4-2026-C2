@@ -42,10 +42,19 @@ ngOnInit(): void {
 
   darLike(id: string) {
     const userId = this.authService.getUserId();
-    this.publi_services.darLike(id, userId!).subscribe(() => {
-      this.cargarFeed();
-    }, (error) => {
-      this.error.set("Error al dar like. Por favor, inténtelo de nuevo más tarde." + error.message);
+
+    if (!userId) {
+      this.error.set("Debes iniciar sesión para dar me gusta.");
+      return;
+    }
+
+    this.publi_services.toggleLike(id, userId).subscribe({
+      next: () => {
+        this.cargarFeed();
+      }, 
+      error: (error) => {
+        this.error.set("Error al procesar el me gusta: " + (error.error?.message || error.message));
+      }
     });
   }
 
