@@ -62,11 +62,16 @@ export class PublicacionesService {
       throw new NotFoundException('Publicación no encontrada');
     }
 
+    if (!publicacion.likes) {
+      publicacion.likes = [];
+    }
+
     // Verificamos si el usuario ya le dio like
     const yaDioLike = publicacion.likes.some((id) => id.toString() === userId);
     if (yaDioLike) {
       throw new BadRequestException('Ya le diste me gusta a esta publicación');
     }
+
 
     // Agregamos el usuario al array y aumentamos el contador
     publicacion.likes.push(new Types.ObjectId(userId));
