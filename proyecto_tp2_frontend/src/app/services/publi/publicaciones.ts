@@ -46,15 +46,19 @@ export class Publicaciones {
     );
   }
 
-  obtenerPublicacionesConFiltros(limit: number, offset: number, sort: string, userId: string): Observable<Publicacion[]> {
-      let params = new HttpParams()
-        .set('limit', limit.toString())
-        .set('offset', offset.toString())
-        .set('sort', sort)
-        .set('userId', userId);
+obtenerPublicacionesConFiltros(limit: number, offset: number, sort: string, userId?: string): Observable<Publicacion[]> {
+  let params = new HttpParams()
+    .set('limit', limit.toString())
+    .set('offset', offset.toString())
+    .set('sort', sort);
 
-      return this.http.get<Publicacion[]>(`${this.apiUrl}/listar`, { params });
-    }
+  // Solo agregamos el userId si realmente existe
+  if (userId) {
+    params = params.set('userId', userId);
+  }
+
+  return this.http.get<Publicacion[]>(`${this.apiUrl}/listar`, { params });
+}
 
   toggleLike(id: string, userId: string): Observable<any> {
       return this.http.post(`${this.apiUrl}/${id}/like`, { userId });
