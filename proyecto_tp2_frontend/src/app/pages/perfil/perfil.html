@@ -16,10 +16,10 @@
   <!-- Cabecera del Perfil -->
   <div class="perfil-header-card">
     <div class="perfil-avatar">
-      {{ nombreUsuario.charAt(0).toUpperCase() }}
+      {{ nombreUsuario().charAt(0).toUpperCase() }}
     </div>
     <div class="perfil-info">
-      <h2 class="perfil-nombre">@{{ nombreUsuario }}</h2>
+      <h2 class="perfil-nombre">@{{ nombreUsuario()  }}</h2>
       <p class="perfil-sub">Tus publicaciones en Bloop</p>
     </div>
   </div>
@@ -36,10 +36,10 @@
         <div class="publi-header">
           <div class="publi-autor-info">
             <div class="publi-avatar-mini">
-              {{ nombreUsuario.charAt(0).toUpperCase() }}
+              {{ nombreUsuario().charAt(0).toUpperCase() }}
             </div>
             <div class="publi-meta">
-              <h3 class="publi-username">@<span>{{ nombreUsuario }}</span></h3>
+              <h3 class="publi-username">@<span>{{ nombreUsuario()  }}</span></h3>
               
             </div>
           </div>
@@ -65,12 +65,7 @@
         </div>
 
       </article>
-    } @empty {
-      <div class="feed-empty">
-        <p>Aún no realizaste ninguna publicación.</p>
-        <a routerLink="/crear-publicacion" class="btn-crear-link">Crear mi primera publicación</a>
-      </div>
-    }
+    } 
   </div>
 
 </main>

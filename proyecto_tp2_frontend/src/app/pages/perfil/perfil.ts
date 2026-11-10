@@ -2,9 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { Publicacion } from '../../interfaces/publicaciones';
 import { Publicaciones } from '../../services/publi/publicaciones';
 import { AuthService } from '../../services/authServices';
+import { RouterLink } from '@angular/router';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-perfil',
   styleUrl: './perfil.css',
   templateUrl: './perfil.html',
@@ -17,9 +19,10 @@ export class Perfil {
   private authService = inject(AuthService);
 
   userId = this.authService.getUserId();
-  nombreUsuario = localStorage.getItem('nombreUsuario') || 'Usuario'; 
+  nombreUsuario = signal("")
 
   ngOnInit(): void {
+    this.nombreUsuario.set(localStorage.getItem('nombreUsuario') || 'Usuario');
     this.cargarMisPublicaciones();
   }
 
