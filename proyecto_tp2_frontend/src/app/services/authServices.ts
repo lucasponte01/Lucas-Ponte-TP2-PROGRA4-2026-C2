@@ -30,7 +30,6 @@ export class AuthService {
     login(credentials: { identificador: string; contrasena: string }): Observable<any> {
       return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
         tap((data: any) => {
-          const token = data.access_token 
           const userId = data.userId || data.usuario?._id || data.id;
 
           if (userId) {
@@ -38,8 +37,13 @@ export class AuthService {
               console.log("User ID guardado exitosamente en localStorage:", userId);
             }
           
-          if (token) {
-            localStorage.setItem('token', token);
+          if (data.access_token) {
+            localStorage.setItem('token', data.access_token);
+            localStorage.setItem('nombreUsuario', data.nombreUsuario || 'Usuario');
+            localStorage.setItem('correo', data.email || '');
+            localStorage.setItem('fechaNacimiento', data.fechaNacimiento || '');
+            localStorage.setItem('descripcionBreve', data.descripcionBreve || '');
+            localStorage.setItem('imagenPerfil', data.imagenPerfil || '');
             this.router.navigateByUrl('/feed');
           } else {
             console.error("No se encontró el token en la respuesta:", data);
@@ -47,6 +51,7 @@ export class AuthService {
         })
       );
     }
+
 
   isLoggedIn(): boolean {
     const token = localStorage.getItem('token')
@@ -64,6 +69,7 @@ export class AuthService {
 
   getUserId(): string | null {
         return localStorage.getItem('userId');
+        
       }
 
 

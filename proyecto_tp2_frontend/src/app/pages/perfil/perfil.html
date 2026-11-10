@@ -1,4 +1,3 @@
-<!-- Navbar idéntico al Feed y Crear Publi -->
 <header class="bloop-navbar">
   <div class="bloop-logo">
     <a routerLink="/feed">
@@ -7,20 +6,28 @@
   </div>
 
   <nav class="bloop-nav-links">
+    <a routerLink="/feed" class="nav-link">Inicio</a>
     <a routerLink="/crear-publicacion" class="nav-link">Crear Publi</a>
   </nav>
 </header>
 
 <main class="perfil-container">
   
-  <!-- Cabecera del Perfil -->
+  <!-- Cabecera con Datos del Usuario y Foto de Perfil -->
   <div class="perfil-header-card">
-    <div class="perfil-avatar">
-      {{ nombreUsuario().charAt(0).toUpperCase() }}
+    <div class="perfil-avatar-wrapper">
+      @if (imagenPerfil()) {
+        <img [src]="imagenPerfil()" alt="Foto de perfil" class="perfil-img-real">
+      } @else {
+        <div class="perfil-avatar">
+          {{ nombreUsuario().charAt(0).toUpperCase() }}
+        </div>
+      }
     </div>
     <div class="perfil-info">
-      <h2 class="perfil-nombre">@{{ nombreUsuario()  }}</h2>
-      <p class="perfil-sub">Tus publicaciones en Bloop</p>
+      <h2 class="perfil-nombre">{{ nombreUsuario() }}</h2>
+      <p class="perfil-email">{{ emailUsuario() }}</p>
+      <p class="perfil-sub">Tus últimas 3 publicaciones en Bloop</p>
     </div>
   </div>
 
@@ -28,18 +35,22 @@
     <div class="error-banner">{{ error() }}</div>
   }
 
-  <!-- Muro exclusivo del usuario -->
+  <!-- Listado de las últimas 3 publicaciones y sus comentarios -->
   <div class="feed-list">
     @for (publi of publicaciones(); track publi._id) {
       <article class="publi-card">
         
         <div class="publi-header">
           <div class="publi-autor-info">
-            <div class="publi-avatar-mini">
-              {{ nombreUsuario().charAt(0).toUpperCase() }}
-            </div>
+            @if (imagenPerfil()) {
+              <img [src]="imagenPerfil()" alt="Avatar" class="publi-avatar-mini-img">
+            } @else {
+              <div class="publi-avatar-mini">
+                {{ nombreUsuario().charAt(0).toUpperCase() }}
+              </div>
+            }
             <div class="publi-meta">
-              <h3 class="publi-username">@<span>{{ nombreUsuario()  }}</span></h3>
+              <h3 class="publi-username">{{ nombreUsuario() }}</h3>
               
             </div>
           </div>
@@ -56,6 +67,8 @@
           </div>
         }
 
+       
+
         <div class="publi-footer">
           <span class="likes-count">❤️ {{ publi.likes?.length || 0 }} Me gusta</span>
           <button (click)="eliminarPublicacion(publi._id!)" class="btn-eliminar">
@@ -65,7 +78,12 @@
         </div>
 
       </article>
-    } 
+    } @empty {
+      <div class="feed-empty">
+        <p>Aún no realizaste ninguna publicación.</p>
+        <a routerLink="/crear-publicacion" class="btn-crear-link">Crear mi primera publicación</a>
+      </div>
+    }
   </div>
 
 </main>

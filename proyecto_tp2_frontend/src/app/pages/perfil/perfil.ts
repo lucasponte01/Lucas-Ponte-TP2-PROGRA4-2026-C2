@@ -19,10 +19,16 @@ export class Perfil {
   private authService = inject(AuthService);
 
   userId = this.authService.getUserId();
-  nombreUsuario = signal("")
+
+  nombreUsuario = signal(localStorage.getItem('nombreUsuario') || 'Usuario Bloop');
+  emailUsuario = signal(localStorage.getItem('correo') || 'usuario@bloop.com');
+  imagenPerfil = signal(localStorage.getItem('imagenPerfil') || '');
+  descripcion = signal(localStorage.getItem('descripcionBreve') || '');
+  fecha_nacimiento = signal(localStorage.getItem('fechaNacimiento') || '');
+
 
   ngOnInit(): void {
-    this.nombreUsuario.set(localStorage.getItem('nombreUsuario') || 'Usuario');
+    
     this.cargarMisPublicaciones();
   }
 
