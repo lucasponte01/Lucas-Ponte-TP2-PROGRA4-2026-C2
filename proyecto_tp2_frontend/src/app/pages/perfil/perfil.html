@@ -1,1 +1,77 @@
-<p>perfil works!</p>
+<!-- Navbar idéntico al Feed y Crear Publi -->
+<header class="bloop-navbar">
+  <div class="bloop-logo">
+    <a routerLink="/feed">
+      <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
+    </a>
+  </div>
+
+  <nav class="bloop-nav-links">
+    <a routerLink="/feed" class="nav-link">Inicio</a>
+    <a routerLink="/crear-publicacion" class="nav-link">Crear Publi</a>
+  </nav>
+</header>
+
+<main class="perfil-container">
+  
+  <!-- Cabecera del Perfil -->
+  <div class="perfil-header-card">
+    <div class="perfil-avatar">
+      {{ nombreUsuario.charAt(0).toUpperCase() }}
+    </div>
+    <div class="perfil-info">
+      <h2 class="perfil-nombre">@{{ nombreUsuario }}</h2>
+      <p class="perfil-sub">Tus publicaciones en Bloop</p>
+    </div>
+  </div>
+
+  @if (error()) {
+    <div class="error-banner">{{ error() }}</div>
+  }
+
+  <!-- Muro exclusivo del usuario -->
+  <div class="feed-list">
+    @for (publi of publicaciones(); track publi._id) {
+      <article class="publi-card">
+        
+        <div class="publi-header">
+          <div class="publi-autor-info">
+            <div class="publi-avatar-mini">
+              {{ nombreUsuario.charAt(0).toUpperCase() }}
+            </div>
+            <div class="publi-meta">
+              <h3 class="publi-username">@<span>{{ nombreUsuario }}</span></h3>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="publi-body">
+          <h2 class="publi-titulo">{{ publi.titulo }}</h2>
+          <p class="publi-mensaje">{{ publi.mensaje }}</p>
+        </div>
+
+        @if (publi.imagen) {
+          <div class="publi-imagen-wrapper">
+            <img [src]="publi.imagen" alt="Imagen de publicación" class="publi-imagen">
+          </div>
+        }
+
+        <div class="publi-footer">
+          <span class="likes-count">❤️ {{ publi.likes?.length || 0 }} Me gusta</span>
+          <button (click)="eliminarPublicacion(publi._id!)" class="btn-eliminar">
+            <span>🗑️</span>
+            <span>Eliminar</span>
+          </button>
+        </div>
+
+      </article>
+    } @empty {
+      <div class="feed-empty">
+        <p>Aún no realizaste ninguna publicación.</p>
+        <a routerLink="/crear-publicacion" class="btn-crear-link">Crear mi primera publicación</a>
+      </div>
+    }
+  </div>
+
+</main>

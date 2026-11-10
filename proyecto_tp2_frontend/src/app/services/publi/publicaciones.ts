@@ -46,11 +46,12 @@ export class Publicaciones {
     );
   }
 
-  obtenerPublicacionesConFiltros(limit: number, offset: number, sort: string): Observable<Publicacion[]> {
+  obtenerPublicacionesConFiltros(limit: number, offset: number, sort: string, userId: string): Observable<Publicacion[]> {
       let params = new HttpParams()
         .set('limit', limit.toString())
         .set('offset', offset.toString())
-        .set('sort', sort);
+        .set('sort', sort)
+        .set('userId', userId);
 
       return this.http.get<Publicacion[]>(`${this.apiUrl}/listar`, { params });
     }

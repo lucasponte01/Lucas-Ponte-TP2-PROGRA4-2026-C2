@@ -64,6 +64,29 @@ body {
   box-shadow: 0 0 0 3px rgba(242, 135, 5, 0.2);
 }
 
+input[type="file"].form-control {
+  padding: 4px 10px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  background: #F28705;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background 0.2s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: #d67504;
+}
+
+
 .texto-error {
   color: #F21905; 
   font-size: 12px;

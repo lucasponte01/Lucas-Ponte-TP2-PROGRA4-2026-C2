@@ -2,10 +2,13 @@
 body {
   background-color: #1a0517; 
   color: #ffffff;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Manrope', sans-serif, sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* --- NAVBAR SUPERIOR --- */
@@ -98,27 +101,24 @@ body {
   font-size: 0.85rem;
 }
 
-/* --- ESTILO UNIFICADO PARA INPUTS Y EL INPUT DE ARCHIVO --- */
-.form-control {
-  box-sizing: border-box;
-  color: #ffffff;
+.input-control {
   width: 100%;
-  height: 38px;
-  padding: 5px 12px;
-  background: rgba(26, 5, 23, 0.6); 
-  border: 1px solid #F2A649; 
-  border-radius: 8px;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  padding: 12px;
+  background-color: #1a0517; 
+  border: 1px solid #59124D;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #ffffff;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.form-control:focus {
+.input-control:focus {
   border-color: #F28705; 
-  box-shadow: 0 0 5px rgba(242, 135, 5, 0.5);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(242, 135, 5, 0.2);
 }
 
-/* Personalización para que el selector de archivos luzca prolijo y acorde */
 input[type="file"].form-control {
   padding: 4px 10px;
   line-height: 1.5;
