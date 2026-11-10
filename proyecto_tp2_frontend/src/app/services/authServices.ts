@@ -37,14 +37,11 @@ export class AuthService {
       const token = data.access_token || data.token;
 
       if (userId && token) {
-        localStorage.setItem('token', token);
-        localStorage.setItem('userId', userId);
-        
-        // Guardamos explícitamente los campos que vienen de tu base de datos
-        localStorage.setItem('nombreUsuario', user.nombreUsuario || user.nombre || 'Usuario');
-        localStorage.setItem('correo', user.correo || user.email || '');
-        localStorage.setItem('descripcionBreve', user.descripcionBreve || '');
-        localStorage.setItem('imagenPerfil', user.imagenPerfil || '');
+        localStorage.setItem('token', data.access_token);
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('nombreUsuario', data.nombreUsuario);
+        localStorage.setItem('correo', data.correo);
+        localStorage.setItem('imagenPerfil', data.imagenPerfil || '')
         
         console.log("Sesión guardada correctamente:", user);
         this.router.navigateByUrl('/feed');

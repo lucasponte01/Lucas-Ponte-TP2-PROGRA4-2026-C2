@@ -68,6 +68,9 @@ export class AuthService {
             message: 'Login exitoso',
             access_token: token, 
             userId: user._id.toString(),
+            nombreUsuario: user.nombreUsuario,
+            correo: user.correo,
+            imagenPerfil: user.imagenPerfil
         };
     }
 
