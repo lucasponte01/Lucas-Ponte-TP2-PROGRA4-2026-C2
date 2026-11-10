@@ -28,32 +28,32 @@ export class AuthService {
   }
 
   login(credentials: { identificador: string; contrasena: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
-      tap((data: any) => {
-        // Extraemos el objeto usuario anidado (según tu backend viene en data.usuario)
-        const usuario = data.usuario || data.user || data;
+  return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+    tap((data: any) => {
+      // Verificamos si los datos vienen dentro de un objeto 'usuario' o directamente en la raíz
+      const user = data.usuario || data.user || data;
 
-        const userId = usuario._id || usuario.id || data.userId;
-        const token = data.access_token || data.token;
+      const userId = user._id || user.id || data.userId;
+      const token = data.access_token || data.token;
 
-        if (userId && token) {
-          localStorage.setItem('token', token);
-          localStorage.setItem('userId', userId);
-          // Leemos desde el objeto usuario y usamos nombreUsuario o nombre
-          localStorage.setItem('nombreUsuario', usuario.nombreUsuario || usuario.nombre || 'Usuario');
-          localStorage.setItem('correo', usuario.correo || usuario.email || '');
-          localStorage.setItem('fechaNacimiento', usuario.fechaNacimiento || '');
-          localStorage.setItem('descripcionBreve', usuario.descripcionBreve || '');
-          localStorage.setItem('imagenPerfil', usuario.imagenPerfil || '');
-          
-          console.log("Datos de sesión guardados exitosamente en localStorage");
-          this.router.navigateByUrl('/feed');
-        } else {
-          console.error("No se encontró el token o el ID en la respuesta:", data);
-        }
-      })
-    );
-  }
+      if (userId && token) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('userId', userId);
+        
+        // Guardamos explícitamente los campos que vienen de tu base de datos
+        localStorage.setItem('nombreUsuario', user.nombreUsuario || user.nombre || 'Usuario');
+        localStorage.setItem('correo', user.correo || user.email || '');
+        localStorage.setItem('descripcionBreve', user.descripcionBreve || '');
+        localStorage.setItem('imagenPerfil', user.imagenPerfil || '');
+        
+        console.log("Sesión guardada correctamente:", user);
+        this.router.navigateByUrl('/feed');
+      } else {
+        console.error("Estructura de respuesta de login desconocida:", data);
+      }
+    })
+  );
+}
 
 
   isLoggedIn(): boolean {
