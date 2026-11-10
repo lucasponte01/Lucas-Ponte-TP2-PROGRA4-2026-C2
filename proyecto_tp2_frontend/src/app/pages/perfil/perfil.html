@@ -13,7 +13,7 @@
 
 <main class="perfil-container">
   
-  <!-- Cabecera con Datos del Usuario y Foto de Perfil -->
+  
   <div class="perfil-header-card">
     <div class="perfil-avatar-wrapper">
       @if (imagenPerfil()) {
@@ -24,9 +24,21 @@
         </div>
       }
     </div>
+    
     <div class="perfil-info">
-      <h2 class="perfil-nombre">{{ nombreUsuario() }}</h2>
+      <h2 class="perfil-nombre">&#64;{{ nombreUsuario() }}</h2>
       <p class="perfil-email">{{ emailUsuario() }}</p>
+      
+      <!-- Biografía / Descripción breve -->
+      @if (descripcion()) {
+        <p class="perfil-bio">"{{ descripcion() }}"</p>
+      }
+      
+      <!-- Fecha de Nacimiento -->
+      @if (fecha_nacimiento()) {
+        <p class="perfil-fnac">🎂 Nacimiento: {{ fecha_nacimiento() }}</p>
+      }
+
       <p class="perfil-sub">Tus últimas 3 publicaciones en Bloop</p>
     </div>
   </div>
@@ -35,27 +47,11 @@
     <div class="error-banner">{{ error() }}</div>
   }
 
-  <!-- Listado de las últimas 3 publicaciones y sus comentarios -->
+  
   <div class="feed-list">
     @for (publi of publicaciones(); track publi._id) {
       <article class="publi-card">
         
-        <div class="publi-header">
-          <div class="publi-autor-info">
-            @if (imagenPerfil()) {
-              <img [src]="imagenPerfil()" alt="Avatar" class="publi-avatar-mini-img">
-            } @else {
-              <div class="publi-avatar-mini">
-                {{ nombreUsuario().charAt(0).toUpperCase() }}
-              </div>
-            }
-            <div class="publi-meta">
-              <h3 class="publi-username">{{ nombreUsuario() }}</h3>
-              
-            </div>
-          </div>
-        </div>
-
         <div class="publi-body">
           <h2 class="publi-titulo">{{ publi.titulo }}</h2>
           <p class="publi-mensaje">{{ publi.mensaje }}</p>
@@ -78,11 +74,6 @@
         </div>
 
       </article>
-    } @empty {
-      <div class="feed-empty">
-        <p>Aún no realizaste ninguna publicación.</p>
-        <a routerLink="/crear-publicacion" class="btn-crear-link">Crear mi primera publicación</a>
-      </div>
     }
   </div>
 
