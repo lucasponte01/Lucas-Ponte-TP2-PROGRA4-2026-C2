@@ -34,9 +34,11 @@ export class PublicacionesService {
     const limitNum = params.limit ? parseInt(params.limit, 10) : 10;
     const offsetNum = params.offset ? parseInt(params.offset, 10) : 0;
 
-    const filter: any = {};
+    const filtro: any = { activo: { $ne: false } };
+
+    
     if (params.userId) {
-      filter.usuario = params.userId; 
+      filtro.usuario = params.userId; 
     }
 
     let sortCriteria: any = { createdAt: -1 };
@@ -48,7 +50,7 @@ export class PublicacionesService {
     }
 
     return this.publiModel
-      .find(filter)
+      .find(filtro)
       .sort(sortCriteria)
       .skip(offsetNum)
       .limit(limitNum)

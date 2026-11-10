@@ -32,8 +32,12 @@ ngOnInit(): void {
 
   cargarFeed() {
     this.error.set(""); 
+
+    this.offset = this.currentPage * this.limit;
+
     this.publi_services.obtenerPublicacionesConFiltros(this.limit, this.offset, this.currentSort()).subscribe((data: any) => {
       this.publicaciones.set(data);
+      this.hasMore = data.length === this.limit;
     }, (error) => {
       this.error.set("Error al obtener las publicaciones. Por favor, inténtelo de nuevo más tarde." + error.message);
     });   
@@ -41,7 +45,7 @@ ngOnInit(): void {
 
   cambiarOrden(event: any) {
     this.currentSort.set(event.target.value);
-    this.offset = 0; 
+    this.currentPage = 0; 
     this.cargarFeed();
   }
 
@@ -67,6 +71,7 @@ ngOnInit(): void {
     const userId = this.authService.getUserId();
     this.publi_services.eliminarPublicacion(id,userId!,false).subscribe({
           next: () => {
+            this.publicaciones.update(pubs => pubs.filter(p => p._id !== id));
             this.cargarFeed();
           }, 
           error: (error) => {
