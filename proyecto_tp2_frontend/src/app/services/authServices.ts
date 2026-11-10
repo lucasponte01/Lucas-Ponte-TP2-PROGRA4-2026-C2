@@ -41,6 +41,8 @@ export class AuthService {
         localStorage.setItem('userId', data.userId);
         localStorage.setItem('nombreUsuario', data.nombreUsuario);
         localStorage.setItem('correo', data.correo);
+        localStorage.setItem('descripcionBreve', data.descripcionBreve || '');
+        localStorage.setItem('fechaNacimiento', data.fechaNacimiento || '');
         localStorage.setItem('imagenPerfil', data.imagenPerfil || '')
         
         console.log("Sesión guardada correctamente:", user);
