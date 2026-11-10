@@ -1,21 +1,69 @@
+/* --- RESET Y BODY (Quitamos el flex general para que el nav quede arriba) --- */
 body {
   background-color: #1a0517; 
   color: #ffffff;
-  font-family: 'Manrope', sans-serif, sans-serif;
+  font-family: 'Manrope', sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
+}
+
+/* --- NAVBAR SUPERIOR --- */
+.bloop-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: #2c0826;
+  border-bottom: 2px solid #F28705;
+  padding: 1rem 1.5rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.bloop-logo {
+  display: flex;
   align-items: center;
 }
 
+.bloop-logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
 
+.logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.bloop-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.nav-link {
+  color: #f3d5a3;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #F28705;
+}
+
+/* --- CONTENEDOR DEL FORMULARIO --- */
 .crear-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
+  min-height: calc(100vh - 80px);
   padding: 20px;
 }
 
@@ -47,27 +95,53 @@ body {
   margin-bottom: 6px;
   font-weight: 600;
   color: #F2A649;
+  font-size: 0.85rem;
 }
 
-.form-card input, 
-.form-card textarea {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #F2A649;
-  background: #2c0826;
-  color: #fff;
+/* --- ESTILO UNIFICADO PARA INPUTS Y EL INPUT DE ARCHIVO --- */
+.form-control {
   box-sizing: border-box;
-  font-size: 14px;
+  color: #ffffff;
+  width: 100%;
+  height: 38px;
+  padding: 5px 12px;
+  background: rgba(26, 5, 23, 0.6); 
+  border: 1px solid #F2A649; 
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.form-card input:focus, 
-.form-card textarea:focus {
-  outline: none;
-  border-color: #F28705;
+.form-control:focus {
+  border-color: #F28705; 
   box-shadow: 0 0 5px rgba(242, 135, 5, 0.5);
 }
 
+/* Personalización para que el selector de archivos luzca prolijo y acorde */
+input[type="file"].form-control {
+  padding: 4px 10px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  background: #F28705;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background 0.2s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: #d67504;
+}
+
+/* --- BOTONES DE ACCIÓN --- */
 .acciones {
   display: flex;
   gap: 12px;
@@ -84,6 +158,11 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-publicar:hover {
@@ -120,17 +199,4 @@ body {
   text-align: center;
   font-size: 14px;
   font-weight: 500;
-}
-.form-control {
-  box-sizing: border-box;
-  color: #ffffff;
-  width: 100%;
-  height: 38px;
-  padding: 0 12px;
-  background: rgba(26, 5, 23, 0.6); 
-  border: 1px solid #59124D; 
-  border-radius: 8px;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
 }
