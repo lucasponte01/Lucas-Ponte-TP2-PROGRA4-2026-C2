@@ -38,7 +38,7 @@ export class PublicacionesService {
 
     
     if (params.userId) {
-      filtro.usuario = params.userId; 
+      filtro.usuario = new Types.ObjectId(params.userId); 
     }
 
     let sortCriteria: any = { createdAt: -1 };

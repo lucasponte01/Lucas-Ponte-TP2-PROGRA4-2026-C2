@@ -1,49 +1,51 @@
-<!-- Navbar idéntico al Feed -->
-<header class="bloop-navbar">
-  <div class="bloop-logo">
-    <a routerLink="/feed">
-      <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
-    </a>
-  </div>
+<body>
 
-  <nav class="bloop-nav-links">
-    <a routerLink="/perfil" class="nav-link">Mi Perfil</a>
-  </nav>
-</header>
+  <header class="bloop-navbar">
+    <div class="bloop-logo">
+      <a routerLink="/feed">
+        <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
+      </a>
+    </div>
 
-<!-- Contenedor principal centrado -->
-<main class="crear-container">
-  <div class="form-card">
-    <h3>Crear nueva publicación</h3>
-    
-    @if (error()) {
-      <div class="error-banner">{{ error() }}</div>
-    }
+    <nav class="bloop-nav-links">
+      <a routerLink="/perfil" class="nav-link">Mi Perfil</a>
+    </nav>
+  </header>
 
-    <form [formGroup]="publi_form" (ngSubmit)="crear_publi()">
-      <div class="campo">
-        <app-campo-input type="text" label="Título" [control]="publi_form.controls.titulo" placeholder="Escribí un título...">
-          <app-error-requerido [errors]="publi_form.controls.titulo.errors" mensaje="El título es obligatorio."></app-error-requerido>
-          <app-error-minlenght [errors]="publi_form.controls.titulo.errors" mensaje="El título debe tener al menos 4 caracteres."></app-error-minlenght>
-        </app-campo-input>
-      </div>
+  <!-- Contenedor principal centrado -->
+  <main class="crear-container">
+    <div class="form-card">
+      <h3>Crear nueva publicación</h3>
+      
+      @if (error()) {
+        <div class="error-banner">{{ error() }}</div>
+      }
 
-      <div class="campo">
-        <app-campo-textarea [control]="publi_form.controls.mensaje" placeholder="¿Qué estás pensando?" label="Mensaje">
-          <app-error-requerido [errors]="publi_form.controls.mensaje.errors" mensaje="El mensaje es obligatorio."></app-error-requerido>
-          <app-error-minlenght [errors]="publi_form.controls.mensaje.errors" mensaje="El mensaje debe tener al menos 8 caracteres."></app-error-minlenght>
-        </app-campo-textarea>
-      </div>
+      <form [formGroup]="publi_form" (ngSubmit)="crear_publi()">
+        <div class="campo">
+          <app-campo-input type="text" label="Título" [control]="publi_form.controls.titulo" placeholder="Escribí un título...">
+            <app-error-requerido [errors]="publi_form.controls.titulo.errors" mensaje="El título es obligatorio."></app-error-requerido>
+            <app-error-minlenght [errors]="publi_form.controls.titulo.errors" mensaje="El título debe tener al menos 4 caracteres."></app-error-minlenght>
+          </app-campo-input>
+        </div>
 
-      <div class="campo">
-        <label>Imagen (opcional)</label>
-        <input type="file" (change)="ElegirArchivo($event)" accept="image/*" class="form-control"/>
-      </div>
+        <div class="campo">
+          <app-campo-textarea [control]="publi_form.controls.mensaje" placeholder="¿Qué estás pensando?" label="Mensaje">
+            <app-error-requerido [errors]="publi_form.controls.mensaje.errors" mensaje="El mensaje es obligatorio."></app-error-requerido>
+            <app-error-minlenght [errors]="publi_form.controls.mensaje.errors" mensaje="El mensaje debe tener al menos 8 caracteres."></app-error-minlenght>
+          </app-campo-textarea>
+        </div>
 
-      <div class="acciones">
-        <button type="submit" class="btn-publicar">Publicar</button>
-        <button type="button" routerLink="/feed" class="btn-cancelar">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</main>
+        <div class="campo">
+          <label>Imagen (opcional)</label>
+          <input type="file" (change)="ElegirArchivo($event)" accept="image/*" class="form-control"/>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn-publicar">Publicar</button>
+          <button type="button" routerLink="/feed" class="btn-cancelar">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </main>
+</body>

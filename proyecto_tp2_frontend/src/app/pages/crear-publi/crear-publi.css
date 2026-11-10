@@ -1,14 +1,11 @@
-/* --- RESET Y BODY (Quitamos el flex general para que el nav quede arriba) --- */
+/* --- RESET Y BODY (Sin display flex para que el Navbar quede fijo arriba) --- */
 body {
   background-color: #1a0517; 
   color: #ffffff;
-  font-family: 'Manrope', sans-serif, sans-serif;
+  font-family: 'Manrope', sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* --- NAVBAR SUPERIOR --- */

@@ -17,7 +17,7 @@ export class Perfil {
   private authService = inject(AuthService);
 
   userId = this.authService.getUserId();
-  nombreUsuario = localStorage.getItem('nombreUsuario') || 'Usuario Bloop'; // O cómo guardes el nombre en localStorage/auth
+  nombreUsuario = localStorage.getItem('nombreUsuario') || 'Usuario'; 
 
   ngOnInit(): void {
     this.cargarMisPublicaciones();
