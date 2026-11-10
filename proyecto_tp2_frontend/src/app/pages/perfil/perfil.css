@@ -269,3 +269,68 @@ body {
   font-size: 14px;
   font-weight: 500;
 }
+.perfil-img-real {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #F28705;
+}
+
+.publi-avatar-mini-img {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #F2A649;
+}
+
+.perfil-email {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.85rem;
+  color: #f3d5a3;
+}
+
+/* Estilos de la sección de comentarios dentro de la card */
+.comentarios-section {
+  padding: 1rem 1.25rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(242, 166, 73, 0.2);
+}
+
+.comentarios-titulo {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9rem;
+  color: #F2A649;
+  font-weight: 600;
+}
+
+.lista-comentarios {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.comentario-item {
+  font-size: 0.85rem;
+  background: rgba(44, 8, 38, 0.5);
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.comentario-autor {
+  color: #F28705;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.comentario-texto {
+  color: #ffffff;
+}
+
+.sin-comentarios {
+  margin: 0;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}

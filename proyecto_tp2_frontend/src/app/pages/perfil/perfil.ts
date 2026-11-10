@@ -39,7 +39,7 @@ export class Perfil {
     }
 
     // Usamos el servicio pasando el userId para traer solo lo de este usuario
-    this.publiService.obtenerPublicacionesConFiltros(10, 0, 'fecha', this.userId).subscribe({
+    this.publiService.obtenerPublicacionesConFiltros(3, 0, 'fecha', this.userId).subscribe({
       next: (data: any) => {
         this.publicaciones.set(data);
       },

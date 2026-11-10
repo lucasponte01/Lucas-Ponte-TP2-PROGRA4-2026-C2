@@ -10,47 +10,50 @@ export class AuthService {
     private apiUrl = `${environment.API_URL}/auth`;
     private router = inject(Router);
 
-    register(userData: any ): Observable<any> {
-        
-        return this.http.post(`${this.apiUrl}/registro`, userData ).pipe(tap((data: any) => {
+  register(userData: any ): Observable<any> {
           
-          const token = data.access_token;
-          
-          if (token) {
-            localStorage.setItem('token', token);
-            console.log("Token guardado exitosamente en localStorage");
-            this.router.navigateByUrl('/login');
-          } else {
-            console.error("No se encontró el token en la respuesta:", data);
-          }
-          
-        }));
-    }
+    return this.http.post(`${this.apiUrl}/registro`, userData ).pipe(tap((data: any) => {
+            
+    const token = data.access_token;
+            
+      if (token) {
+        localStorage.setItem('token', token);
+        console.log("Token guardado exitosamente en localStorage");
+        this.router.navigateByUrl('/login');
+      } else {
+       console.error("No se encontró el token en la respuesta:", data);
+     }
+            
+    }));
+  }
 
-    login(credentials: { identificador: string; contrasena: string }): Observable<any> {
-      return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
-        tap((data: any) => {
-          const userId = data.userId || data.usuario?._id || data.id;
+  login(credentials: { identificador: string; contrasena: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+      tap((data: any) => {
+        // Extraemos el objeto usuario anidado (según tu backend viene en data.usuario)
+        const usuario = data.usuario || data.user || data;
 
-          if (userId) {
-              localStorage.setItem('userId', userId); 
-              console.log("User ID guardado exitosamente en localStorage:", userId);
-            }
+        const userId = usuario._id || usuario.id || data.userId;
+        const token = data.access_token || data.token;
+
+        if (userId && token) {
+          localStorage.setItem('token', token);
+          localStorage.setItem('userId', userId);
+          // Leemos desde el objeto usuario y usamos nombreUsuario o nombre
+          localStorage.setItem('nombreUsuario', usuario.nombreUsuario || usuario.nombre || 'Usuario');
+          localStorage.setItem('correo', usuario.correo || usuario.email || '');
+          localStorage.setItem('fechaNacimiento', usuario.fechaNacimiento || '');
+          localStorage.setItem('descripcionBreve', usuario.descripcionBreve || '');
+          localStorage.setItem('imagenPerfil', usuario.imagenPerfil || '');
           
-          if (data.access_token) {
-            localStorage.setItem('token', data.access_token);
-            localStorage.setItem('nombreUsuario', data.nombreUsuario || 'Usuario');
-            localStorage.setItem('correo', data.email || '');
-            localStorage.setItem('fechaNacimiento', data.fechaNacimiento || '');
-            localStorage.setItem('descripcionBreve', data.descripcionBreve || '');
-            localStorage.setItem('imagenPerfil', data.imagenPerfil || '');
-            this.router.navigateByUrl('/feed');
-          } else {
-            console.error("No se encontró el token en la respuesta:", data);
-          }
-        })
-      );
-    }
+          console.log("Datos de sesión guardados exitosamente en localStorage");
+          this.router.navigateByUrl('/feed');
+        } else {
+          console.error("No se encontró el token o el ID en la respuesta:", data);
+        }
+      })
+    );
+  }
 
 
   isLoggedIn(): boolean {
