@@ -70,7 +70,9 @@ export class AuthService {
             userId: user._id.toString(),
             nombreUsuario: user.nombreUsuario,
             correo: user.correo,
-            imagenPerfil: user.imagenPerfil
+            descripcionBreve: user.descripcionBreve || '',
+            fechaNacimiento: user.fechaNacimiento || '',
+            imagenPerfil: user.imagenPerfil 
         };
     }
 

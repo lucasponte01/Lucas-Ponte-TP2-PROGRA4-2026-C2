@@ -6,6 +6,7 @@ import { CampoInput } from '../../components/ui/campo-input/campo-input';
 import { CampoTextarea } from '../../components/ui/campo-textarea/campo-textarea';
 import { ErrorRequerido } from '../../components/ui/error-requerido/error-requerido';
 import { ErrorMinlenght } from '../../components/ui/error-minlenght/error-minlenght';
+import { AuthService } from '../../services/authServices';
 
 @Component({
   imports: [ReactiveFormsModule, RouterLink, CampoInput, CampoTextarea, ErrorRequerido, ErrorMinlenght],
@@ -16,6 +17,7 @@ import { ErrorMinlenght } from '../../components/ui/error-minlenght/error-minlen
 export class CrearPubli {
   error = signal("");
   private publicacionesService = inject(Publicaciones);
+  private authService = inject(AuthService);
   archivoSeleccionado: File | null = null;
   router = inject(Router);
 
@@ -50,5 +52,8 @@ export class CrearPubli {
     }, (error: any) => {
       this.error.set("Error al crear la publicación: " + error.message);
     });
+  }
+  cerrarsesion(){
+    this.authService.logout()
   }
 }

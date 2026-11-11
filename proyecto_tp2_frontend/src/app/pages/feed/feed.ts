@@ -18,7 +18,7 @@ export class Feed implements OnInit{
   publi_services = inject(Publicaciones);
   publicaciones = signal<Publicacion[]>([]);
   private authService = inject(AuthService);
-  currentSort = signal(''); // 'fecha' o 'likes'
+  currentSort = signal(''); 
   limit = 5;
   offset = 0;
   
@@ -92,5 +92,9 @@ ngOnInit(): void {
         this.currentPage--;
         this.cargarFeed();
       }
+  }
+
+  cerrarsesion(){
+    this.authService.logout()
   }
 }

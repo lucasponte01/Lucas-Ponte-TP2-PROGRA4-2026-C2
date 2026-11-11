@@ -77,5 +77,12 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('nombreUsuario');
+    localStorage.removeItem('correo');
+    localStorage.removeItem('descripcionBreve');
+    localStorage.removeItem('fechaNacimiento');
+    localStorage.removeItem('imagenPerfil');
+    this.router.navigateByUrl('/login');
   }
 }

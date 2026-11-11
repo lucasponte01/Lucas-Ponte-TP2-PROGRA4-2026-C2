@@ -33,12 +33,11 @@ export class Login {
     this.authService.login(this.login_form.getRawValue()).subscribe({
       next: () => {
         this.error.set(false)
-        this.mensaje.set("login exitoso")
         
       },
       error: (err: HttpErrorResponse) => {
         this.error.set(true)
-        this.mensaje.set('Ocurrió un error al iniciar sesion.' + (err.error?.message || ''));
+        this.mensaje.set('Ocurrió un error al iniciar sesion:' + (err.error?.message || ''));
       }
     });
   }

@@ -54,12 +54,16 @@ export class Perfil {
 
     this.publiService.eliminarPublicacion(id, this.userId, false).subscribe({
       next: () => {
-        // Quitamos la publicación de la signal local al instante
+       
         this.publicaciones.update(pubs => pubs.filter(p => p._id !== id));
       },
       error: (error) => {
         this.error.set("Error al eliminar la publicación: " + (error.error?.message || error.message));
       }
     });
+  }
+
+  cerrarsesion(){
+    this.authService.logout()
   }
 }
