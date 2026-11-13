@@ -1,4 +1,5 @@
 
+
 :host {
   --bg-main: #1a0517;       
   --bg-card: #59124D;        
@@ -157,12 +158,13 @@ body {
 }
 
 .publi-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background-color: #59124D;
+  border: 2px solid #F2A649;
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
   transition: border-color 0.2s ease;
+  margin-bottom: 1.5rem;
 }
 
 .publi-card:hover {

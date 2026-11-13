@@ -1,23 +1,20 @@
-import { Component, input, output } from '@angular/core';
+import { Component, EventEmitter, Input, input, Output, output } from '@angular/core';
 import { Publicacion } from '../../../interfaces/publicaciones';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  imports: [],
+  imports: [DatePipe],
   selector: 'app-publicaciones-ind',
   styleUrl: './publicaciones-ind.css',
   templateUrl: './publicaciones-ind.html',
 })
 export class PublicacionesInd {
-  publicacion = input.required<Publicacion>();
+  @Input({ required: true }) publi!: Publicacion;
+  @Output() like = new EventEmitter<string>();
 
-  like = output<string>();
-  delete = output<string>();
-
-  onLikeToggle() {
-    this.like.emit(this.publicacion()._id!);
-  }
-
-  onDelete() {
-    this.delete.emit(this.publicacion()._id!);
+  onLikeClick() {
+    if (this.publi._id) {
+      this.like.emit(this.publi._id);
+    }
   }
 }

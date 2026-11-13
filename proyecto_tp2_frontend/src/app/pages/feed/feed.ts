@@ -49,23 +49,25 @@ ngOnInit(): void {
     this.cargarFeed();
   }
 
-  darLike(id: string) {
-    const userId = this.authService.getUserId();
+ darLike(id: string) {
+  const userId = this.authService.getUserId();
 
-    if (!userId) {
-      this.error.set("Debes iniciar sesión para dar me gusta.");
-      return;
-    }
-
-    this.publi_services.toggleLike(id, userId).subscribe({
-      next: () => {
-        this.cargarFeed();
-      }, 
-      error: (error) => {
-        this.error.set("Error al procesar el me gusta: " + (error.error?.message || error.message));
-      }
-    });
+  if (!userId) {
+    this.error.set("Debes iniciar sesión para dar me gusta.");
+    return;
   }
+
+  this.publi_services.toggleLike(id, userId).subscribe({
+    next: () => {
+      
+      
+      this.cargarFeed();
+    }, 
+    error: (error) => {
+      this.error.set("Error al procesar el me gusta: " + (error.error?.message || error.message));
+    }
+  });
+}
 
   eliminarPublicacion(id: string ,) {
     const userId = this.authService.getUserId();

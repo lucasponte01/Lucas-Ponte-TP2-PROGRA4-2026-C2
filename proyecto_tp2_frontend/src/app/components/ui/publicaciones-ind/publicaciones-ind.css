@@ -1,0 +1,121 @@
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+:host {
+  display: block;
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.publi-card {
+  background-color: #59124D;
+  border: 2px solid #F2A649;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.2s ease;
+  margin-bottom: 1.5rem;
+}
+
+.publi-card:hover {
+  border-color: #F28705;
+}
+
+.publi-header {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.publi-autor-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.publi-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: #262626;
+  border: 1px solid #F2A649;
+  color: #F28705;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.publi-username {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.publi-fecha {
+  font-size: 0.75rem;
+  color: #f3d5a3;
+}
+
+.publi-body {
+  padding: 1rem 1.25rem;
+}
+
+.publi-titulo {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.publi-mensaje {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #f3d5a3;
+  line-height: 1.5;
+}
+
+.publi-imagen-wrapper {
+  width: 100%;
+  max-height: 420px;
+  background-color: #1a0517;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.publi-imagen {
+  width: 100%;
+  height: 100%;
+  max-height: 420px;
+  object-fit: cover;
+}
+
+.publi-footer {
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-like {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #262626;
+  border: 1px solid #F2A649;
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.btn-like:hover {
+  background-color: #333333;
+}

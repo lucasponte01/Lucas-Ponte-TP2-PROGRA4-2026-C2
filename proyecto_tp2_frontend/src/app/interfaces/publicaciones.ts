@@ -1,4 +1,5 @@
 export interface Publicacion {
+  
   _id?: string;
   titulo: string;
   mensaje: string;
@@ -6,4 +7,5 @@ export interface Publicacion {
   likesCount?: number;   
   likes?: string[];     
   activo?: boolean;
+  createdAt?: string;
 }

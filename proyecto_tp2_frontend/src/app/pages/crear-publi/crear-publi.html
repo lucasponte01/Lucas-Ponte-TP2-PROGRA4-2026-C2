@@ -9,7 +9,7 @@
 
     <nav class="bloop-nav-links">
       <a routerLink="/perfil" class="nav-link">Mi Perfil</a>
-      <a (click)="cerrarsesion()" class="nav-link">Cerrar Sesion</a>
+      <p (click)="cerrarsesion()" class="nav-link">Cerrar Sesion</p>
     </nav>
   </header>
 
@@ -43,7 +43,7 @@
         </div>
 
         <div class="acciones">
-          <button type="submit" class="btn-publicar">Publicar</button>
+          <button type="submit" class="btn-publicar" [disabled]="!publi_form.valid">Publicar</button>
           <button type="button" routerLink="/feed" class="btn-cancelar">Cancelar</button>
         </div>
       </form>

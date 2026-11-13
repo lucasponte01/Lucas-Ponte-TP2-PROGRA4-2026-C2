@@ -30,7 +30,6 @@ export class AuthService {
   login(credentials: { identificador: string; contrasena: string }): Observable<any> {
   return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
     tap((data: any) => {
-      // Verificamos si los datos vienen dentro de un objeto 'usuario' o directamente en la raíz
       const user = data.usuario || data.user || data;
 
       const userId = user._id || user.id || data.userId;

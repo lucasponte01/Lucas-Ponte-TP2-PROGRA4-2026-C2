@@ -1,20 +1,24 @@
-<div class="post-card">
-      <h4>{{ publicacion().titulo }}</h4>
-      <p>{{ publicacion().mensaje }}</p>
-      
-      @if (publicacion().imagen) {
-        <img [src]="publicacion().imagen" alt="Imagen del post" class="post-img" />
-      }
+<div class="publi-body">
+    <h3 class="publi-titulo">{{ publi.titulo }}</h3>
+    <p class="publi-mensaje">{{ publi.mensaje }}</p>
+    <span class="publi-fecha">{{ publi.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+  </div>
 
-      <div class="post-actions">
-        <!-- Botón de Me Gusta -->
-        <button (click)="onLikeToggle()">
-          ❤️ {{ publicacion().likesCount || 0 }} Me gusta
-        </button>
-
-        <!-- Botón de Eliminar (Baja lógica) -->
-        <button class="btn-delete" (click)="onDelete()">
-          🗑️ Eliminar
-        </button>
-      </div>
+  <!-- Imagen si la publicación tiene -->
+  @if (publi.imagen) {
+    <div class="publi-imagen-wrapper">
+      <img [src]="publi.imagen" alt="Imagen de publicación" class="publi-imagen">
     </div>
+  }
+
+  <!-- Footer con botones de interacción -->
+  <div class="publi-footer">
+    <button (click)="onLikeClick()" class="btn-like">
+      @if (publi.likesCount) {
+        <i class="bi bi-heart-fill" style="color: #F21905;"></i>
+      } @else {
+        <i class="bi bi-heart" style="color: #F21905;"></i>
+      }
+      
+    </button>
+  </div>
