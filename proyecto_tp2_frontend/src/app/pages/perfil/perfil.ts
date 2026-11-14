@@ -3,10 +3,10 @@ import { Publicacion } from '../../interfaces/publicaciones';
 import { Publicaciones } from '../../services/publi/publicaciones';
 import { AuthService } from '../../services/authServices';
 import { RouterLink } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+import { PublicacionesInd } from '../../components/ui/publicaciones-ind/publicaciones-ind';
 
 @Component({
-  imports: [RouterLink],
+  imports: [RouterLink, PublicacionesInd],
   selector: 'app-perfil',
   styleUrl: './perfil.css',
   templateUrl: './perfil.html',
@@ -48,6 +48,26 @@ export class Perfil {
       }
     });
   }
+
+   darLike(id: string) {
+  const userId = this.authService.getUserId();
+
+  if (!userId) {
+    this.error.set("Debes iniciar sesión para dar me gusta.");
+    return;
+  }
+
+  this.publiService.toggleLike(id, userId).subscribe({
+    next: () => {
+      
+      
+      this.cargarMisPublicaciones();
+    }, 
+    error: (error) => {
+      this.error.set("Error al procesar el me gusta: " + (error.error?.message || error.message));
+    }
+  });
+}
   
   eliminarPublicacion(id: string) {
     if (!this.userId) return;

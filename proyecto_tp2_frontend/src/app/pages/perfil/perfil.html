@@ -35,7 +35,7 @@
       
       <!-- Fecha de Nacimiento -->
       @if (fecha_nacimiento()) {
-        <p class="perfil-fnac">🎂 Nacimiento: {{ fecha_nacimiento() }}</p>
+        <p class="perfil-fnac"> Nacimiento: {{ fecha_nacimiento() }}</p>
       }
 
       <p class="perfil-sub">Tus últimas 3 publicaciones en Bloop</p>
@@ -46,34 +46,8 @@
     <div class="error-banner">{{ error() }}</div>
   }
 
-  
-  <div class="feed-list">
-    @for (publi of publicaciones(); track publi._id) {
-      <article class="publi-card">
-        
-        <div class="publi-body">
-          <h2 class="publi-titulo">{{ publi.titulo }}</h2>
-          <p class="publi-mensaje">{{ publi.mensaje }}</p>
-        </div>
-
-        @if (publi.imagen) {
-          <div class="publi-imagen-wrapper">
-            <img [src]="publi.imagen" alt="Imagen de publicación" class="publi-imagen">
-          </div>
-        }
-
-       
-
-        <div class="publi-footer">
-          <span class="likes-count">❤️ {{ publi.likes?.length || 0 }} Me gusta</span>
-          <button (click)="eliminarPublicacion(publi._id!)" class="btn-eliminar">
-            <span>🗑️</span>
-            <span>Eliminar</span>
-          </button>
-        </div>
-
-      </article>
+  @for (publi of publicaciones(); track publi._id) {
+      <app-publicaciones-ind [publi]="publi" (like)="darLike($event)" (delete)="eliminarPublicacion($event)"></app-publicaciones-ind>
     }
-  </div>
 
 </main>

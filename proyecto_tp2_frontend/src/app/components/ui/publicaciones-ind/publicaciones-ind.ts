@@ -11,10 +11,16 @@ import { DatePipe } from '@angular/common';
 export class PublicacionesInd {
   @Input({ required: true }) publi!: Publicacion;
   @Output() like = new EventEmitter<string>();
+  @Output() delete = new EventEmitter<string>();
 
   onLikeClick() {
     if (this.publi._id) {
       this.like.emit(this.publi._id);
+    }
+  }
+  onDeleteClick() {
+    if (this.publi._id) {
+      this.delete.emit(this.publi._id);
     }
   }
 }

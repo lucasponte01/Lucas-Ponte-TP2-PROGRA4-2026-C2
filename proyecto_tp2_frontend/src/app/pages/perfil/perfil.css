@@ -28,7 +28,7 @@ body {
 }
 
 .logo-img {
-  height: 40px;
+  height: 50px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -64,7 +64,7 @@ body {
 
 .perfil-header-card {
   width: 100%;
-  max-width: 500px;
+  max-width: 700px;
   background: #59124D;
   border: 2px solid #F28705;
   padding: 20px;
@@ -77,8 +77,8 @@ body {
 }
 
 .perfil-avatar {
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   background-color: #2c0826;
   border: 2px solid #F28705;
@@ -92,169 +92,14 @@ body {
 
 .perfil-nombre {
   margin: 0 0 0.25rem 0;
-  font-size: 1.25rem;
+  font-size: 2rem;
   color: #F28705;
 }
 
 .perfil-sub {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: #f3d5a3;
-}
-
-/* LISTA DE PUBLICACIONES DEL PERFIL */
-.feed-list {
-  width: 100%;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.publi-card {
-  background: #59124D;
-  border: 2px solid #F2A649;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-  color: #ffffff;
-}
-
-.publi-header {
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(242, 166, 73, 0.2);
-}
-
-.publi-autor-info {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.publi-avatar-mini {
-  width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 50%;
-  background-color: #2c0826;
-  border: 1px solid #F2A649;
-  color: #F28705;
-  font-weight: 700;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.publi-username {
-  margin: 0;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.publi-username span {
-  color: #F2A649;
-}
-
-.publi-fecha {
-  font-size: 0.75rem;
-  color: #f3d5a3;
-}
-
-.publi-body {
-  padding: 1rem 1.25rem;
-}
-
-.publi-titulo {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #F28705;
-}
-
-.publi-mensaje {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.publi-imagen-wrapper {
-  width: 100%;
-  max-height: 420px;
-  background-color: #2c0826;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  border-top: 1px solid rgba(242, 166, 73, 0.2);
-  border-bottom: 1px solid rgba(242, 166, 73, 0.2);
-}
-
-.publi-imagen {
-  width: 100%;
-  height: 100%;
-  max-height: 420px;
-  object-fit: cover;
-}
-
-.publi-footer {
-  padding: 0.85rem 1.25rem;
-  background-color: rgba(0, 0, 0, 0.15);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.likes-count {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #f3d5a3;
-}
-
-.btn-eliminar {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.8rem;
-  background-color: #8C0303;
-  border: 1px solid #ff5c5c;
-  color: white;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btn-eliminar:hover {
-  background-color: #720202;
-}
-
-.feed-empty {
-  text-align: center;
-  padding: 3rem 1rem;
-  background-color: #59124D;
-  border: 2px solid #F2A649;
-  border-radius: 16px;
-  color: #f3d5a3;
-  width: 100%;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.btn-crear-link {
-  color: #ffffff;
-  background-color: #F28705;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.85rem;
-}
-
-.btn-crear-link:hover {
-  background-color: #d67504;
 }
 
 .error-banner {
@@ -270,16 +115,16 @@ body {
   font-weight: 500;
 }
 .perfil-img-real {
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #F28705;
 }
 
 .publi-avatar-mini-img {
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 3.2rem;
+  height: 3.2rem;
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid #F2A649;
@@ -287,7 +132,7 @@ body {
 
 .perfil-email {
   margin: 0 0 0.25rem 0;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: #f3d5a3;
 }
 
@@ -300,7 +145,7 @@ body {
 
 .comentarios-titulo {
   margin: 0 0 0.75rem 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #F2A649;
   font-weight: 600;
 }
@@ -312,7 +157,7 @@ body {
 }
 
 .comentario-item {
-  font-size: 0.85rem;
+  font-size: 1rem;
   background: rgba(44, 8, 38, 0.5);
   padding: 6px 10px;
   border-radius: 6px;
@@ -330,21 +175,21 @@ body {
 
 .sin-comentarios {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.5);
   font-style: italic;
 }
 
 .perfil-bio {
   margin: 0.3rem 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #f3d5a3;
   font-style: italic;
 }
 
 .perfil-fnac {
   margin: 0 0 0.5rem 0;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: #F2A649;
 }
 

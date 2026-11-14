@@ -21,10 +21,10 @@ export class Feed implements OnInit{
   currentSort = signal(''); 
   limit = 5;
   offset = 0;
-  
+  total = signal(0);
   currentPage = 0;
   
-  hasMore = true;
+  hasMore = signal(false);
 
 ngOnInit(): void {
     this.cargarFeed();
@@ -32,12 +32,20 @@ ngOnInit(): void {
 
   cargarFeed() {
     this.error.set(""); 
-
     this.offset = this.currentPage * this.limit;
 
     this.publi_services.obtenerPublicacionesConFiltros(this.limit, this.offset, this.currentSort()).subscribe((data: any) => {
+      if (data.length === 0 && this.currentPage > 0) {
+        this.currentPage--;
+        this.cargarFeed();
+        return;
+      }
       this.publicaciones.set(data);
-      this.hasMore = data.length === this.limit;
+      
+      if( data.length === this.limit && data.length > 0){
+        this.hasMore.set(true)
+      }
+      
     }, (error) => {
       this.error.set("Error al obtener las publicaciones. Por favor, inténtelo de nuevo más tarde." + error.message);
     });   
@@ -83,7 +91,7 @@ ngOnInit(): void {
 
 
     paginaSiguiente() {
-      if (this.hasMore) {
+      if (this.hasMore() === true) {
         this.currentPage++;
         this.cargarFeed();
       }

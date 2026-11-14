@@ -32,11 +32,11 @@
   </div>
 
   
-  <div class="publi-card">
+  
     @for (publi of publicaciones(); track publi._id) {
-      <app-publicaciones-ind [publi]="publi" (like)="darLike($event)"></app-publicaciones-ind>
+      <app-publicaciones-ind [publi]="publi" (like)="darLike($event)" (delete)="eliminarPublicacion($event)"></app-publicaciones-ind>
     }
-  </div>
+  
 
   
   <div class="pagination-container">
@@ -45,12 +45,13 @@
     </button>
 
     <span class="pagination-info">Página {{ currentPage + 1 }}</span>
-
-    @if (publicaciones.length >= 6) {
-    <button (click)="paginaSiguiente()" class="btn-pagination">
-      Siguiente <i class="bi bi-chevron-right"></i>
-    </button>
-  }
+    
+    
+      <button (click)="paginaSiguiente()" [disabled]="" class="btn-pagination">
+        <i class="bi bi-arrow-right"></i>
+      </button>
+    
+    
   </div>
 
 </main>
