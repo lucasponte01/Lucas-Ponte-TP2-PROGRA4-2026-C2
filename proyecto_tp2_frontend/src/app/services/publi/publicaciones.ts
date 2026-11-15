@@ -46,17 +46,8 @@ export class Publicaciones {
     );
   }
 
-  obtenerPublicaciones_por_id(id:string): Observable<Publicacion[]> {
-      return this.http.get<Publicacion[]>(`${this.apiUrl}/${id}`).pipe(
-        tap({
-          next: (data) => {
-            console.log("Publicaciones obtenidas exitosamente:", data);
-          },
-          error: (error) => {
-          console.error("Error al obtener las publicaciones:", error);
-        }
-      })
-    );
+  obtenerPublicaciones_por_id(id: string): Observable<Publicacion> {
+    return this.http.get<Publicacion>(`${this.apiUrl}/${id}`);
   }
 
 obtenerPublicacionesConFiltros(limit: number, offset: number, sort: string, userId?: string): Observable<Publicacion[]> {

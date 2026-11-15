@@ -108,7 +108,7 @@ export class PublicacionesService {
 
   
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.publiModel.findById(id);
   }
 

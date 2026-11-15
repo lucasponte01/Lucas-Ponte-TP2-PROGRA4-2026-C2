@@ -48,7 +48,7 @@ export class DetallesPublis {
 
   cargarDetallePublicacion() {
     this.publiService.obtenerPublicaciones_por_id(this.id_publis).subscribe({
-      next: (data) => this.publicacion.set(data[0] ?? null),
+      next: (data) => this.publicacion.set(data),
       error: (err) => this.error.set('Error al cargar la publicación.')
     });
   }
