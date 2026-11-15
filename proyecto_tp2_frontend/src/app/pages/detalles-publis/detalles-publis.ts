@@ -57,10 +57,11 @@ export class DetallesPublis {
   }
 
   cargarComentarios() {
+    this.offset = 0;
     this.comentariosService.obtenerComentarios(this.id_publis, this.limit, this.offset).subscribe({
       next: (nuevosComentarios: any[]) => {
-        // Acumulamos los comentarios sin pisar los anteriores
-        this.comentarios.update(actuales => [...actuales, ...nuevosComentarios]);
+        
+        this.comentarios.set(nuevosComentarios);
         
         // Verificamos si hay más comentarios para cargar
         if (nuevosComentarios.length < this.limit) {
@@ -73,7 +74,16 @@ export class DetallesPublis {
 
   cargarMasComentarios() {
     this.offset += this.limit;
-    this.cargarComentarios();
+    this.comentariosService.obtenerComentarios(this.id_publis, this.limit, this.offset).subscribe({
+      next: (nuevos: any[]) => {
+        
+        this.comentarios.update(actuales => [...actuales, ...nuevos]);
+        
+        if (nuevos.length < this.limit) {
+          this.hasMoreComentarios.set(false);
+        }
+      }
+    });
   }
 
   enviarComentario() {
@@ -101,15 +111,14 @@ export class DetallesPublis {
   }
 
   guardarEdicion(comentarioId: string) {
-    if (!this.textoEditado.trim()) return;
 
     this.comentariosService.actualizarComentario(comentarioId, this.textoEditado).subscribe({
       next: (comentarioActualizado) => {
         
-        this.comentarios.update(actuales => 
-          actuales.map(c => c._id === comentarioId ? { ...c, mensaje: this.textoEditado, modificado: true } : c)
-        );
-        this.cancelarEdicion();
+        this.comentarios.update(comentarios => 
+        comentarios.map(c => c._id === comentarioId ? comentarioActualizado : c)
+      );
+        this.comentarioEditandoId = null; 
       },
       error: (err) => this.error.set('Error al actualizar el comentario.')
     });

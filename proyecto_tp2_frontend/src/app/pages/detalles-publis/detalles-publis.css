@@ -18,6 +18,7 @@ body {
   color: var(--text-main);
   margin: 0;
   font-family: system-ui, -apple-system, sans-serif;
+  padding-bottom: 60px;
 }
 /* --- NAVBAR --- */
 .bloop-navbar {
@@ -192,6 +193,7 @@ body {
   resize: vertical;
   outline: none;
   transition: border-color 0.2s;
+  box-sizing: border-box;
 }
 
 .comentario-form textarea:focus,
@@ -288,7 +290,9 @@ body {
 .edit-box {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .edit-acciones {
