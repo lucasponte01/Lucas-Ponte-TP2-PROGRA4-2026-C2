@@ -6,9 +6,12 @@ import { Publicaciones } from '../../services/publi/publicaciones';
 import { AuthService } from '../../services/authServices';
 import { comentariosServices } from '../../services/comentarios/comentariosService';
 import { Publicacion } from '../../interfaces/publicaciones';
+import { CampoTextarea } from '../../components/ui/campo-textarea/campo-textarea';
+import { ErrorRequerido } from '../../components/ui/error-requerido/error-requerido';
+import { ErrorMaxlenght } from '../../components/ui/error-maxlenght/error-maxlenght';
 
 @Component({
-  imports: [ ReactiveFormsModule, RouterLink , DatePipe],
+  imports: [ReactiveFormsModule, RouterLink, DatePipe, CampoTextarea, ErrorRequerido, ErrorMaxlenght],
   selector: 'app-detalles-publis',
   styleUrl: './detalles-publis.css',
   templateUrl: './detalles-publis.html',
@@ -115,6 +118,10 @@ export class DetallesPublis {
   cancelarEdicion() {
     this.comentarioEditandoId = null;
     this.textoEditado = '';
+  }
+
+  cerrarsesion(){
+    this.authService.logout()
   }
 }
 

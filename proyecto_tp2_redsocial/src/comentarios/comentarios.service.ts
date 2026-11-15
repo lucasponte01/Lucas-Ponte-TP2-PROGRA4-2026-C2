@@ -3,16 +3,18 @@ import { CreateComentarioDto } from './dto/create-comentario.dto.js';
 import { UpdateComentarioDto } from './dto/update-comentario.dto.js';
 import { InjectModel } from '@nestjs/mongoose';
 import { Comentario } from './entities/comentario.entity.js';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 @Injectable()
 export class ComentariosService {
   constructor(@InjectModel(Comentario.name) private comentarioModel: Model<Comentario>) {}
 async create(createComentarioDto: CreateComentarioDto) {
-    const nuevoComentario = new this.comentarioModel(createComentarioDto);
-
+    const nuevoComentario = new this.comentarioModel({
+      publicacionId: new Types.ObjectId(createComentarioDto.publicacionId),
+      usuario: new Types.ObjectId(createComentarioDto.usuarioId),
+      mensaje: createComentarioDto.mensaje,
+    });
     return await nuevoComentario.save();
-
   }
   
 

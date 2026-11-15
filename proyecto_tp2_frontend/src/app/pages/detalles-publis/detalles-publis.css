@@ -1,4 +1,88 @@
 /* Contenedor principal de la vista de detalle */
+:host {
+  --bg-main: #1a0517;       
+  --bg-card: #59124D;        
+  --bg-navbar: #2c0826;       
+  --border-color: #F2A649;   
+  --border-hover: #F28705;    
+  --text-main: #ffffff;       
+  --text-muted: #f3d5a3;     
+  --accent-amber: #F28705;    
+  --accent-amber-hover: #d67504; 
+  --accent-red: #ff5c5c;      
+  --bg-red-muted: #8C0303;    
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+/* --- NAVBAR --- */
+.bloop-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--bg-navbar);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.bloop-logo {
+  display: flex;
+  align-items: center;
+}
+
+.bloop-logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 70px;     
+  width: auto;       
+  object-fit: contain;   
+  display: block;
+}
+
+.bloop-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--accent-amber);
+}
+
+.btn-cerrar-sesion {
+  background: transparent;
+  border: none;
+  color: var(--accent-red);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-cerrar-sesion:hover {
+  opacity: 0.8;
+}
+
 .detalle-container {
   max-width: 600px;
   margin: 40px auto;
