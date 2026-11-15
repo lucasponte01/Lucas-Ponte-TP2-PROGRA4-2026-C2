@@ -1,0 +1,245 @@
+/* Contenedor principal de la vista de detalle */
+.detalle-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #fff;
+  font-family: inherit;
+}
+
+/* Botón Volver */
+.btn-volver {
+  align-self: flex-start;
+  color: #F28705;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+}
+
+.btn-volver:hover {
+  opacity: 0.8;
+}
+
+/* Alerta de error */
+.alert-error {
+  background-color: #8C0303;
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* Tarjeta grande de la publicación */
+.publi-card-grande {
+  background-color: #2b0d26;
+  border: 1px solid #59124D;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.publi-card-grande h2 {
+  color: #F28705;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.publi-img-grande {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.publi-mensaje {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #f1f1f1;
+  margin: 0;
+}
+
+.publi-fecha {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+/* Sección de Comentarios */
+.comentarios-section {
+  background-color: #1a0517;
+  border: 1px solid #59124D;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comentarios-section h3 {
+  color: #F28705;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+/* Formulario para nuevo comentario */
+.comentario-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comentario-form textarea,
+.input-edit {
+  width: 100%;
+  background-color: #2b0d26;
+  border: 1px solid #59124D;
+  border-radius: 10px;
+  padding: 12px;
+  color: #fff;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.comentario-form textarea:focus,
+.input-edit:focus {
+  border-color: #F28705;
+}
+
+.btn-enviar,
+.btn-guardar {
+  align-self: flex-end;
+  background-color: #F28705;
+  color: #1a0517;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-enviar:hover,
+.btn-guardar:hover {
+  background-color: #f2a649;
+}
+
+.btn-enviar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Listado de comentarios */
+.comentarios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comentario-item {
+  background-color: #2b0d26;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(89, 18, 77, 0.4);
+}
+
+.comentario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.comentario-header strong {
+  color: #F28705;
+}
+
+.comentario-fecha {
+  color: #888;
+  font-size: 0.75rem;
+}
+
+.comentario-texto {
+  font-size: 0.95rem;
+  margin: 0;
+  color: #e2e2e2;
+  word-break: break-word;
+}
+
+/* Badge de Editado */
+.badge-editado {
+  font-size: 0.75rem;
+  color: #f2a649;
+  font-style: italic;
+}
+
+/* Botones de acción en comentarios */
+.btn-editar-comentario {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 0.8rem;
+  cursor: pointer;
+  align-self: flex-start;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.btn-editar-comentario:hover {
+  color: #F28705;
+}
+
+.edit-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edit-acciones {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.btn-cancelar {
+  background-color: transparent;
+  border: 1px solid #59124D;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-cancelar:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Botón Cargar Más Comentarios */
+.btn-cargar-mas {
+  background-color: transparent;
+  border: 1px dashed #F28705;
+  color: #F28705;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+}
+
+.btn-cargar-mas:hover {
+  background-color: rgba(242, 135, 5, 0.1);
+}

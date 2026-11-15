@@ -1,0 +1,65 @@
+<main class="detalle-container">
+  <a routerLink="/feed" class="btn-volver"><i class="bi bi-arrow-left"></i> Volver al Muro</a>
+
+  @if (error()) {
+    <div class="alert-error">{{ error() }}</div>
+  }
+
+  <!-- Publicación en Grande -->
+  @if (publicacion(); as pub) {
+  <div class="publi-card-grande">
+    <h2>{{ pub.titulo }}</h2>
+    @if (pub.imagen) {
+      <img [src]="pub.imagen" alt="Imagen de la publicación" class="publi-img-grande">
+    }
+    <p class="publi-mensaje">{{ pub.mensaje }}</p>
+    <span class="publi-fecha">{{ pub.createdAt | date:'short' }}</span>
+  </div>
+}
+
+  <!-- Sección de Comentarios -->
+  <section class="comentarios-section">
+    <h3>Comentarios</h3>
+
+    <!-- Formulario para escribir comentario -->
+    <form [formGroup]="comentario_Form" (ngSubmit)="enviarComentario()" class="comentario-form">
+      <textarea formControlName="mensaje" placeholder="Escribe un comentario..." rows="2"></textarea>
+      <button type="submit" [disabled]="comentario_Form.invalid" class="btn-enviar">Comentar</button>
+    </form>
+
+    <!-- Listado de Comentarios -->
+    <div class="comentarios-list">
+      @for (comentario of comentarios(); track comentario._id) {
+        <div class="comentario-item">
+          <div class="comentario-header">
+            <strong>{{ comentario.usuario?.nombre || 'Usuario' }}</strong>
+            <span class="comentario-fecha">{{ comentario.createdAt | date:'short' }}</span>
+          </div>
+
+          
+          @if (comentarioEditandoId === comentario._id) {
+            <div class="edit-box">
+              <textarea (input)="textoEditado" rows="2" class="input-edit"></textarea>
+              <div class="edit-acciones">
+                <button (click)="guardarEdicion(comentario._id)" class="btn-guardar">Guardar</button>
+                <button (click)="cancelarEdicion()" class="btn-cancelar">Cancelar</button>
+              </div>
+            </div>
+          } @else {
+            <p class="comentario-texto">{{ comentario.mensaje }}</p>
+            @if (comentario.modificado) {
+              <span class="badge-editado">(Editado)</span>
+            }
+          
+            <button (click)="iniciarEdicion(comentario)" class="btn-editar-comentario">Editar</button>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Botón Cargar Más Comentarios -->
+    @if (hasMoreComentarios()) {
+      <button (click)="cargarMasComentarios()" class="btn-cargar-mas">Cargar más comentarios</button>
+    }
+  </section>
+</main>

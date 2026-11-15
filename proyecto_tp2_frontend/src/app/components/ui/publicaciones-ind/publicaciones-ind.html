@@ -22,10 +22,13 @@
       }
       
     </button>
-
+    <a [routerLink]="['/detalles-publis', publi._id]" class="btn-ver-detalle">
+      Ver detalles y comentarios 
+    </a>
   
      <button (click)="onDeleteClick()" class="btn-eliminar">
       <i class="bi bi-trash"></i> 
     </button> 
+    
   </div>
 </div>

@@ -20,7 +20,7 @@ export class Login {
   private authService = inject(AuthService);
   
   
-  login_form= new FormGroup({
+  login_form = new FormGroup({
     identificador: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(4)] }),
     contrasena: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Z])(?=.*\d)/)] })
   });

@@ -72,36 +72,36 @@ export class PublicacionesService {
       publicacion.likes = [];
     }
 
-    // Vemos si el usuario ya está en el array de likes
+    
     const index = publicacion.likes.findIndex((id) => id.toString() === userId.toString());
 
     if (index !== -1) {
-      // YA LE DIO LIKE: Lo quitamos (Unlike)
+     
       publicacion.likes.splice(index, 1);
     } else {
-      // NO LE HABÍA DADO LIKE: Se lo agregamos (Like)
+      
       publicacion.likes.push(new Types.ObjectId(userId));
     }
 
-    // Actualizamos el contador y guardamos
+    
     publicacion.likesCount = publicacion.likes.length;
     return publicacion.save();
   }
 
-  // --- BAJA LÓGICA DE PUBLICACIÓN ---
+ 
   async bajaLogica(publiId: string, userId: string, esAdmin: boolean) {
     const publicacion = await this.publiModel.findById(publiId);
     if (!publicacion) {
       throw new NotFoundException('Publicación no encontrada');
     }
 
-    // Validar si es el creador o es admin
+    
     const esCreador = publicacion.usuario && publicacion.usuario.toString() === userId;
     if (!esCreador && !esAdmin) {
       throw new ForbiddenException('No tenés permisos para eliminar esta publicación');
     }
 
-    // Aplicamos baja lógica
+   
     publicacion.activo = false;
     return publicacion.save();
   }

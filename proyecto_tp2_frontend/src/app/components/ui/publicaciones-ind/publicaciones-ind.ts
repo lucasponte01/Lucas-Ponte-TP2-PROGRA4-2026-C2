@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, input, Output, output } from '@angular/core';
 import { Publicacion } from '../../../interfaces/publicaciones';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [DatePipe],
+  imports: [DatePipe , RouterLink],
   selector: 'app-publicaciones-ind',
   styleUrl: './publicaciones-ind.css',
   templateUrl: './publicaciones-ind.html',

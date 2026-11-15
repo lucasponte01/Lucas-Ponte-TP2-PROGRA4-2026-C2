@@ -1,5 +1,4 @@
 export interface Publicacion {
-  
   _id?: string;
   titulo: string;
   mensaje: string;

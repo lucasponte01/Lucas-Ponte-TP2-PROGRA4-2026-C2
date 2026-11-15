@@ -46,13 +46,26 @@ export class Publicaciones {
     );
   }
 
+  obtenerPublicaciones_por_id(id:string): Observable<Publicacion[]> {
+      return this.http.get<Publicacion[]>(`${this.apiUrl}/${id}`).pipe(
+        tap({
+          next: (data) => {
+            console.log("Publicaciones obtenidas exitosamente:", data);
+          },
+          error: (error) => {
+          console.error("Error al obtener las publicaciones:", error);
+        }
+      })
+    );
+  }
+
 obtenerPublicacionesConFiltros(limit: number, offset: number, sort: string, userId?: string): Observable<Publicacion[]> {
   let params = new HttpParams()
     .set('limit', limit.toString())
     .set('offset', offset.toString())
     .set('sort', sort);
 
-  // Solo agregamos el userId si realmente existe
+  
   if (userId) {
     params = params.set('userId', userId);
   }
