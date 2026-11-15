@@ -13,6 +13,7 @@ async create(createComentarioDto: CreateComentarioDto) {
       publicacionId: new Types.ObjectId(createComentarioDto.publicacionId),
       usuario: new Types.ObjectId(createComentarioDto.usuarioId),
       mensaje: createComentarioDto.mensaje,
+      modificado: false,
     });
     return await nuevoComentario.save();
   }
@@ -31,7 +32,8 @@ async create(createComentarioDto: CreateComentarioDto) {
     return this.comentarioModel.findById(id);
   }
 
- async update(id: number, mensaje: string) {
+ async update(id: string, mensaje: string) {
+  
     const comentario_actualizado = await this.comentarioModel.findByIdAndUpdate(
       id,
       { mensaje , modificado: true },

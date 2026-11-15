@@ -1,82 +1,82 @@
-<header class="bloop-navbar">
-  <div class="bloop-logo">
-    <a routerLink="/feed">
-      <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
-    </a>
-  </div>
-
-  <nav class="bloop-nav-links">
-    <a routerLink="/crear-publicacion" class="nav-link">Crear Publi</a>
-    <a routerLink="/perfil" class="nav-link">Mi Perfil</a>
-    <p (click)="cerrarsesion()" class="nav-link">Cerrar Sesion</p>
-    
-  </nav>
-</header>
-
-<main class="detalle-container">
-  <a routerLink="/feed" class="btn-volver"><i class="bi bi-arrow-left"></i> Volver al Muro</a>
-
-  @if (error()) {
-    <div class="alert-error">{{ error() }}</div>
-  }
-
-  
-  @if (publicacion(); as pub) {
-  <div class="publi-card-grande">
-    <h2>{{ pub.titulo }}</h2>
-    @if (pub.imagen) {
-      <img [src]="pub.imagen" alt="Imagen de la publicación" class="publi-img-grande">
-    }
-    <p class="publi-mensaje">{{ pub.mensaje }}</p>
-    <span class="publi-fecha">{{ pub.createdAt | date:'short' }}</span>
-  </div>
-}
-
-  
-  <section class="comentarios-section">
-    <h3>Comentarios</h3>
-
-    <form [formGroup]="comentario_Form" (ngSubmit)="enviarComentario()" class="comentario-form">
-      <app-campo-textarea [control]="comentario_Form.controls.mensaje" placeholder="Escribe un comentario...">
-        <app-error-requerido [errors]="comentario_Form.controls.mensaje.errors" mensaje="Escribe un comentario si quieres comentar la publicacion"></app-error-requerido>
-        <app-error-maxlenght [errors]="comentario_Form.controls.mensaje.errors" mensaje="maximo 300 caracteres"></app-error-maxlenght>
-      </app-campo-textarea>
-      <button type="submit" [disabled]="comentario_Form.invalid" class="btn-enviar">Comentar</button>
-    </form>
-
-    
-    <div class="comentarios-list">
-      @for (comentario of comentarios(); track comentario._id) {
-        <div class="comentario-item">
-          <div class="comentario-header">
-            <strong>{{ comentario.usuario?.nombre || 'Usuario' }}</strong>
-            <span class="comentario-fecha">{{ comentario.createdAt | date:'short' }}</span>
-          </div>
-
-          
-          @if (comentarioEditandoId === comentario._id) {
-            <div class="edit-box">
-              <textarea (input)="textoEditado" rows="2" class="input-edit"></textarea>
-              <div class="edit-acciones">
-                <button (click)="guardarEdicion(comentario._id)" class="btn-guardar">Guardar</button>
-                <button (click)="cancelarEdicion()" class="btn-cancelar">Cancelar</button>
-              </div>
-            </div>
-          } @else {
-            <p class="comentario-texto">{{ comentario.mensaje }}</p>
-            @if (comentario.modificado) {
-              <span class="badge-editado">(Editado)</span>
-            }
-          
-            <button (click)="iniciarEdicion(comentario)" class="btn-editar-comentario">Editar</button>
-          }
-        </div>
-      }
+<body>
+  <header class="bloop-navbar">
+    <div class="bloop-logo">
+      <a routerLink="/feed">
+        <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
+      </a>
     </div>
 
-    <!-- Botón Cargar Más Comentarios -->
-    @if (hasMoreComentarios()) {
-      <button (click)="cargarMasComentarios()" class="btn-cargar-mas">Cargar más comentarios</button>
+    <nav class="bloop-nav-links">
+      <a routerLink="/crear-publicacion" class="nav-link">Crear Publi</a>
+      <a routerLink="/perfil" class="nav-link">Mi Perfil</a>
+      <p (click)="cerrarsesion()" class="nav-link">Cerrar Sesion</p>
+      
+    </nav>
+  </header>
+
+  <main class="detalle-container">
+
+    @if (error()) {
+      <div class="alert-error">{{ error() }}</div>
     }
-  </section>
-</main>
+
+    
+    @if (publicacion(); as pub) {
+    <div class="publi-card-grande">
+      <h2>{{ pub.titulo }}</h2>
+      @if (pub.imagen) {
+        <img [src]="pub.imagen" alt="Imagen de la publicación" class="publi-img-grande">
+      }
+      <p class="publi-mensaje">{{ pub.mensaje }}</p>
+      <span class="publi-fecha">{{ pub.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+    </div>
+  }
+
+    
+    <section class="comentarios-section">
+      <h3>Comentarios</h3>
+
+      <form [formGroup]="comentario_Form" (ngSubmit)="enviarComentario()" class="comentario-form">
+        <app-campo-textarea [control]="comentario_Form.controls.mensaje" placeholder="Escribe un comentario...">
+          <app-error-requerido [errors]="comentario_Form.controls.mensaje.errors" mensaje="Escribe un comentario si quieres comentar la publicacion"></app-error-requerido>
+          <app-error-maxlenght [errors]="comentario_Form.controls.mensaje.errors" mensaje="maximo 300 caracteres"></app-error-maxlenght>
+        </app-campo-textarea>
+        <button type="submit" [disabled]="comentario_Form.invalid" class="btn-enviar">Comentar</button>
+      </form>
+
+      
+      <div class="comentarios-list">
+        @for (comentario of comentarios(); track comentario._id) {
+          <div class="comentario-item">
+            <div class="comentario-header">
+              <span class="comentario-fecha">{{ comentario.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+
+            
+            @if (comentarioEditandoId === comentario._id) {
+              <div class="edit-box">
+                <textarea (input)="textoEditado" rows="2" class="input-edit"></textarea>
+                <div class="edit-acciones">
+                  <button (click)="guardarEdicion(comentario._id)" class="btn-guardar">Guardar</button>
+                  <button (click)="cancelarEdicion()" class="btn-cancelar">Cancelar</button>
+                </div>
+              </div>
+            } @else {
+              <p class="comentario-texto">{{ comentario.mensaje }}</p>
+              @if (comentario.modificado) {
+                <span class="badge-editado">(Editado)</span>
+              }
+            
+              <button (click)="iniciarEdicion(comentario)" class="btn-editar-comentario">Editar</button>
+            }
+          </div>
+        }
+      </div>
+
+      
+      @if (hasMoreComentarios()) {
+        <button (click)="cargarMasComentarios()" class="btn-cargar-mas">Cargar más comentarios</button>
+      }
+    </section>
+  </main>
+</body>

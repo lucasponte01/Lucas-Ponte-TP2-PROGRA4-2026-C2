@@ -27,7 +27,7 @@ export class ComentariosController {
 
   @Put(':id')
   update(@Param('id') id: string, @Body() UpdateComentarioDto: UpdateComentarioDto) {
-    return this.comentariosService.update(+id, UpdateComentarioDto.mensaje );
+    return this.comentariosService.update(id, UpdateComentarioDto.mensaje );
   }
 
   @Delete(':id')
