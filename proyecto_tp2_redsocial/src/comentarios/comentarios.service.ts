@@ -21,11 +21,11 @@ async create(createComentarioDto: CreateComentarioDto) {
 
   findAll(publicacionId: string, limit: number, offset: number) {
     return this.comentarioModel
-      .find({ publicacionId })
+      .find({ publicacionId: new Types.ObjectId(publicacionId) })
       .sort({ createdAt: -1 })
       .skip(Number(offset))
       .limit(Number(limit))
-      .exec();
+     
   }
 
   findOne(id: number) {
