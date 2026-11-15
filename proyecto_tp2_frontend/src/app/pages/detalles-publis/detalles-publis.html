@@ -9,7 +9,7 @@
     <nav class="bloop-nav-links">
       <a routerLink="/crear-publicacion" class="nav-link">Crear Publi</a>
       <a routerLink="/perfil" class="nav-link">Mi Perfil</a>
-      <p (click)="cerrarsesion()" class="nav-link">Cerrar Sesion</p>
+      <button (click)="cerrarsesion()" class="nav-link">Cerrar Sesion</button>
       
     </nav>
   </header>
@@ -54,7 +54,7 @@
             
             @if (comentarioEditandoId === comentario._id) {
               <div class="edit-box">
-                <textarea (input)="textoEditado" rows="2" class="input-edit"></textarea>
+                <textarea [value]="textoEditado" (input)="textoEditado = $any($event.target).value" rows="2" class="input-edit"></textarea>
                 <div class="edit-acciones">
                   <button (click)="guardarEdicion(comentario._id)" class="btn-guardar">Guardar</button>
                   <button (click)="cancelarEdicion()" class="btn-cancelar">Cancelar</button>

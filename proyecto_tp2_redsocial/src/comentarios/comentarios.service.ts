@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateComentarioDto } from './dto/create-comentario.dto.js';
 import { UpdateComentarioDto } from './dto/update-comentario.dto.js';
 import { InjectModel } from '@nestjs/mongoose';
@@ -32,8 +32,14 @@ async create(createComentarioDto: CreateComentarioDto) {
     return this.comentarioModel.findById(id);
   }
 
- async update(id: string, mensaje: string) {
-  
+ async update(id: string, mensaje: string , usuarioActualId: string) {
+    const comentario = await this.comentarioModel.findById(id);
+    if (!comentario) {
+      throw new NotFoundException('Comentario no encontrado');
+    }
+    if (comentario.usuario.toString() !== usuarioActualId) {
+      throw new ForbiddenException('No tenés permiso para editar este comentario');
+    }
     const comentario_actualizado = await this.comentarioModel.findByIdAndUpdate(
       id,
       { mensaje , modificado: true },

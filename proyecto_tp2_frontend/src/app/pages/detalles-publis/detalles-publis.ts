@@ -11,7 +11,7 @@ import { ErrorRequerido } from '../../components/ui/error-requerido/error-requer
 import { ErrorMaxlenght } from '../../components/ui/error-maxlenght/error-maxlenght';
 
 @Component({
-  imports: [ReactiveFormsModule, RouterLink, DatePipe, CampoTextarea, ErrorRequerido, ErrorMaxlenght],
+  imports: [ReactiveFormsModule, RouterLink, DatePipe, CampoTextarea, ErrorRequerido, ErrorMaxlenght , CommonModule],
   selector: 'app-detalles-publis',
   styleUrl: './detalles-publis.css',
   templateUrl: './detalles-publis.html',
