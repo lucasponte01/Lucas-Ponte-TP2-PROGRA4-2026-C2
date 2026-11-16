@@ -32,10 +32,7 @@ export class AuthService {
     tap((data: any) => {
       const user = data.usuario || data.user || data;
 
-      const userId = user._id || user.id || data.userId;
-      const token = data.access_token || data.token;
-
-      if (userId && token) {
+      if (user) {
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('userId', data.userId);
         localStorage.setItem('nombreUsuario', data.nombreUsuario || 'Usuario');
@@ -65,14 +62,27 @@ export class AuthService {
   }
 
   verifyToken(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/verificar`);
+    return this.http.post(`${this.apiUrl}/autorizar`, {});
   }
 
   getUserId(): string | null {
         return localStorage.getItem('userId');
         
       }
-
+  
+  extenderSesion() {
+    this.http.post(`${this.apiUrl}/refrescar`, {}).subscribe({
+      next: (data: any) => {
+        if (data.access_token) {
+          localStorage.setItem('token', data.access_token);
+          console.log("¡Sesión extendida por 15 minutos más!");
+        }
+      },
+      error: (err) => {
+        console.error("No se pudo refrescar la sesión", err);
+      }
+    });
+  }
 
   logout(): void {
     localStorage.removeItem('token');

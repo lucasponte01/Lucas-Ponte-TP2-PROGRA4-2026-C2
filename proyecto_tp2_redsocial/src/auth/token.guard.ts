@@ -18,12 +18,12 @@ export class TokenGuard implements CanActivate {
     if (!token || !clave) return false;
 
     try {
-      // Verifica el token por su clave secreta y devuelve el payload decodificado
+      
       const valido: any = jwt.verify(token, clave); 
 
-      // Asignamos primero los datos al request ANTES de retornar true
+      
       req.body = req.body || {};
-      req.body.user = valido.user; // Guarda el usuario dueño del token para usarlo en el controlador
+      req.body.user = valido.user; 
 
       return true;
     } catch (err) {

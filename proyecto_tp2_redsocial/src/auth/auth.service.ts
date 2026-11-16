@@ -88,4 +88,20 @@ export class AuthService {
         });
         return token;
     }
+
+    async validar_usuario(userId: string) {
+    const usuario = await this.usermodel.findById(userId).select('-contrasena');
+    if (!usuario) {
+        throw new UnauthorizedException('Usuario no encontrado');
+    }
+    return usuario;
+    }
+
+    async refrescarToken(nombreUsuario: string) {
+        const token = this.generartoken(nombreUsuario);
+        return {
+            message: 'Token refrescado exitosamente',
+            access_token: token,
+        };
+    }
 }

@@ -33,6 +33,27 @@ export class AuthController {
       user: req.body.user 
     };
   }
+
+  @UseGuards(TokenGuard)
+  @Post('autorizar')
+  autorizar(@Req() req: any) {
+    
+    return {
+      mensaje: 'Token válido',
+      usuario: req.body.user
+    };
+  }
+
+  @UseGuards(TokenGuard)
+  @Post('refrescar')
+  refrescar(@Req() req: any) {
+    
+    const nombreUsuario = req.body.user;
+    
+    
+    return this.authService.refrescarToken(nombreUsuario);
+  }
 }
+
 
 
