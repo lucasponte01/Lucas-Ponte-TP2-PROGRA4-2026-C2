@@ -12,7 +12,7 @@ export class comentariosServices {
     private authService = inject(AuthService)
     private apiUrl = `${environment.API_URL}/comentarios`;
 
-    obtenerComentarios(publicacionId: string, limit: number, offset: number): Observable<any[]> {
+  obtenerComentarios(publicacionId: string, limit: number, offset: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/${publicacionId}?limit=${limit}&offset=${offset}`);
   }
 
@@ -23,7 +23,7 @@ export class comentariosServices {
 
   
   actualizarComentario(comentarioId: string, mensaje: string): Observable<any> {
-    const usuarioId = this.authService.getUserId();
+    const usuarioId = this.authService.obtener_usuario();
     return this.http.put<any>(`${this.apiUrl}/${comentarioId}`, { mensaje , usuarioId: usuarioId });
   }
 }

@@ -25,7 +25,7 @@ export class SplashComponent implements OnInit {
       return;
     }
     try{
-      this.auth.verifyToken();
+      this.auth.verificar_token();
     }catch (err){
       console.log("")
     }

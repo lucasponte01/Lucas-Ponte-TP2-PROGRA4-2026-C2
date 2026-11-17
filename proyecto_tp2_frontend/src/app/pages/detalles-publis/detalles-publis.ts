@@ -89,7 +89,7 @@ export class DetallesPublis {
 
   enviarComentario() {
     const mensaje = this.comentario_Form.controls.mensaje.value;
-    const userId = this.authService.getUserId();
+    const userId = this.authService.obtener_usuario();
 
     if (!userId) {
       this.error.set('Debes iniciar sesión para comentar.');

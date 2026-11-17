@@ -19,7 +19,7 @@ export class Perfil {
   private publiService = inject(Publicaciones);
   private authService = inject(AuthService);
 
-  userId = this.authService.getUserId();
+  userId = this.authService.obtener_usuario();
 
   nombreUsuario = signal(localStorage.getItem('nombreUsuario') || 'Usuario Bloop');
   emailUsuario = signal(localStorage.getItem('correo') || 'usuario@bloop.com');
@@ -51,14 +51,14 @@ export class Perfil {
   }
 
    darLike(id: string) {
-  const userId = this.authService.getUserId();
+  const userId = this.authService.obtener_usuario();
 
   if (!userId) {
     this.error.set("Debes iniciar sesión para dar me gusta.");
     return;
   }
 
-  this.publiService.toggleLike(id, userId).subscribe({
+  this.publiService.Like_dislike(id, userId).subscribe({
     next: () => {
       
       

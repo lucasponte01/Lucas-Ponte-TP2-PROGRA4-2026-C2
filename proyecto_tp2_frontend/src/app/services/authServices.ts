@@ -51,7 +51,7 @@ export class AuthService {
 }
 
 
-  isLoggedIn(): boolean {
+  verificacion_logeo(): boolean {
     const token = localStorage.getItem('token')
     if (token) {
       return true
@@ -61,7 +61,7 @@ export class AuthService {
     
   }
 
-  verifyToken(): any {
+  verificar_token(): any {
     this.http.post(`${this.apiUrl}/autorizar`, {}).subscribe({
       next: (res: any) => {
         this.router.navigateByUrl('/feed');
@@ -72,10 +72,10 @@ export class AuthService {
     });
   }
 
-  getUserId(): string | null {
-        return localStorage.getItem('userId');
+  obtener_usuario(): string | null {
+    return localStorage.getItem('userId');
         
-      }
+  }
   
   extenderSesion() {
     this.http.post(`${this.apiUrl}/refrescar`, {}).subscribe({

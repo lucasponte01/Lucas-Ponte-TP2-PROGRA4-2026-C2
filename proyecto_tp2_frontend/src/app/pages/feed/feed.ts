@@ -59,14 +59,14 @@ ngOnInit(): void {
   }
 
  darLike(id: string) {
-  const userId = this.authService.getUserId();
+  const userId = this.authService.obtener_usuario();
 
   if (!userId) {
     this.error.set("Debes iniciar sesión para dar me gusta.");
     return;
   }
 
-  this.publi_services.toggleLike(id, userId).subscribe({
+  this.publi_services.Like_dislike(id, userId).subscribe({
     next: () => {
       
       
@@ -79,7 +79,7 @@ ngOnInit(): void {
 }
 
   eliminarPublicacion(id: string ,) {
-    const userId = this.authService.getUserId();
+    const userId = this.authService.obtener_usuario();
     this.publi_services.eliminarPublicacion(id,userId!,false).subscribe({
           next: () => {
             this.publicaciones.update(pubs => pubs.filter(p => p._id !== id));

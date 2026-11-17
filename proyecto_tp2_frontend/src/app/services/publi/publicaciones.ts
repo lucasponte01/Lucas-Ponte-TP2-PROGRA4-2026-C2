@@ -14,7 +14,7 @@ export class Publicaciones {
     private router = inject(Router);
 
     crearPublicacion(publicacion: FormData): Observable<Publicacion> {
-      const userId = this.authService.getUserId();
+      const userId = this.authService.obtener_usuario();
 
       if (userId) {
         
@@ -50,11 +50,11 @@ export class Publicaciones {
     return this.http.get<Publicacion>(`${this.apiUrl}/${id}`);
   }
 
-obtenerPublicacionesConFiltros(limit: number, offset: number, sort: string, userId?: string): Observable<Publicacion[]> {
-  let params = new HttpParams()
-    .set('limit', limit.toString())
-    .set('offset', offset.toString())
-    .set('sort', sort);
+  obtenerPublicacionesConFiltros(limit: number, offset: number, sort: string, userId?: string): Observable<Publicacion[]> {
+    let params = new HttpParams()
+      .set('limit', limit.toString())
+      .set('offset', offset.toString())
+      .set('sort', sort);
 
   
   if (userId) {
@@ -64,11 +64,11 @@ obtenerPublicacionesConFiltros(limit: number, offset: number, sort: string, user
   return this.http.get<Publicacion[]>(`${this.apiUrl}/listar`, { params });
 }
 
-  toggleLike(id: string, userId: string): Observable<any> {
+  Like_dislike(id: string, userId: string): Observable<any> {
       return this.http.post(`${this.apiUrl}/${id}/like`, { userId });
     }
 
-    // Baja lógica de publicación
+    
   eliminarPublicacion(id: string, userId: string, esAdmin: boolean = false): Observable<any> {
       return this.http.request('delete', `${this.apiUrl}/${id}`, { body: { userId, esAdmin } });
     }
