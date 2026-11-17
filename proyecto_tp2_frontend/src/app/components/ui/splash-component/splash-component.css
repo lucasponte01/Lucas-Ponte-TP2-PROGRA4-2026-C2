@@ -1,0 +1,60 @@
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #0d0d0f; /* Fondo oscuro elegante */
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
+}
+
+.bloop-logo {
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Control de tamaño del logo para que no quede gigante ni deforme */
+.logo-img {
+  width: 110px; /* Podes ajustarlo a 90px o 120px según lo que prefieras */
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.05); /* Sutil efecto si le llegan a hacer click */
+}
+
+/* Spinner animado moderno a juego */
+.spinner {
+  width: 42px;
+  height: 42px;
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  border-top-color: #ff416c; /* Color llamativo característico */
+  border-radius: 50%;
+  animation: spin 0.8s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+  margin-bottom: 18px;
+}
+
+.loading-text {
+  font-size: 0.9rem;
+  color: #8a8a93;
+  letter-spacing: 0.6px;
+  font-weight: 500;
+  animation: pulse 1.5s ease-in-out infinite;
+  margin: 0;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
