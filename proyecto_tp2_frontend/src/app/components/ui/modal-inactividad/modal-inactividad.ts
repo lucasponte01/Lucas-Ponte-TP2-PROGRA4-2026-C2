@@ -13,7 +13,7 @@ export class ModalInactividad implements OnInit, OnDestroy {
   mostrarModal = signal(false);
   private tiempo_inactivo: any;
   private intervalo_inactivo: any;
-  private readonly modal_tiempo_limite = 10 * 1000;
+  private readonly modal_tiempo_limite = 10 * 1000;// 10 segundos para pruebas (luego 10 * 60 * 1000)
 
   private auth = inject(AuthService);
   private router = inject(Router);
@@ -43,9 +43,19 @@ export class ModalInactividad implements OnInit, OnDestroy {
 }
 
   private iniciarTemporizador() {
+    this.limpiar_tiempo();
+
+    
+    const token = localStorage.getItem('token');
+    const esLogin = this.router.url.includes('/login');
     this.tiempo_inactivo = setTimeout(() => {
       
-      this.mostrarModal.set(true);
+      if (token && !esLogin) {
+      this.tiempo_inactivo = setTimeout(() => {
+        this.mostrarModal.set(true);
+        console.log("⏰ ¡Tiempo de sesión cumplido!");
+      }, this.modal_tiempo_limite);
+    }
     }, this.modal_tiempo_limite);
   }
   
@@ -58,7 +68,9 @@ export class ModalInactividad implements OnInit, OnDestroy {
   extenderSesion() {
     try{
       this.auth.extenderSesion();
+      this.mostrarModal.set(false);
       this.limpiar_tiempo();
+      this.iniciarTemporizador()
     }catch (err){
       console.log("error al extender sesion" + err)
       this.cerrarSesionForzada();
