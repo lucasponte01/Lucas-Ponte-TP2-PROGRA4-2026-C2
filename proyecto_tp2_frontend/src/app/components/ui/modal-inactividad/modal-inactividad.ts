@@ -22,8 +22,9 @@ export class ModalInactividad implements OnInit, OnDestroy {
     const token = localStorage.getItem('token');
     if (token) {
       this.iniciarTemporizador();
+      console.log("Tiempo de sesión corriendo");
     }
-    console.log("Tiempo de sesión corriendo");
+    
   }
 
   ngOnDestroy() {

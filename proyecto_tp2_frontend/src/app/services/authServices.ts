@@ -92,6 +92,7 @@ export class AuthService {
     localStorage.removeItem('descripcionBreve');
     localStorage.removeItem('fechaNacimiento');
     localStorage.removeItem('imagenPerfil');
+    console.log("🚀 Redirigiendo al login...");
     this.router.navigateByUrl('/login');
   }
 }
