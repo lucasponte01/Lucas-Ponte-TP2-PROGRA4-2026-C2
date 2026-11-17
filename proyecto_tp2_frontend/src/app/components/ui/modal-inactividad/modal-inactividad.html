@@ -1,0 +1,13 @@
+@if (mostrarModal()) {
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <h3>¡Tu sesión está por expirar!</h3>
+      <p>Has estado inactivo durante 10 minutos. ¿Deseas extender tu sesión?</p>
+      
+      <div class="modal-acciones">
+        <button (click)="extenderSesion()" class="btn-extender">Sí, extender sesión</button>
+        <button (click)="cerrarSesionForzada()" class="btn-salir">Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+}
