@@ -13,7 +13,9 @@ export class ModalInactividad implements OnInit, OnDestroy {
   mostrarModal = signal(false);
   private tiempo_inactivo: any;
   private intervalo_inactivo: any;
-  private readonly modal_tiempo_limite = 10 * 1000;// 10 segundos para pruebas (luego 10 * 60 * 1000)
+  private tiempo_gracia_modal: any;
+  private readonly modal_tiempo_limite = 10 * 60 * 1000;// 10 segundos para pruebas (luego 10 * 60 * 1000)
+  private readonly tiempo_espera_respuesta = 2 * 60 * 1000; // 10 segundos de gracia con el modal abierto (luego poné 2 * 60 * 1000 para 2 min)
 
   private auth = inject(AuthService);
   private router = inject(Router);
@@ -33,7 +35,7 @@ export class ModalInactividad implements OnInit, OnDestroy {
     
     this.tiempo_inactivo = setTimeout(() => {
       this.mostrarModal.set(true);
-      console.log("⏰ ¡Tiempo cumplido, mostrando modal!");
+      this.iniciarTiempoDeGracia();
     }, this.modal_tiempo_limite);
   }
   
@@ -43,11 +45,37 @@ export class ModalInactividad implements OnInit, OnDestroy {
     }
   }
 
+  private iniciarTiempoDeGracia() {
+    if (this.tiempo_gracia_modal) {
+      clearTimeout(this.tiempo_gracia_modal);
+    }
+
+    this.tiempo_gracia_modal = setTimeout(() => {
+      // Si el modal sigue abierto porque el usuario no hizo nada, cerramos sesión por fuerza
+      if (this.mostrarModal()) {
+        console.log("🛑 Tiempo de gracia agotado sin respuesta. Cerrando sesión automáticamente...");
+        this.cerrarSesionForzada();
+      }
+    }, this.tiempo_espera_respuesta);
+  }
+
+  private limpiar_todos_los_tiempos() {
+    if (this.tiempo_inactivo) {
+      clearTimeout(this.tiempo_inactivo);
+      this.tiempo_inactivo = null;
+    }
+    if (this.tiempo_gracia_modal) {
+      clearTimeout(this.tiempo_gracia_modal);
+      this.tiempo_gracia_modal = null;
+    }
+  }
+
+
   extenderSesion() {
     try{
       this.auth.extenderSesion();
       this.mostrarModal.set(false);
-      this.limpiar_tiempo();
+      this.limpiar_todos_los_tiempos();
       this.iniciarTemporizador()
     }catch (err){
       console.log("error al extender sesion" + err)
@@ -58,6 +86,7 @@ export class ModalInactividad implements OnInit, OnDestroy {
   
   cerrarSesionForzada() {
     try{
+      this.limpiar_todos_los_tiempos();
       this.auth.logout();
       this.mostrarModal.set(false);
     }catch (err) {
