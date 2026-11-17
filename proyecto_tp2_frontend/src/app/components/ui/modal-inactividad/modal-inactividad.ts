@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/authServices';
 
@@ -9,38 +9,30 @@ import { AuthService } from '../../../services/authServices';
   styleUrl: './modal-inactividad.css',
   templateUrl: './modal-inactividad.html',
 })
-export class ModalInactividad {
+export class ModalInactividad implements OnInit, OnDestroy {
   mostrarModal = signal(false);
   private tiempo_inactivo: any;
   private intervalo_inactivo: any;
-  private readonly modal_tiempo_inactivo = 10 * 60 * 1000;
+  private readonly modal_tiempo_limite = 10 * 1000;
 
   private auth = inject(AuthService);
   private router = inject(Router);
 
   ngOnInit() {
     this.iniciarTemporizador();
-    this.registrarEventosActividad();
+    console.log("Tiempo de sesión corriendo");
   }
 
   ngOnDestroy() {
     this.limpiar_tiempo();
-    this.removerEventosActividad();
-  }
-
-  private reiniciarContador = () => {
-  
-    if (this.mostrarModal()) return;
-
-    this.limpiar_tiempo();
-    this.iniciarTemporizador();
+   
   }
 
   private iniciarTemporizador() {
     this.tiempo_inactivo = setTimeout(() => {
       
       this.mostrarModal.set(true);
-    }, this.modal_tiempo_inactivo);
+    }, this.modal_tiempo_limite);
   }
   
   private limpiar_tiempo() {
@@ -49,23 +41,13 @@ export class ModalInactividad {
     }
   }
 
-  private registrarEventosActividad() {
-    window.addEventListener('mousemove', this.reiniciarContador);
-    window.addEventListener('keydown', this.reiniciarContador);
-    window.addEventListener('click', this.reiniciarContador);
-  }
-
-  private removerEventosActividad() {
-    window.removeEventListener('mousemove', this.reiniciarContador);
-    window.removeEventListener('keydown', this.reiniciarContador);
-    window.removeEventListener('click', this.reiniciarContador);
-  }
-
   extenderSesion() {
     try{
       this.auth.extenderSesion();
+      this.limpiar_tiempo();
     }catch (err){
       console.log("error al extender sesion" + err)
+      this.cerrarSesionForzada();
     }
   }
 
@@ -74,10 +56,8 @@ export class ModalInactividad {
     try{
       this.auth.logout();
       this.mostrarModal.set(false);
-    }catch{
-      console.log("error al cerrar sesion ")
+    }catch (err) {
+      console.log("Error al cerrar sesión:", err);
     }
-    
-    
   }
 }
