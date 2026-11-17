@@ -4,9 +4,10 @@ import { Publicaciones } from '../../services/publi/publicaciones';
 import { AuthService } from '../../services/authServices';
 import { RouterLink } from '@angular/router';
 import { PublicacionesInd } from '../../components/ui/publicaciones-ind/publicaciones-ind';
+import { ModalInactividad } from '../../components/ui/modal-inactividad/modal-inactividad';
 
 @Component({
-  imports: [RouterLink, PublicacionesInd],
+  imports: [RouterLink, PublicacionesInd, ModalInactividad],
   selector: 'app-perfil',
   styleUrl: './perfil.css',
   templateUrl: './perfil.html',

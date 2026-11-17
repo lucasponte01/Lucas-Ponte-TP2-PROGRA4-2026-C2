@@ -5,9 +5,10 @@ import { Publicaciones } from '../../services/publi/publicaciones';
 import { Publicacion } from '../../interfaces/publicaciones';
 import { PublicacionesInd } from '../../components/ui/publicaciones-ind/publicaciones-ind';
 import { AuthService } from '../../services/authServices';
+import { ModalInactividad } from '../../components/ui/modal-inactividad/modal-inactividad';
 
 @Component({
-  imports: [ReactiveFormsModule, RouterLink, PublicacionesInd],
+  imports: [ReactiveFormsModule, RouterLink, PublicacionesInd, ModalInactividad],
   selector: 'app-feed',
   styleUrl: './feed.css',
   templateUrl: './feed.html',

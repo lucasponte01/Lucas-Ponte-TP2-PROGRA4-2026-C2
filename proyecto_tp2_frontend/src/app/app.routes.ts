@@ -3,10 +3,9 @@ import { authGuard } from './guards/authGuard';
 
 export const routes: Routes = [
     {
-         path: '',
-        redirectTo: 'login',
-        pathMatch: 'full'
-        
+        path: '',
+        // Apuntamos directo al Splash o componente de carga inicial
+        loadComponent: () => import('../app/components/ui/splash-component/splash-component').then(m => m.SplashComponent),
     },
     {
         path: 'login',

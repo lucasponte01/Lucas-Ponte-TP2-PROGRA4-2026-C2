@@ -18,10 +18,9 @@ export class ModalInactividad implements OnInit, OnDestroy {
   private auth = inject(AuthService);
   private router = inject(Router);
 
-  ngOnInit() {
-    if (this.router.url.includes('/login')) return;
-    this.verificarSesion()
-    
+  ngOnInit() { 
+    console.log("⏱️ Temporizador de sesión iniciado en el panel...");
+    this.iniciarTemporizador();
   }
 
   ngOnDestroy() {
@@ -29,31 +28,13 @@ export class ModalInactividad implements OnInit, OnDestroy {
    
   }
 
-  private verificarSesion() {
-  const token = localStorage.getItem('token');
-  
-  if (token) {
-    console.log("✅ Token encontrado, tiempo de sesión corriendo...");
-    this.iniciarTemporizador();
-  } else {
-    
-    setTimeout(() => {
-      this.verificarSesion();
-    }, 1000);
-  }
-}
-
   private iniciarTemporizador() {
     this.limpiar_tiempo();
-
-    const token = localStorage.getItem('token');
-
-    if (token ) {
-      this.tiempo_inactivo = setTimeout(() => {
-        this.mostrarModal.set(true);
-        console.log("⏰ ¡Tiempo de sesión cumplido!");
-      }, this.modal_tiempo_limite);
-    }
+    
+    this.tiempo_inactivo = setTimeout(() => {
+      this.mostrarModal.set(true);
+      console.log("⏰ ¡Tiempo cumplido, mostrando modal!");
+    }, this.modal_tiempo_limite);
   }
   
   private limpiar_tiempo() {

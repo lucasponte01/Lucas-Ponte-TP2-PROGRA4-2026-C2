@@ -61,8 +61,15 @@ export class AuthService {
     
   }
 
-  verifyToken(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/autorizar`, {});
+  verifyToken(): any {
+    this.http.post(`${this.apiUrl}/autorizar`, {}).subscribe({
+      next: (res: any) => {
+        this.router.navigateByUrl('/feed');
+      },
+      error: (err) => {
+        this.logout();
+      }
+    });
   }
 
   getUserId(): string | null {

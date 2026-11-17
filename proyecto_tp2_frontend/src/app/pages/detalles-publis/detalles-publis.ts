@@ -9,9 +9,10 @@ import { Publicacion } from '../../interfaces/publicaciones';
 import { CampoTextarea } from '../../components/ui/campo-textarea/campo-textarea';
 import { ErrorRequerido } from '../../components/ui/error-requerido/error-requerido';
 import { ErrorMaxlenght } from '../../components/ui/error-maxlenght/error-maxlenght';
+import { ModalInactividad } from '../../components/ui/modal-inactividad/modal-inactividad';
 
 @Component({
-  imports: [ReactiveFormsModule, RouterLink, DatePipe, CampoTextarea, ErrorRequerido, ErrorMaxlenght , CommonModule],
+  imports: [ReactiveFormsModule, RouterLink, DatePipe, CampoTextarea, ErrorRequerido, ErrorMaxlenght, CommonModule, ModalInactividad],
   selector: 'app-detalles-publis',
   styleUrl: './detalles-publis.css',
   templateUrl: './detalles-publis.html',

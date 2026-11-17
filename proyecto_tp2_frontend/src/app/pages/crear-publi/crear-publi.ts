@@ -7,9 +7,10 @@ import { CampoTextarea } from '../../components/ui/campo-textarea/campo-textarea
 import { ErrorRequerido } from '../../components/ui/error-requerido/error-requerido';
 import { ErrorMinlenght } from '../../components/ui/error-minlenght/error-minlenght';
 import { AuthService } from '../../services/authServices';
+import { ModalInactividad } from '../../components/ui/modal-inactividad/modal-inactividad';
 
 @Component({
-  imports: [ReactiveFormsModule, RouterLink, CampoInput, CampoTextarea, ErrorRequerido, ErrorMinlenght],
+  imports: [ReactiveFormsModule, RouterLink, CampoInput, CampoTextarea, ErrorRequerido, ErrorMinlenght, ModalInactividad],
   selector: 'app-crear-publi',
   styleUrl: './crear-publi.css',
   templateUrl: './crear-publi.html',
