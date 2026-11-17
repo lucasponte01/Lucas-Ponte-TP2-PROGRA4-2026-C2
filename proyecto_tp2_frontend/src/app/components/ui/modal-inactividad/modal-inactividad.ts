@@ -45,10 +45,8 @@ export class ModalInactividad implements OnInit, OnDestroy {
   private iniciarTemporizador() {
     this.limpiar_tiempo();
 
-    
     const token = localStorage.getItem('token');
     const esLogin = this.router.url.includes('/login');
-    this.tiempo_inactivo = setTimeout(() => {
       
       if (token && !esLogin) {
       this.tiempo_inactivo = setTimeout(() => {
@@ -56,7 +54,6 @@ export class ModalInactividad implements OnInit, OnDestroy {
         console.log("⏰ ¡Tiempo de sesión cumplido!");
       }, this.modal_tiempo_limite);
     }
-    }, this.modal_tiempo_limite);
   }
   
   private limpiar_tiempo() {
