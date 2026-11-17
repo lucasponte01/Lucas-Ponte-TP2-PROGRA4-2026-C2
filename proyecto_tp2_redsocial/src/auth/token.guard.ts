@@ -13,7 +13,7 @@ export class TokenGuard implements CanActivate {
     const req = context.switchToHttp().getRequest();
     const authheader = req.headers.authorization;
     
-    const token = authheader?.replace("bearer", '');
+    const token = authheader?.replace("Bearer", '');
 
     if (!token || !clave) return false;
 
