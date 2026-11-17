@@ -19,6 +19,7 @@ export class ModalInactividad implements OnInit, OnDestroy {
   private router = inject(Router);
 
   ngOnInit() {
+    if (this.router.url.includes('/login')) return;
     this.verificarSesion()
     
   }
@@ -46,9 +47,8 @@ export class ModalInactividad implements OnInit, OnDestroy {
     this.limpiar_tiempo();
 
     const token = localStorage.getItem('token');
-    const esLogin = this.router.url.includes('/login');
-      
-      if (token && !esLogin) {
+
+    if (token ) {
       this.tiempo_inactivo = setTimeout(() => {
         this.mostrarModal.set(true);
         console.log("⏰ ¡Tiempo de sesión cumplido!");
