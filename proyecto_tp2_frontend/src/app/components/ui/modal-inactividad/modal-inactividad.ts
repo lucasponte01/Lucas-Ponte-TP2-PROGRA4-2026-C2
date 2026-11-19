@@ -14,8 +14,8 @@ export class ModalInactividad implements OnInit, OnDestroy {
   private tiempo_inactivo: any;
   private intervalo_inactivo: any;
   private tiempo_gracia_modal: any;
-  private readonly modal_tiempo_limite = 10 * 60 * 1000;// 10 segundos para pruebas (luego 10 * 60 * 1000)
-  private readonly tiempo_espera_respuesta = 2 * 60 * 1000; // 10 segundos de gracia con el modal abierto (luego poné 2 * 60 * 1000 para 2 min)
+  private readonly modal_tiempo_limite = 90 * 1000;// 10 segundos para pruebas (luego 10 * 60 * 1000)
+  private readonly tiempo_espera_respuesta = 30 * 1000; // 10 segundos de gracia con el modal abierto (luego poné 2 * 60 * 1000 para 2 min)
 
   private auth = inject(AuthService);
   private router = inject(Router);
