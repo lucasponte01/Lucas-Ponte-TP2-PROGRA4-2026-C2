@@ -1,0 +1,22 @@
+{
+  "name": "Bloop",
+  "short_name": "Bloop",
+  "description": "Red social y muro de publicaciones Bloop",
+  "theme_color": "#59124D",
+  "background_color": "#1a0517",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "assets/logo_bloop-removebg-preview.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/logo_bloop-removebg-preview.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
