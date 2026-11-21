@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../../services/authServices';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [],
@@ -12,22 +12,26 @@ import { AuthService } from '../../../services/authServices';
 export class ModalInactividad implements OnInit, OnDestroy {
   mostrarModal = signal(false);
   private tiempo_inactivo: any;
-  private intervalo_inactivo: any;
   private tiempo_gracia_modal: any;
-  private readonly modal_tiempo_limite = 90 * 1000;// 10 segundos para pruebas (luego 10 * 60 * 1000)
-  private readonly tiempo_espera_respuesta = 30 * 1000; // 10 segundos de gracia con el modal abierto (luego poné 2 * 60 * 1000 para 2 min)
+  private intervalo_token: any;
+  private readonly modal_tiempo_limite = 90 * 1000;// 10 * 60 * 1000
+  private readonly tiempo_espera_respuesta = 30 * 1000; //  2 * 60 * 1000 
 
   private auth = inject(AuthService);
-  private router = inject(Router);
+  private root = inject(Router)
 
   ngOnInit() { 
     console.log("⏱️ Temporizador de sesión iniciado en el panel...");
     this.iniciarTemporizador();
+    this.monitorTokenLocal()
   }
 
   ngOnDestroy() {
     this.limpiar_tiempo();
-   
+    if (this.intervalo_token) {
+      clearInterval(this.intervalo_token);
+      this.intervalo_token = null;
+    }
   }
 
   private iniciarTemporizador() {
@@ -51,7 +55,7 @@ export class ModalInactividad implements OnInit, OnDestroy {
     }
 
     this.tiempo_gracia_modal = setTimeout(() => {
-      // Si el modal sigue abierto porque el usuario no hizo nada, cerramos sesión por fuerza
+      
       if (this.mostrarModal()) {
         console.log("🛑 Tiempo de gracia agotado sin respuesta. Cerrando sesión automáticamente...");
         this.cerrarSesionForzada();
@@ -68,6 +72,25 @@ export class ModalInactividad implements OnInit, OnDestroy {
       clearTimeout(this.tiempo_gracia_modal);
       this.tiempo_gracia_modal = null;
     }
+  }
+
+  private monitorTokenLocal() {
+    if (this.intervalo_token) {
+      clearInterval(this.intervalo_token);
+    }
+
+    this.intervalo_token = setInterval(() => {
+      const token = localStorage.getItem('token');
+      const enRutaPublica =
+        this.root.url.includes('/login') ||
+        this.root.url.includes('/registro') ||
+        this.root.url === '/';
+
+      if (!token && !enRutaPublica) {
+        
+        this.cerrarSesionForzada();
+      }
+    }, 1500);
   }
 
 

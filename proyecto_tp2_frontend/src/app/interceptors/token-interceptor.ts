@@ -24,9 +24,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.status === 401) {
         console.warn("Sesión expirada o no autorizada. Limpiando credenciales...");
         
-        
         localStorage.clear();
-        
        
         router.navigateByUrl('/login');
       }
