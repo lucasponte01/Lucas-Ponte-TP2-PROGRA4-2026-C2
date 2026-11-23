@@ -2,9 +2,11 @@ import { Component, EventEmitter, Input, input, Output, output } from '@angular/
 import { Publicacion } from '../../../interfaces/publicaciones';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TiempoRelativoPipe } from '../pipe/tiempo-relativo-pipe';
+import { TexoLargoPipe } from '../pipe/pipe-texto-largo-pipe';
 
 @Component({
-  imports: [DatePipe , RouterLink],
+  imports: [ RouterLink , TiempoRelativoPipe , TexoLargoPipe],
   selector: 'app-publicaciones-ind',
   styleUrl: './publicaciones-ind.css',
   templateUrl: './publicaciones-ind.html',

@@ -13,13 +13,13 @@ mensaje!: string;
 @Prop()
 imagen?: string;
 
-@Prop({ type: Types.ObjectId, ref: 'User', required: false })
+@Prop({ type: Types.ObjectId, ref: 'Usuario', required: false })
   usuario?: Types.ObjectId;
 
 @Prop({ default: 0 })
   likesCount!: number;
 
-@Prop({ type: [{ type: Types.ObjectId, ref: 'User' }], default: [] })
+@Prop({ type: [{ type: Types.ObjectId, ref: 'Usuario' }], default: [] })
   likes!: Types.ObjectId[];
 
 @Prop({ default: true })

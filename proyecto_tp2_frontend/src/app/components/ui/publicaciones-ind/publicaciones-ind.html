@@ -2,8 +2,8 @@
 
   <div class="publi-body">
     <h3 class="publi-titulo">{{ publi.titulo }}</h3>
-    <p class="publi-mensaje">{{ publi.mensaje }}</p>
-    <p class="publi-mensaje">{{ publi.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+    <p class="publi-mensaje">{{ publi.mensaje | textoLargo}}</p>
+    <p class="publi-mensaje">{{ publi.createdAt | tiempoRelativo }}</p>
   </div>
 
   @if (publi.imagen) {

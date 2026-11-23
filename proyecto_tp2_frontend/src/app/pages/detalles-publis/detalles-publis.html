@@ -25,11 +25,12 @@
     @if (publicacion(); as pub) {
     <div class="publi-card-grande">
       <h2>{{ pub.titulo }}</h2>
+      <p>{{ pub.usuario?.nombreUsuario | arrobaNombre }}</p>
       @if (pub.imagen) {
         <img [src]="pub.imagen" alt="Imagen de la publicación" class="publi-img-grande">
       }
       <p class="publi-mensaje">{{ pub.mensaje }}</p>
-      <span class="publi-fecha">{{ pub.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+      <span class="publi-fecha">{{ pub.createdAt | tiempoRelativo }}</span>
     </div>
   }
 

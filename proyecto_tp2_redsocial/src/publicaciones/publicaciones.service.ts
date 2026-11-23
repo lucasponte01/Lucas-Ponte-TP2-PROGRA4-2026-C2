@@ -51,6 +51,7 @@ export class PublicacionesService {
 
     return this.publiModel
       .find(filtro)
+      .populate('usuario', 'nombreUsuario')
       .sort(sortCriteria)
       .skip(offsetNum)
       .limit(limitNum)
@@ -109,7 +110,7 @@ export class PublicacionesService {
   
 
   findOne(id: string) {
-    return this.publiModel.findById(id);
+    return this.publiModel.findById(id).populate('usuario', 'nombreUsuario');
   }
 
   update(id: string, updatePublicacioneDto: UpdatePublicacioneDto) {

@@ -3,6 +3,7 @@ export interface Publicacion {
   titulo: string;
   mensaje: string;
   imagen?: string;
+  usuario:{nombreUsuario:string};
   likesCount?: number;   
   likes?: string[];     
   activo?: boolean;

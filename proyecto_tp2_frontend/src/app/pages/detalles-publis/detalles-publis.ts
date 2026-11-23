@@ -10,9 +10,11 @@ import { CampoTextarea } from '../../components/ui/campo-textarea/campo-textarea
 import { ErrorRequerido } from '../../components/ui/error-requerido/error-requerido';
 import { ErrorMaxlenght } from '../../components/ui/error-maxlenght/error-maxlenght';
 import { ModalInactividad } from '../../components/ui/modal-inactividad/modal-inactividad';
+import { TiempoRelativoPipe } from '../../components/ui/pipe/tiempo-relativo-pipe';
+import { ArrobaNombrePipe } from '../../components/ui/pipe/arroba-nombre-pipe';
 
 @Component({
-  imports: [ReactiveFormsModule, RouterLink, DatePipe, CampoTextarea, ErrorRequerido, ErrorMaxlenght, CommonModule, ModalInactividad],
+  imports: [TiempoRelativoPipe , ReactiveFormsModule, RouterLink, DatePipe, CampoTextarea, ErrorRequerido, ErrorMaxlenght, CommonModule, ModalInactividad , ArrobaNombrePipe],
   selector: 'app-detalles-publis',
   styleUrl: './detalles-publis.css',
   templateUrl: './detalles-publis.html',
