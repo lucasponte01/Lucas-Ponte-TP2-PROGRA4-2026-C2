@@ -125,7 +125,7 @@ ngOnInit(): void {
 
   //parte admin 
   baja_publi_admin(id: string){
-      this.publi_services.admin_baja(id).subscribe({
+      this.admin_service.admin_baja(id).subscribe({
       next: () => {
         this.cargarFeed();
       },
@@ -136,7 +136,7 @@ ngOnInit(): void {
     });
   }
   alta_publi_admin(id: string) {
-    this.publi_services.admin_baja(id).subscribe({
+    this.admin_service.admin_baja(id).subscribe({
       next: () => {
         this.cargarFeed();
       },
