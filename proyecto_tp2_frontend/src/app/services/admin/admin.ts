@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 
 @Service()
-export class Publicaciones {
+export class admin {
     private http = inject(HttpClient);
     private authService = inject(AuthService);
     private apiUrl = `${environment.API_URL}/admin`;

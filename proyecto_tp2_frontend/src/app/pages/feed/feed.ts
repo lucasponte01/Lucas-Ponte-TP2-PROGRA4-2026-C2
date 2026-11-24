@@ -6,6 +6,7 @@ import { Publicacion } from '../../interfaces/publicaciones';
 import { PublicacionesInd } from '../../components/ui/publicaciones-ind/publicaciones-ind';
 import { AuthService } from '../../services/authServices';
 import { ModalInactividad } from '../../components/ui/modal-inactividad/modal-inactividad';
+import { admin } from '../../services/admin/admin';
 
 @Component({
   imports: [ReactiveFormsModule, RouterLink, PublicacionesInd, ModalInactividad],
@@ -17,6 +18,7 @@ export class Feed implements OnInit{
   error = signal("");
   
   publi_services = inject(Publicaciones);
+  admin_service =inject(admin)
   publicaciones = signal<Publicacion[]>([]);
   private authService = inject(AuthService);
   currentSort = signal(''); 
