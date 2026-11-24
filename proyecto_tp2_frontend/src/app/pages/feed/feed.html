@@ -62,7 +62,7 @@
       </div>
 
       <nav class="bloop-nav-links">
-        <a routerLink="/dashboard/usuarios" class="nav-link">Usuarios</a>
+        <a routerLink="/usuarios_admin" class="nav-link">Usuarios</a>
         <button (click)="cerrarsesion()" class="nav-link">Cerrar Sesion</button>
       </nav>
     </header>
@@ -85,7 +85,7 @@
             [publi]="publi"
             (like)="darLike($event)">
           </app-publicaciones-ind>
-
+          <!--
           <div class="admin-actions">
             @if (publi._id; as publiId) {
               <button
@@ -102,7 +102,8 @@
                 Dar de alta
               </button>
             }
-          </div>
+              
+          </div>-->
         </div>
       }
 

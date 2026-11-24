@@ -68,7 +68,7 @@ export class AuthService {
         if (user.activo === false) {
             throw new UnauthorizedException('Tu cuenta está deshabilitada. Contactá a un administrador.');
         }
-        const token = this.generartoken(user.nombreUsuario);
+        const token = this.generartoken(user.nombreUsuario , user.perfil);
         return {
             message: 'Login exitoso',
             access_token: token, 
@@ -82,10 +82,11 @@ export class AuthService {
         };
     }
 
-    generartoken(user: string) {
+    generartoken(user: string , perfil: string = 'usuario') {
         const clave = process.env.JWT_SECRET || 'clave_secreta_por_defecto';
         const payload = {
             user,
+            perfil,
             iat: Math.floor(Date.now() / 1000),
             exp: Math.floor(Date.now() / 1000) + 60 * 15, 
         };
@@ -104,7 +105,9 @@ export class AuthService {
     }
 
     async refrescarToken(nombreUsuario: string) {
-        const token = this.generartoken(nombreUsuario);
+        const user = await this.usermodel.findOne({ nombreUsuario }).exec();
+        const perfil = user?.perfil || 'usuario';
+        const token = this.generartoken(nombreUsuario, perfil);
         return {
             message: 'Token refrescado exitosamente',
             access_token: token,

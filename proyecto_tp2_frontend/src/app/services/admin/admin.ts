@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject, Service } from "@angular/core";
 import { AuthService } from "../authServices";
 import { environment } from "../../enviroments/environments";
@@ -7,27 +7,29 @@ import { Observable } from "rxjs";
 
 @Service()
 export class admin {
-    private http = inject(HttpClient);
-    private authService = inject(AuthService);
-    private apiUrl = `${environment.API_URL}/admin`;
-    private router = inject(Router);
+  private http = inject(HttpClient);
+  private apiUrl = `${environment.API_URL}/admin`;
 
-
-//parte admin 
-  admin_baja(id: string): Observable<any> {
-    const userId = this.authService.obtener_usuario();
-    const token = localStorage.getItem('token');
-  return this.http.request('delete', `${this.apiUrl}/${id}`,{body: { userId, esAdmin: true} , headers: {
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token') || '';
+    return new HttpHeaders({
       Authorization: `Bearer ${token}`,
-    },});
-}
+    });
+  }
 
+  listarUsuarios(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl, { headers: this.getHeaders() });
+  }
 
-  admin_alta(id: string): Observable<any> {
-    const userId = this.authService.obtener_usuario();
-    const token = localStorage.getItem('token');
-    return this.http.post(`${this.apiUrl}/${id}/alta`, {body: { userId, esAdmin: true },headers: {
-      Authorization: `Bearer ${token}`,
-    },});
+  crearUsuario(formData: FormData): Observable<any> {
+    return this.http.post(this.apiUrl, formData, { headers: this.getHeaders() });
+  }
+
+  deshabilitarUsuario(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
+  }
+
+  rehabilitarUsuario(id: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${id}/alta`, {}, { headers: this.getHeaders() });
   }
 }

@@ -16,12 +16,17 @@ export class TokenGuard implements CanActivate {
     const token = authheader?.replace(/bearer/i, '').trim();
 
     try {
-      const valido: any = jwt.verify(token, clave); 
-      
-      req.body = req.body || {};
-      req.body.user = valido.user; 
+      const valido: any = jwt.verify(token, clave);
 
-      return true;
+        req.user = {
+          nombreUsuario: valido.user,
+          perfil: valido.perfil,
+        };
+
+        req.body = req.body || {};
+        req.body.user = valido.user;
+
+        return true;
     } catch (err) {
       throw new UnauthorizedException('Token inválido o expirado');
     }

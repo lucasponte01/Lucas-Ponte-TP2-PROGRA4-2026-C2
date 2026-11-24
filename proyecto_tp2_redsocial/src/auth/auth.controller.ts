@@ -46,12 +46,12 @@ export class AuthController {
 
   @UseGuards(TokenGuard)
   @Post('refrescar')
-  refrescar(@Req() req: any) {
+  async refrescar(@Req() req: any) {
     
     const nombreUsuario = req.body.user;
     
     
-    return this.authService.refrescarToken(nombreUsuario);
+    return await this.authService.refrescarToken(nombreUsuario);
   }
 }
 
