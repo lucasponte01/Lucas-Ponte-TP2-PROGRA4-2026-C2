@@ -16,12 +16,18 @@ export class admin {
 //parte admin 
   admin_baja(id: string): Observable<any> {
     const userId = this.authService.obtener_usuario();
-  return this.http.request('delete', `${this.apiUrl}/${id}`,{body: { userId, esAdmin: true }});
+    const token = localStorage.getItem('token');
+  return this.http.request('delete', `${this.apiUrl}/${id}`,{body: { userId, esAdmin: true} , headers: {
+      Authorization: `Bearer ${token}`,
+    },});
 }
 
 
   admin_alta(id: string): Observable<any> {
     const userId = this.authService.obtener_usuario();
-    return this.http.post(`${this.apiUrl}/${id}/alta`, {body: { userId, esAdmin: true }});
+    const token = localStorage.getItem('token');
+    return this.http.post(`${this.apiUrl}/${id}/alta`, {body: { userId, esAdmin: true },headers: {
+      Authorization: `Bearer ${token}`,
+    },});
   }
 }
