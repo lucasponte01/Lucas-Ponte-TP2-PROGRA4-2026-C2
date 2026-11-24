@@ -15,9 +15,6 @@ export class TokenGuard implements CanActivate {
     
     const token = authheader?.replace(/bearer/i, '').trim();
 
-    if (!token || !token.toLowerCase().startsWith('bearer ')) {
-      throw new UnauthorizedException('Token no proporcionado');
-    }
 
     try {
       const valido: any = jwt.verify(token, clave); 

@@ -40,6 +40,7 @@ export class AuthService {
         localStorage.setItem('descripcionBreve', data.descripcionBreve || '');
         localStorage.setItem('fechaNacimiento', data.fechaNacimiento || '');
         localStorage.setItem('imagenPerfil', data.imagenPerfil || '');
+        localStorage.setItem('perfil', data.perfil || user.perfil || 'usuario');
         
         console.log("Sesión guardada correctamente:", user);
         this.router.navigateByUrl('/feed');
@@ -99,6 +100,7 @@ export class AuthService {
     localStorage.removeItem('descripcionBreve');
     localStorage.removeItem('fechaNacimiento');
     localStorage.removeItem('imagenPerfil');
+    localStorage.removeItem('perfil');
     console.log("🚀 Redirigiendo al login...");
     this.router.navigateByUrl('/login');
   }
