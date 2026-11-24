@@ -15,7 +15,6 @@ export class TokenGuard implements CanActivate {
     
     const token = authheader?.replace(/bearer/i, '').trim();
 
-
     try {
       const valido: any = jwt.verify(token, clave); 
       
