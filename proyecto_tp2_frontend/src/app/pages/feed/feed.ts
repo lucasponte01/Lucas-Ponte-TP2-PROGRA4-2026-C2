@@ -27,7 +27,7 @@ export class Feed implements OnInit{
   
   hasMore = signal(false);
 
-  vistaActiva = signal<'usuario' | 'usuarios' | 'admin' | 'admin_usuarios' | 'estadisticas'>('usuario');
+  vistaActiva = signal<'usuario' | 'admin'>('usuario');
   esAdmin = computed(() => localStorage.getItem('perfil') === 'administrador');
 
 ngOnInit(): void {
@@ -36,9 +36,9 @@ ngOnInit(): void {
   this.cargarFeed();
 }
 
-  cambiarVista(vista: 'usuarios' |'admin' | 'admin_usuarios' | 'estadisticas') {
+  cambiarVista(vista: 'usuario' |'admin' ) {
     this.vistaActiva.set(vista);
-    if (vista === 'usuarios') {
+    if (vista === 'usuario') {
       this.cargarFeed();
     }
   }
