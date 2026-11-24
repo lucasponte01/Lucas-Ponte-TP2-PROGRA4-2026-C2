@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Publicaciones } from '../../services/publi/publicaciones';
@@ -27,8 +27,20 @@ export class Feed implements OnInit{
   
   hasMore = signal(false);
 
+  vistaActiva = signal<'usuario' | 'usuarios' | 'admin' | 'admin_usuarios' | 'estadisticas'>('usuario');
+  esAdmin = computed(() => localStorage.getItem('perfil') === 'administrador');
+
 ngOnInit(): void {
-    this.cargarFeed();
+  const perfil = localStorage.getItem('perfil'); 
+  this.vistaActiva.set(perfil === 'administrador' ? 'admin' : 'usuario');
+  this.cargarFeed();
+}
+
+  cambiarVista(vista: 'usuarios' |'admin' | 'admin_usuarios' | 'estadisticas') {
+    this.vistaActiva.set(vista);
+    if (vista === 'usuarios') {
+      this.cargarFeed();
+    }
   }
 
   cargarFeed() {
@@ -107,5 +119,29 @@ ngOnInit(): void {
 
   cerrarsesion(){
     this.authService.logout()
+  }
+
+  //parte admin 
+  baja_publi_admin(id: string){
+      this.publi_services.admin_baja(id).subscribe({
+      next: () => {
+        this.cargarFeed();
+      },
+      error: (error) => {
+        this.error.set(
+          'Error al dar de baja la publicación: ' + (error.error?.message || error.message),);
+        },
+    });
+  }
+  alta_publi_admin(id: string) {
+    this.publi_services.admin_baja(id).subscribe({
+      next: () => {
+        this.cargarFeed();
+      },
+      error: (error) => {
+        this.error.set(
+          'Error al dar de alta la publicación: ' + (error.error?.message || error.message),);
+      },
+    });
   }
 }

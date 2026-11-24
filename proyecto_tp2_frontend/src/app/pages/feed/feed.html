@@ -1,57 +1,123 @@
 <app-modal-inactividad></app-modal-inactividad>
-<header class="bloop-navbar">
-  <div class="bloop-logo">
-    <a routerLink="/feed">
-      <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
-    </a>
-  </div>
 
-  <nav class="bloop-nav-links">
-    <a routerLink="/crear-publicacion" class="nav-link">Crear Publi</a>
-    <a routerLink="/perfil" class="nav-link">Mi Perfil</a>
-    <button (click)="cerrarsesion()" class="nav-link">Cerrar Sesion</button>
-    
-  </nav>
-</header>
 
-<!-- Contenedor Principal -->
-<main class="feed-container">
-  
-  <!-- Cabecera de la sección -->
-  <div class="feed-header">
-    <h1 class="feed-title">Muro de Publicaciones</h1>
-    
-    <div class="feed-controls">
-      <select (change)="cambiarOrden($event)" class="feed-select-orden">
-        <option value="fecha">Más recientes (Fecha)</option>
-        <option value="likes">Con más likes</option>
-      </select>
-      
-      <a routerLink="/crear-publicacion" class="btn-crear-publi"><i class="bi bi-plus-lg"></i></a>
-    </div>
-  </div>
 
-  
-  
-    @for (publi of publicaciones(); track publi._id) {
-      <app-publicaciones-ind [publi]="publi" (like)="darLike($event)" (delete)="eliminarPublicacion($event)"></app-publicaciones-ind>
-    }
-  
+@switch (vistaActiva()) {
 
-  
-  <div class="pagination-container">
-    <button (click)="paginaAnterior()" [disabled]="currentPage === 0" class="btn-pagination">
-      <i class="bi bi-arrow-left"></i>
-    </button>
+  @case ('usuario') {
+    <header class="bloop-navbar">
+      <div class="bloop-logo">
+        <a routerLink="/feed">
+          <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
+        </a>
+      </div>
 
-    <span class="pagination-info">Página {{ currentPage + 1 }}</span>
-    
-    
-      <button (click)="paginaSiguiente()" [disabled]="" class="btn-pagination">
-        <i class="bi bi-arrow-right"></i>
-      </button>
-    
-    
-  </div>
+      <nav class="bloop-nav-links">
+        <a routerLink="/crear-publicacion" class="nav-link">Crear Publi</a>
+        <a routerLink="/perfil" class="nav-link">Mi Perfil</a>
+        <button (click)="cerrarsesion()" class="nav-link">Cerrar Sesion</button>
+      </nav>
+    </header>
 
-</main>
+    <main class="feed-container">
+      <div class="feed-header">
+        <h1 class="feed-title">Muro de Publicaciones</h1>
+
+        <div class="feed-controls">
+          <select (change)="cambiarOrden($event)" class="feed-select-orden">
+            <option value="fecha">Más recientes (Fecha)</option>
+            <option value="likes">Con más likes</option>
+          </select>
+
+          <a routerLink="/crear-publicacion" class="btn-crear-publi">
+            <i class="bi bi-plus-lg"></i>
+          </a>
+        </div>
+      </div>
+
+      @for (publi of publicaciones(); track publi._id) {
+        <app-publicaciones-ind [publi]="publi" (like)="darLike($event)" (delete)="eliminarPublicacion($event)"></app-publicaciones-ind>
+      }
+
+      <div class="pagination-container">
+        <button (click)="paginaAnterior()" [disabled]="currentPage === 0" class="btn-pagination">
+          <i class="bi bi-arrow-left"></i>
+        </button>
+
+        <span class="pagination-info">Página {{ currentPage + 1 }}</span>
+
+        <button (click)="paginaSiguiente()" [disabled]="!hasMore()" class="btn-pagination">
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </main>
+  }
+
+  @case ('admin') {
+    <header class="bloop-navbar">
+      <div class="bloop-logo">
+        <a routerLink="/feed">
+          <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
+        </a>
+      </div>
+
+      <nav class="bloop-nav-links">
+        <a routerLink="/dashboard/usuarios" class="nav-link">Usuarios</a>
+        <button (click)="cerrarsesion()" class="nav-link">Cerrar Sesion</button>
+      </nav>
+    </header>
+
+    <main class="feed-container">
+      <div class="feed-header">
+        <h1 class="feed-title">Moderación de Publicaciones</h1>
+
+        <div class="feed-controls">
+          <select (change)="cambiarOrden($event)" class="feed-select-orden">
+            <option value="fecha">Más recientes (Fecha)</option>
+            <option value="likes">Con más likes</option>
+          </select>
+        </div>
+      </div>
+
+      @for (publi of publicaciones(); track publi._id) {
+        <div class="admin-publi-wrapper">
+          <app-publicaciones-ind
+            [publi]="publi"
+            (like)="darLike($event)">
+          </app-publicaciones-ind>
+
+          <div class="admin-actions">
+            @if (publi._id; as publiId) {
+              <button
+                type="button"
+                class="btn-baja"
+                (click)="baja_publi_admin(publiId)">
+                Dar de baja
+              </button>
+
+              <button
+                type="button"
+                class="btn-alta"
+                (click)="alta_publi_admin(publiId)">
+                Dar de alta
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      <div class="pagination-container">
+        <button (click)="paginaAnterior()" [disabled]="currentPage === 0" class="btn-pagination">
+          <i class="bi bi-arrow-left"></i>
+        </button>
+
+        <span class="pagination-info">Página {{ currentPage + 1 }}</span>
+
+        <button (click)="paginaSiguiente()" [disabled]="!hasMore()" class="btn-pagination">
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </main>
+  }
+
+}

@@ -4,9 +4,10 @@ import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TiempoRelativoPipe } from '../pipe/tiempo-relativo-pipe';
 import { TexoLargoPipe } from '../pipe/pipe-texto-largo-pipe';
+import { ArrobaNombrePipe } from '../pipe/arroba-nombre-pipe';
 
 @Component({
-  imports: [ RouterLink , TiempoRelativoPipe , TexoLargoPipe],
+  imports: [ RouterLink , TiempoRelativoPipe , TexoLargoPipe , ArrobaNombrePipe],
   selector: 'app-publicaciones-ind',
   styleUrl: './publicaciones-ind.css',
   templateUrl: './publicaciones-ind.html',

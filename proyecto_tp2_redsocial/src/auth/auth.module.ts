@@ -8,5 +8,6 @@ import { CloudinaryService } from '../auth/cloudinary-service.js';
   imports:[UsuariosModule ],
   controllers: [AuthController],
   providers: [AuthService , CloudinaryService],
+  exports: [AuthService]
 })
 export class AuthModule {}

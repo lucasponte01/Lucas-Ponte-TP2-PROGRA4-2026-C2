@@ -42,6 +42,7 @@ export class AuthService {
             descripcionBreve,
             imagenPerfil: imagen_url,
             perfil: 'usuario', 
+            activo: true,
         });
         await newUser.save();
         const token = this.generartoken(nombreUsuario);
@@ -63,6 +64,10 @@ export class AuthService {
         if (!isPasswordValid) {
             throw new UnauthorizedException('Credenciales inválidas');
         }
+
+        if (user.activo === false) {
+            throw new UnauthorizedException('Tu cuenta está deshabilitada. Contactá a un administrador.');
+        }
         const token = this.generartoken(user.nombreUsuario);
         return {
             message: 'Login exitoso',
@@ -72,7 +77,8 @@ export class AuthService {
             correo: user.correo,
             descripcionBreve: user.descripcionBreve || '',
             fechaNacimiento: user.fechaNacimiento || '',
-            imagenPerfil: user.imagenPerfil 
+            imagenPerfil: user.imagenPerfil ,
+            perfil: user.perfil,
         };
     }
 

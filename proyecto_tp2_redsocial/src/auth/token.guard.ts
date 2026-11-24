@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import jwt from 'jsonwebtoken';
 import { Observable } from 'rxjs';
 
@@ -15,20 +15,19 @@ export class TokenGuard implements CanActivate {
     
     const token = authheader?.replace(/bearer/i, '').trim();
 
-    if (!token || !clave) return false;
+    if (!token || !token.toLowerCase().startsWith('bearer ')) {
+      throw new UnauthorizedException('Token no proporcionado');
+    }
 
     try {
-      
       const valido: any = jwt.verify(token, clave); 
-
       
       req.body = req.body || {};
       req.body.user = valido.user; 
 
       return true;
     } catch (err) {
-      console.log('Error al verificar token:', err);
-      return false;
+      throw new UnauthorizedException('Token inválido o expirado');
     }
   }
 }

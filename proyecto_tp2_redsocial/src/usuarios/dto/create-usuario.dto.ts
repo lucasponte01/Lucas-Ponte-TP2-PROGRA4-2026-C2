@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString, Matches, MinLength } from "class-validator";
+import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString, Matches, MinLength } from "class-validator";
 
 
 export class CreateUsuarioDto {
@@ -39,4 +39,8 @@ export class CreateUsuarioDto {
   @IsOptional()
   @IsString()
   perfil?: string;
+  
+  @IsOptional()
+  @IsBoolean()
+  activo?: boolean;
 }

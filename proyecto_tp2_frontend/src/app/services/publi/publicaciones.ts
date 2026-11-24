@@ -72,5 +72,15 @@ export class Publicaciones {
   eliminarPublicacion(id: string, userId: string, esAdmin: boolean = false): Observable<any> {
       return this.http.request('delete', `${this.apiUrl}/${id}`, { body: { userId, esAdmin } });
     }
+
+  //parte admin 
+  admin_baja(id: string): Observable<any> {
+  return this.http.request('delete', `${this.apiUrl}/admin/${id}`);
+}
+
+
+  admin_alta(id: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/admin/${id}/alta`, {});
+  }
 }
 
