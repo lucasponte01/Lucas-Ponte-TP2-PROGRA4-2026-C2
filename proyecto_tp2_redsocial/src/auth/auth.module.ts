@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AuthService } from './auth.service.js';
 import { AuthController } from './auth.controller.js';
 import { UsuariosModule } from '../usuarios/usuarios.module.js';
 import { CloudinaryService } from '../auth/cloudinary-service.js';
 
 @Module({
-  imports:[UsuariosModule ],
+  imports:[forwardRef(() => UsuariosModule) ],
   controllers: [AuthController],
   providers: [AuthService , CloudinaryService],
   exports: [AuthService]

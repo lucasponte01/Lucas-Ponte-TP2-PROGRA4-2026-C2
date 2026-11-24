@@ -7,7 +7,7 @@ import { UserSchema, Usuario, } from './entities/usuario.entity.js';
 import { AuthModule } from '../auth/auth.module.js';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Usuario.name, schema: UserSchema }]) ,AuthModule],
+  imports: [MongooseModule.forFeature([{ name: Usuario.name, schema: UserSchema }]) ,forwardRef(() => AuthModule)],
   controllers: [UsuariosController],
   providers: [UsuariosService],
   exports: [MongooseModule]
