@@ -33,9 +33,14 @@ export class Feed implements OnInit{
   esAdmin = computed(() => localStorage.getItem('perfil') === 'administrador');
 
 ngOnInit(): void {
-  const perfil = localStorage.getItem('perfil'); 
-  this.vistaActiva.set(perfil === 'administrador' ? 'admin' : 'usuario');
-  this.cargarFeedUsuario();
+  const perfil = localStorage.getItem('perfil');
+  if (perfil === 'administrador') {
+    this.vistaActiva.set('admin');
+    this.cargarFeedAdmin();
+  } else {
+    this.vistaActiva.set('usuario');
+    this.cargarFeedUsuario();
+  }
 }
 
   cambiarVista(vista: 'usuario' |'admin' ) {
