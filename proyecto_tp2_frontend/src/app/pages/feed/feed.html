@@ -80,7 +80,7 @@
       </div>
 
       @for (publi of publicaciones(); track publi._id) {
-        <div class="admin-publi-wrapper">
+        
           <app-publicaciones-ind
             [publi]="publi"
             (like)="darLike($event)">
@@ -104,7 +104,7 @@
             }
               
           </div>-->
-        </div>
+       
       }
 
       <div class="pagination-container">

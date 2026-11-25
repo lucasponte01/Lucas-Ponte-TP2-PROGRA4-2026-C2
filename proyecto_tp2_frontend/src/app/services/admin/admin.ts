@@ -9,9 +9,14 @@ import { Observable } from "rxjs";
 export class admin {
   private http = inject(HttpClient);
   private apiUrl = `${environment.API_URL}/admin`;
+  private root = inject(Router)
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token') || '';
+
+    if(!token){
+      this.root.navigate(['/login'])
+    }
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
@@ -31,5 +36,9 @@ export class admin {
 
   rehabilitarUsuario(id: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/${id}/alta`, {}, { headers: this.getHeaders() });
+  }
+
+  actualizar_usuario(id:string , usuario:any): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${id}` ,{id,usuario})
   }
 }

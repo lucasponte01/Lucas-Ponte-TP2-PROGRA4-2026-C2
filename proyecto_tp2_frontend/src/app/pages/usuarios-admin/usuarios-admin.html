@@ -1,37 +1,34 @@
 <header class="bloop-navbar">
-  <div class="bloop-logo">
-    <a routerLink="/feed">
-      <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
-    </a>
-  </div>
+    <div class="bloop-logo">
+        <a routerLink="/feed">
+        <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
+        </a>
+    </div>
 
-  <nav class="bloop-nav-links">
-    <a routerLink="/feed" class="nav-link">Publicaciones</a>
-    <button type="button" (click)="cerrarSesion()" class="nav-link">Cerrar Sesión</button>
-  </nav>
+    <nav class="bloop-nav-links">
+        <a routerLink="/feed" class="nav-link">Publicaciones</a>
+        <button type="button" (click)="cerrarSesion()" class="nav-link">Cerrar Sesión</button>
+    </nav>
+
+
+    <nav class="navbar navbar-menu">
+    <button type="button" class="btn_nav" [class.activo]="vistaActiva() === 'listado'" (click)="cambiarVista('listado')">
+        Listado
+    </button>
+    <button type="button" class="btn_nav" [class.activo]="vistaActiva() === 'crear'" (click)="cambiarVista('crear')">
+        Crear
+    </button>
+    <button type="button" class="btn_nav" [class.activo]="vistaActiva() === 'modificar'" (click)="cambiarVista('modificar')">
+        Modificar
+    </button>
+    
+    </nav>
 </header>
-
-<nav class="navbar navbar-menu">
-  <button type="button" class="btn_nav" [class.activo]="vistaActiva() === 'listado'" (click)="cambiarVista('listado')">
-    Listado
-  </button>
-  <button type="button" class="btn_nav" [class.activo]="vistaActiva() === 'crear'" (click)="cambiarVista('crear')">
-    Crear
-  </button>
-  <button type="button" class="btn_nav" [class.activo]="vistaActiva() === 'modificar'" (click)="cambiarVista('modificar')">
-    Modificar
-  </button>
-  <button type="button" class="btn_nav" [class.activo]="vistaActiva() === 'estado'" (click)="cambiarVista('estado')">
-    Alta / Baja
-  </button>
-</nav>
 
 <main class="main-content">
   @if (error()) {
     <div class="alerta alerta-error">{{ error() }}</div>
   }
-
-
   @switch (vistaActiva()) {
 
     @case ('listado') {
@@ -44,7 +41,7 @@
                 <div class="usuario-item" [class.inactivo]="!u.activo">
                   <div class="usuario-resumen">
                     <span class="usuario-nombre">
-                      {{ $index + 1 }}. {{ u.nombre }} {{ u.apellido }} (&#64;{{ u.nombreUsuario }})
+                      {{ $index + 1 }}. {{ u.nombre }} {{ u.apellido }} ({{ u.nombreUsuario | arrobaNombre}})
                     </span>
                     <span class="usuario-meta">
                       {{ u.correo }} · <strong>{{ u.perfil }}</strong> ·
@@ -81,55 +78,61 @@
 
         <form [formGroup]="usuarioForm_crear" (ngSubmit)="crearUsuario()" class="form-grid">
           <div class="input-grupo-col">
-            <label for="crear_nombre">Nombre *</label>
-            <input id="crear_nombre" type="text" formControlName="nombre" class="input" placeholder="Nombre">
-            @if (usuarioForm_crear.controls.nombre.touched && usuarioForm_crear.controls.nombre.invalid) {
-              <p class="error-texto">El nombre es obligatorio.</p>
-            }
+            <app-campo-input label="nombre" id="nombre" type="text" [control]="usuarioForm_crear.controls.nombre">
+                <app-error-requerido mensaje="El Nombre es requerido" [errors]="usuarioForm_crear.controls.nombre.errors"></app-error-requerido>      
+            </app-campo-input>
           </div>
 
           <div class="input-grupo-col">
-            <label for="crear_apellido">Apellido *</label>
-            <input id="crear_apellido" type="text" formControlName="apellido" class="input" placeholder="Apellido">
-            @if (usuarioForm_crear.controls.apellido.touched && usuarioForm_crear.controls.apellido.invalid) {
-              <p class="error-texto">El apellido es obligatorio.</p>
-            }
+            <app-campo-input label="apellido" id="apellido" type="text" [control]="usuarioForm_crear.controls.apellido">
+                <app-error-requerido mensaje="El Apellido es requerido" [errors]="usuarioForm_crear.controls.apellido.errors"></app-error-requerido>
+            </app-campo-input>
           </div>
 
           <div class="input-grupo-col">
-            <label for="crear_username">Nombre de usuario *</label>
-            <input id="crear_username" type="text" formControlName="nombreUsuario" class="input" placeholder="usuario01">
-            @if (usuarioForm_crear.controls.nombreUsuario.touched && usuarioForm_crear.controls.nombreUsuario.invalid) {
-              <p class="error-texto">El nombre de usuario es obligatorio.</p>
-            }
+            <app-campo-input label="Nombre de Usuario" id="Nombre de Usuario" type="text" [control]="usuarioForm_crear.controls.nombreUsuario">
+                <app-error-requerido mensaje="El Nombre de Usuario es requerido" [errors]="usuarioForm_crear.controls.nombreUsuario.errors"></app-error-requerido>
+                <app-error-minlenght mensaje="El Nombre de Usuario debe tener como minimo 4 caracteres" [errors]="usuarioForm_crear.controls.nombreUsuario.errors"></app-error-minlenght>
+            </app-campo-input>
           </div>
 
           <div class="input-grupo-col">
-            <label for="crear_correo">Correo *</label>
-            <input id="crear_correo" type="email" formControlName="correo" class="input" placeholder="correo@ejemplo.com">
-            @if (usuarioForm_crear.controls.correo.touched && usuarioForm_crear.controls.correo.invalid) {
-              <p class="error-texto">Ingresá un correo válido.</p>
-            }
+            <app-campo-input label="Correo" id="Correo" type="text" [control]="usuarioForm_crear.controls.correo">
+                <app-error-requerido mensaje="El Correo es requerido" [errors]="usuarioForm_crear.controls.correo.errors"></app-error-requerido>
+                <app-error-email mensaje="El Correo debe tener un formato especifico , ejemplo:ejemplo@gmail.com" [errors]="usuarioForm_crear.controls.correo.errors"></app-error-email>
+            </app-campo-input>
           </div>
 
           <div class="input-grupo-col">
-            <label for="crear_pass">Contraseña *</label>
-            <input id="crear_pass" type="password" formControlName="contrasena" class="input" placeholder="Mín. 8 chars, 1 mayúscula y 1 número">
-            @if (usuarioForm_crear.controls.contrasena.touched && usuarioForm_crear.controls.contrasena.invalid) {
-              <p class="error-texto">Mínimo 8 caracteres, al menos una mayúscula y un número.</p>
-            }
+            <app-campo-input label="Contraseña" id="Contraseña" type="text" [control]="usuarioForm_crear.controls.contrasena">
+                <app-error-requerido mensaje="La Contraseña es requerido" [errors]="usuarioForm_crear.controls.contrasena.errors"></app-error-requerido>
+                <app-error-minlenght mensaje="La Contraseña debe tener como minimo 8 caracteres" [errors]="usuarioForm_crear.controls.contrasena.errors"></app-error-minlenght>
+                <app-error-pattern mensaje="La Contraseña debe tener una mayuscula , una minuscaula y un numero" [errors]="usuarioForm_crear.controls.contrasena.errors"></app-error-pattern>
+            </app-campo-input>
           </div>
 
           <div class="input-grupo-col">
-            <label for="crear_fecha">Fecha de nacimiento *</label>
+            <app-campo-input label="Repetir Contraseña" id="Repetir Contraseña" type="text" [control]="usuarioForm_crear.controls.repetir_contrasena">
+                <app-error-requerido mensaje="La Contraseña es requerido" [errors]="usuarioForm_crear.controls.repetir_contrasena.errors"></app-error-requerido>
+                <app-error-minlenght mensaje="La Contraseña debe tener como minimo 8 caracteres" [errors]="usuarioForm_crear.controls.repetir_contrasena.errors"></app-error-minlenght>
+                <app-error-pattern mensaje="La Contraseña debe tener una mayuscula , una minuscaula y un numero" [errors]="usuarioForm_crear.controls.repetir_contrasena.errors"></app-error-pattern>
+
+                @if (usuarioForm_crear.errors?.['contrasena'] && usuarioForm_crear.get('repetir_contrasena')?.touched) {
+                    <p class="mensaje-error">Las contraseñas no coinciden.</p>
+                    }
+            </app-campo-input>
+      </div>
+
+          <div class="imput_imp">
+            <label for="crear_fecha">Fecha de nacimiento</label>
             <input id="crear_fecha" type="date" formControlName="fechaNacimiento" class="input">
-            @if (usuarioForm_crear.controls.fechaNacimiento.touched && usuarioForm_crear.controls.fechaNacimiento.invalid) {
+            @if (usuarioForm_crear.controls.fechaNacimiento.invalid) {
               <p class="error-texto">La fecha de nacimiento es obligatoria.</p>
             }
           </div>
 
           <div class="input-grupo-col">
-            <label for="crear_perfil">Perfil *</label>
+            <label for="crear_perfil">Perfil </label>
             <select id="crear_perfil" formControlName="perfil" class="input">
               <option value="usuario">Usuario</option>
               <option value="administrador">Administrador</option>
@@ -142,8 +145,7 @@
           </div>
 
           <div class="input-grupo-col full-width">
-            <label for="crear_bio">Descripción breve</label>
-            <input id="crear_bio" type="text" formControlName="descripcionBreve" class="input" placeholder="Descripción breve (opcional)">
+            <app-campo-textarea label="Descripción Breve" id="descripcion" [control]="usuarioForm_crear.controls.descripcionBreve"></app-campo-textarea>
           </div>
 
           <button type="submit" class="boton_i full-width" [disabled]="usuarioForm_crear.invalid">
@@ -152,6 +154,61 @@
         </form>
       </div>
     }
+    @case ('modificar') {
+      <div class="card">
+        <div class="lista-seccion">
+          <h3 class="titulo-seccion">Seleccioná un Usuario para Editar</h3>
+          <div class="usuarios-lista">
+            @for (u of usuarios(); track u._id) {
+              <div
+                class="usuario-item clickable"
+                [class.seleccionado]="usuarioSeleccionado()?._id === u._id"
+                (click)="seleccionarParaEditar(u)">
+                <span class="usuario-nombre">{{ $index + 1 }}. {{ u.nombre }} {{ u.apellido }} ({{ u.nombreUsuario | arrobaNombre}})</span>
+                <span class="usuario-meta">{{ u.perfil }}</span>
+              </div>
+            }
+          </div>
+        </div>
 
+        @if (usuarioSeleccionado()) {
+          <form [formGroup]="formEdicion" (ngSubmit)="guardarEdicion()" class="form-grid">
+            <h4 class="subtitulo-seccion full-width">Editar Datos de {{ usuarioSeleccionado()?.nombreUsuario | arrobaNombre}}</h4>
+
+            <div class="input-grupo-col">
+              <label for="edit_nombre">Nombre *</label>
+              <input id="edit_nombre" type="text" formControlName="nombre" class="input">
+            </div>
+
+            <div class="input-grupo-col">
+              <label for="edit_apellido">Apellido *</label>
+              <input id="edit_apellido" type="text" formControlName="apellido" class="input">
+            </div>
+
+            <div class="input-grupo-col">
+              <label for="edit_correo">Correo *</label>
+              <input id="edit_correo" type="email" formControlName="correo" class="input">
+            </div>
+
+            <div class="input-grupo-col">
+              <label for="edit_perfil">Perfil *</label>
+              <select id="edit_perfil" formControlName="perfil" class="input">
+                <option value="usuario">Usuario</option>
+                <option value="administrador">Administrador</option>
+              </select>
+            </div>
+
+            <div class="input-grupo-col full-width">
+              <label for="edit_bio">Descripción breve</label>
+              <input id="edit_bio" type="text" formControlName="descripcionBreve" class="input">
+            </div>
+
+            <button type="submit" class="boton_i full-width" [disabled]="formEdicion.invalid">
+              Guardar cambios
+            </button>
+          </form>
+        }
+      </div>
+    }
   }
 </main>
