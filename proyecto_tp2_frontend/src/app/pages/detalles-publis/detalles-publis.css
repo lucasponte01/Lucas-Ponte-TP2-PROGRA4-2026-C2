@@ -332,3 +332,39 @@ body {
 .btn-cargar-mas:hover {
   background-color: rgba(242, 135, 5, 0.1);
 }
+
+/* styles.css (global) */
+.btn-cerrar-sesion {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: rgba(242, 25, 5, 0.14);
+  color: #ff6b5b;
+  border: 1.5px solid rgba(242, 25, 5, 0.55);
+  border-radius: 8px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-cerrar-sesion i {
+  font-size: 1.1rem;
+  color: inherit;
+}
+
+.btn-cerrar-sesion:hover {
+  background-color: #8C0303;
+  border-color: #F21905;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn-cerrar-sesion:active {
+  transform: translateY(0);
+}

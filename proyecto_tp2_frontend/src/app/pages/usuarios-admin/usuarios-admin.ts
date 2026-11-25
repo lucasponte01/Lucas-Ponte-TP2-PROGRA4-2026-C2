@@ -12,9 +12,10 @@ import { ErrorMinlenght } from '../../components/ui/error-minlenght/error-minlen
 import { ErrorPattern } from '../../components/ui/error-pattern/error-pattern';
 import { contrasena_igual } from '../../validators/validator_contrasena';
 import { CampoTextarea } from '../../components/ui/campo-textarea/campo-textarea';
+import { ModalInactividad } from '../../components/ui/modal-inactividad/modal-inactividad';
 
 @Component({
-  imports: [ReactiveFormsModule, RouterLink, ArrobaNombrePipe, CampoInput, ErrorRequerido, ErrorEmail, ErrorMinlenght, ErrorPattern, CampoTextarea],
+  imports: [ReactiveFormsModule, RouterLink, ArrobaNombrePipe, CampoInput, ErrorRequerido, ErrorEmail, ErrorMinlenght, ErrorPattern, CampoTextarea, ModalInactividad],
   selector: 'app-usuarios-admin',
   styleUrl: './usuarios-admin.css',
   templateUrl: './usuarios-admin.html',

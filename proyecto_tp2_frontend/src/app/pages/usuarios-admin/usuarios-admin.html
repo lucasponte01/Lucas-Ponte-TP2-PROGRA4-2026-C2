@@ -1,3 +1,4 @@
+<app-modal-inactividad></app-modal-inactividad>
 <header class="bloop-navbar">
     <div class="bloop-logo">
         <a routerLink="/feed">
@@ -7,7 +8,7 @@
 
     <nav class="bloop-nav-links">
         <a routerLink="/feed" class="nav-link">Publicaciones</a>
-        <button type="button" (click)="cerrarSesion()" class="nav-link">Cerrar Sesión</button>
+        <button type="button" (click)="cerrarSesion()" class="btn-cerrar-sesion" ><i class="bi bi-box-arrow-right"></i></button>
     </nav>
 
 
@@ -192,6 +193,13 @@
                 <app-error-requerido mensaje="El Correo es requerido" [errors]="formEdicion.controls.correo.errors"></app-error-requerido>
                 <app-error-email mensaje="El Correo debe tener un formato especifico , ejemplo:ejemplo@gmail.com" [errors]="formEdicion.controls.correo.errors"></app-error-email>
             </app-campo-input>
+            </div>
+
+            <div class="input-grupo-col">
+              <app-campo-input label="Nombre de Usuario" id="Nombre de Usuario" type="text" [control]="formEdicion.controls.nombreUsuario">
+                  <app-error-requerido mensaje="El Nombre de Usuario es requerido" [errors]="formEdicion.controls.nombreUsuario.errors"></app-error-requerido>
+                  <app-error-minlenght mensaje="El Nombre de Usuario debe tener como minimo 4 caracteres" [errors]="formEdicion.controls.nombreUsuario.errors"></app-error-minlenght>
+              </app-campo-input>
             </div>
 
             <div class="input-grupo-col">
