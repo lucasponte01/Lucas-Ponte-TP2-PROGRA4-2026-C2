@@ -39,6 +39,6 @@ export class admin {
   }
 
   actualizar_usuario(id:string , usuario:any): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/${id}` ,{id,usuario})
+    return this.http.patch(`${this.apiUrl}/${id}`, usuario,{ headers: this.getHeaders()})
   }
 }

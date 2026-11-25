@@ -176,22 +176,26 @@
             <h4 class="subtitulo-seccion full-width">Editar Datos de {{ usuarioSeleccionado()?.nombreUsuario | arrobaNombre}}</h4>
 
             <div class="input-grupo-col">
-              <label for="edit_nombre">Nombre *</label>
-              <input id="edit_nombre" type="text" formControlName="nombre" class="input">
+            <app-campo-input label="nombre" id="nombre" type="text" [control]="formEdicion.controls.nombre">
+                <app-error-requerido mensaje="El Nombre es requerido" [errors]="formEdicion.controls.nombre.errors"></app-error-requerido>      
+            </app-campo-input>
             </div>
 
             <div class="input-grupo-col">
-              <label for="edit_apellido">Apellido *</label>
-              <input id="edit_apellido" type="text" formControlName="apellido" class="input">
+              <app-campo-input label="apellido" id="apellido" type="text" [control]="formEdicion.controls.apellido">
+                <app-error-requerido mensaje="El Apellido es requerido" [errors]="formEdicion.controls.apellido.errors"></app-error-requerido>
+            </app-campo-input>
             </div>
 
             <div class="input-grupo-col">
-              <label for="edit_correo">Correo *</label>
-              <input id="edit_correo" type="email" formControlName="correo" class="input">
+              <app-campo-input label="Correo" id="Correo" type="text" [control]="formEdicion.controls.correo">
+                <app-error-requerido mensaje="El Correo es requerido" [errors]="formEdicion.controls.correo.errors"></app-error-requerido>
+                <app-error-email mensaje="El Correo debe tener un formato especifico , ejemplo:ejemplo@gmail.com" [errors]="formEdicion.controls.correo.errors"></app-error-email>
+            </app-campo-input>
             </div>
 
             <div class="input-grupo-col">
-              <label for="edit_perfil">Perfil *</label>
+              <label for="edit_perfil">Perfil</label>
               <select id="edit_perfil" formControlName="perfil" class="input">
                 <option value="usuario">Usuario</option>
                 <option value="administrador">Administrador</option>
@@ -199,8 +203,7 @@
             </div>
 
             <div class="input-grupo-col full-width">
-              <label for="edit_bio">Descripción breve</label>
-              <input id="edit_bio" type="text" formControlName="descripcionBreve" class="input">
+              <app-campo-textarea label="Descripción Breve" id="descripcion" [control]="formEdicion.controls.descripcionBreve"></app-campo-textarea>
             </div>
 
             <button type="submit" class="boton_i full-width" [disabled]="formEdicion.invalid">

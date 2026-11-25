@@ -174,8 +174,6 @@ export class UsuariosAdmin implements OnInit{
     });
   }
 
-  
-
   cerrarSesion(): void {
     this.authService.logout();
   }
