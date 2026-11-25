@@ -23,13 +23,14 @@ export class PublicacionesController {
     @Query('offset') offset?: string,
     @Query('sort') sort?: string,         
     @Query('userId') userId?: string,
+    @Query('incluirInactivos') incluirInactivos?: string,
   ) {
-    return this.publicacionesService.findAll({ limit, offset, sort, userId });
+    return this.publicacionesService.findAll({ limit, offset, sort, userId, incluirInactivos, });
   }
 
   @Post(':id/like')
   darLike(@Param('id') id: string, @Body('userId') userId: string) {
-    return this.publicacionesService.toggleLike(id, userId);
+    return this.publicacionesService.Like(id, userId);
   }
 
   @Get(':id')
@@ -37,10 +38,10 @@ export class PublicacionesController {
     return this.publicacionesService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePublicacioneDto: UpdatePublicacioneDto) {
-    return this.publicacionesService.update(id, updatePublicacioneDto);
-  }
+  @Patch(':id/alta')
+  darDeAlta(@Param('id') id: string, @Body('esAdmin') esAdmin: boolean) {
+  return this.publicacionesService.altaLogica(id, esAdmin || false);
+}
 
   @Delete(':id')
   remove(@Param('id') id: string, 

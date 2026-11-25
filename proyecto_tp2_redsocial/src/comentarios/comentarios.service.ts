@@ -1,13 +1,27 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateComentarioDto } from './dto/create-comentario.dto.js';
 import { UpdateComentarioDto } from './dto/update-comentario.dto.js';
 import { InjectModel } from '@nestjs/mongoose';
 import { Comentario } from './entities/comentario.entity.js';
 import { Model, Types } from 'mongoose';
+import { Publicacione } from '../publicaciones/entities/publicacione.entity.js';
 
 @Injectable()
 export class ComentariosService {
-  constructor(@InjectModel(Comentario.name) private comentarioModel: Model<Comentario>) {}
+  constructor(@InjectModel(Comentario.name) private comentarioModel: Model<Comentario>,
+   @InjectModel(Publicacione.name) private publiModel: Model<Publicacione>) {}
+
+
+   private async validarPublicacionActiva(publicacionId: string) {
+
+    const publicacion = await this.publiModel.findById(publicacionId).exec();
+    if (!publicacion || publicacion.activo === false) {
+      throw new NotFoundException('La publicación no existe o fue dada de baja');
+    }
+
+    return publicacion;
+  }
+
 async create(createComentarioDto: CreateComentarioDto) {
     const nuevoComentario = new this.comentarioModel({
       publicacionId: new Types.ObjectId(createComentarioDto.publicacionId),

@@ -9,10 +9,8 @@
     <nav class="bloop-nav-links">
         <a routerLink="/feed" class="nav-link">Publicaciones</a>
         <button type="button" (click)="cerrarSesion()" class="btn-cerrar-sesion" ><i class="bi bi-box-arrow-right"></i></button>
-    </nav>
+    
 
-
-    <nav class="navbar navbar-menu">
     <button type="button" class="btn_nav" [class.activo]="vistaActiva() === 'listado'" (click)="cambiarVista('listado')">
         Listado
     </button>
@@ -22,8 +20,8 @@
     <button type="button" class="btn_nav" [class.activo]="vistaActiva() === 'modificar'" (click)="cambiarVista('modificar')">
         Modificar
     </button>
-    
     </nav>
+    
 </header>
 
 <main class="main-content">

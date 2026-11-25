@@ -4,8 +4,10 @@ import { ComentariosController } from './comentarios.controller.js';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Comentario, ComentarioSchema } from './entities/comentario.entity.js';
 
+import { PublicacionesModule } from '../publicaciones/publicaciones.module.js';
+
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Comentario.name, schema: ComentarioSchema }])],
+  imports: [MongooseModule.forFeature([{ name: Comentario.name, schema: ComentarioSchema }]) , PublicacionesModule],
   controllers: [ComentariosController],
   providers: [ComentariosService],
 })

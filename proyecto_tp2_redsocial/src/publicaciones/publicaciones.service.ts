@@ -29,13 +29,15 @@ export class PublicacionesService {
     return nuevaPubli.save();
   }
 
-  findAll(params: { limit?: string; offset?: string; sort?: string; userId?: string }) {
+  findAll(params: { limit?: string; offset?: string; sort?: string; userId?: string; incluirInactivos?: string;}) {
 
     const limitNum = params.limit ? parseInt(params.limit, 10) : 10;
     const offsetNum = params.offset ? parseInt(params.offset, 10) : 0;
 
-    const filtro: any = { activo: { $ne: false } };
-
+    const filtro: any = {};
+    if (params.incluirInactivos !== 'true') {
+      filtro.activo = { $ne: false };
+    }
     
     if (params.userId) {
       filtro.usuario = new Types.ObjectId(params.userId); 
@@ -59,7 +61,7 @@ export class PublicacionesService {
   }
 
 
-  async toggleLike(publiId: string, userId: string) {
+  async Like(publiId: string, userId: string) {
     if (!userId) {
       throw new BadRequestException('Usuario no válido o no autenticado');
     }
@@ -107,7 +109,19 @@ export class PublicacionesService {
     return publicacion.save();
   }
 
-  
+    async altaLogica(publiId: string, esAdmin: boolean) {
+    if (!esAdmin) {
+      throw new ForbiddenException('Solo un administrador puede rehabilitar publicaciones');
+    }
+
+    const publicacion = await this.publiModel.findById(publiId);
+    if (!publicacion) {
+      throw new NotFoundException('Publicación no encontrada');
+    }
+
+    publicacion.activo = true;
+    return publicacion.save();
+  }
 
   findOne(id: string) {
     return this.publiModel.findById(id).populate('usuario', 'nombreUsuario');

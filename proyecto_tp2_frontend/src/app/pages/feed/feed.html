@@ -13,7 +13,7 @@
       <nav class="bloop-nav-links">
         <a routerLink="/crear-publicacion" class="nav-link">Crear Publi</a>
         <a routerLink="/perfil" class="nav-link">Mi Perfil</a>
-        <button (click)="cerrarsesion()" class="nav-link"><i class="bi bi-box-arrow-right"></i></button>
+        <button (click)="cerrarsesion()" class="btn-cerrar-sesion"><i class="bi bi-box-arrow-right"></i></button>
       </nav>
     </header>
 
@@ -78,31 +78,36 @@
       </div>
 
       @for (publi of publicaciones(); track publi._id) {
-        
+        <div class="admin-publi-card" [class.publi-inactiva]="publi.activo === false">
           <app-publicaciones-ind
             [publi]="publi"
             (like)="darLike($event)">
           </app-publicaciones-ind>
-          <!--
-          <div class="admin-actions">
-            @if (publi._id; as publiId) {
-              <button
-                type="button"
-                class="btn-baja"
-                (click)="baja_publi_admin(publiId)">
-                Dar de baja
-              </button>
 
-              <button
-                type="button"
-                class="btn-alta"
-                (click)="alta_publi_admin(publiId)">
-                Dar de alta
-              </button>
+          <div class="admin-actions">
+            <span class="estado-badge" [class.activa]="publi.activo !== false" [class.baja]="publi.activo === false">
+              {{ publi.activo === false ? 'Dada de baja' : 'Activa' }}
+            </span>
+
+            @if (publi._id; as publiId) {
+              @if (publi.activo !== false) {
+                <button
+                  type="button"
+                  class="btn-baja"
+                  (click)="baja_publi_admin(publiId)">
+                  Dar de baja
+                </button>
+              } @else {
+                <button
+                  type="button"
+                  class="btn-alta"
+                  (click)="alta_publi_admin(publiId)">
+                  Dar de alta
+                </button>
+              }
             }
-              
-          </div>-->
-       
+          </div>
+        </div>
       }
 
       <div class="pagination-container">

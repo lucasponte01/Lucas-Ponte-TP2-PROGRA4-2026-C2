@@ -35,24 +35,26 @@ export class Feed implements OnInit{
 ngOnInit(): void {
   const perfil = localStorage.getItem('perfil'); 
   this.vistaActiva.set(perfil === 'administrador' ? 'admin' : 'usuario');
-  this.cargarFeed();
+  this.cargarFeedUsuario();
 }
 
   cambiarVista(vista: 'usuario' |'admin' ) {
     this.vistaActiva.set(vista);
-    if (vista === 'usuario') {
-      this.cargarFeed();
+    if (this.vistaActiva() === 'admin') {
+      this.cargarFeedAdmin();
+    } else {
+      this.cargarFeedUsuario();
     }
   }
 
-  cargarFeed() {
+  cargarFeedUsuario() {
     this.error.set(""); 
     this.offset = this.currentPage * this.limit;
 
     this.publi_services.obtenerPublicacionesConFiltros(this.limit, this.offset, this.currentSort()).subscribe((data: any) => {
       if (data.length === 0 && this.currentPage > 0) {
         this.currentPage--;
-        this.cargarFeed();
+        this.cargarFeedUsuario();
         return;
       }
       this.publicaciones.set(data);
@@ -60,6 +62,8 @@ ngOnInit(): void {
       if( data.length === this.limit && data.length > 0){
         this.hasMore.set(true)
       }
+
+      this.vistaActiva() === 'admin'
       
     }, (error) => {
       this.error.set("Error al obtener las publicaciones. Por favor, inténtelo de nuevo más tarde." + error.message);
@@ -69,7 +73,7 @@ ngOnInit(): void {
   cambiarOrden(event: any) {
     this.currentSort.set(event.target.value);
     this.currentPage = 0; 
-    this.cargarFeed();
+    this.cargarFeedUsuario();
   }
 
  darLike(id: string) {
@@ -82,9 +86,7 @@ ngOnInit(): void {
 
   this.publi_services.Like_dislike(id, userId).subscribe({
     next: () => {
-      
-      
-      this.cargarFeed();
+      this.cargarFeedUsuario();
     }, 
     error: (error) => {
       this.error.set("Error al procesar el me gusta: " + (error.error?.message || error.message));
@@ -97,7 +99,7 @@ ngOnInit(): void {
     this.publi_services.eliminarPublicacion(id,userId!,false).subscribe({
           next: () => {
             this.publicaciones.update(pubs => pubs.filter(p => p._id !== id));
-            this.cargarFeed();
+            this.cargarFeedUsuario();
           }, 
           error: (error) => {
             this.error.set("Error al eliminar la publicación: " + (error.error?.message || error.message));
@@ -108,14 +110,14 @@ ngOnInit(): void {
     paginaSiguiente() {
       if (this.hasMore() === true) {
         this.currentPage++;
-        this.cargarFeed();
+        this.cargarFeedUsuario();
       }
     }
 
     paginaAnterior() {
       if (this.currentPage > 0) {
         this.currentPage--;
-        this.cargarFeed();
+        this.cargarFeedUsuario();
       }
   }
 
@@ -124,28 +126,51 @@ ngOnInit(): void {
   }
 
   //parte admin 
-  /*
-  baja_publi_admin(id: string){
-      this.admin_service.(id).subscribe({
+  cargarFeedAdmin() {
+    this.error.set('');
+    this.offset = this.currentPage * this.limit;
+
+    this.publi_services
+      .obtenerPublicacionesConFiltros(this.limit, this.offset, this.currentSort(), undefined, true)
+      .subscribe({
+        next: (data: any) => {
+          if (data.length === 0 && this.currentPage > 0) {
+            this.currentPage--;
+            this.cargarFeedAdmin();
+            return;
+          }
+          this.publicaciones.set(data);
+          this.hasMore.set(data.length === this.limit);
+        },
+        error: (error) => {
+          this.error.set(
+            'Error al obtener las publicaciones: ' + (error.error?.message || error.message)
+          );
+        },
+      });
+  }
+
+  baja_publi_admin(id: string) {
+    if (!this.esAdmin()) return;
+    const userId = this.authService.obtener_usuario() || '';
+
+    this.publi_services.eliminarPublicacion(id, userId, true).subscribe({
       next: () => {
-        this.cargarFeed();
+        this.cargarFeedAdmin();
       },
       error: (error) => {
-        this.error.set(
-          'Error al dar de baja la publicación: ' + (error.error?.message || error.message),);
-        },
+        this.error.set('Error al dar de baja la publicación: ' + (error.error?.message || error.message));},
     });
   }
   alta_publi_admin(id: string) {
-    this.admin_service.admin_baja(id).subscribe({
+    if (!this.esAdmin()) return;
+
+    this.publi_services.rehabilitarPublicacion(id, true).subscribe({
       next: () => {
-        this.cargarFeed();
+        this.cargarFeedAdmin();
       },
       error: (error) => {
-        this.error.set(
-          'Error al dar de alta la publicación: ' + (error.error?.message || error.message),);
-      },
+        this.error.set('Error al dar de alta la publicación: ' + (error.error?.message || error.message));},
     });
   }
-  */
 }

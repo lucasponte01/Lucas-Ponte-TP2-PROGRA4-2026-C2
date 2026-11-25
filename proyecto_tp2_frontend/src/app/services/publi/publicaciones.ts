@@ -50,7 +50,7 @@ export class Publicaciones {
     return this.http.get<Publicacion>(`${this.apiUrl}/${id}`);
   }
 
-  obtenerPublicacionesConFiltros(limit: number, offset: number, sort: string, userId?: string): Observable<Publicacion[]> {
+  obtenerPublicacionesConFiltros(limit: number, offset: number, sort: string, userId?: string , incluirInactivos: boolean = false): Observable<Publicacion[]> {
     let params = new HttpParams()
       .set('limit', limit.toString())
       .set('offset', offset.toString())
@@ -60,6 +60,10 @@ export class Publicaciones {
   if (userId) {
     params = params.set('userId', userId);
   }
+
+  if (incluirInactivos) {
+      params = params.set('incluirInactivos', 'true');
+    }
 
   return this.http.get<Publicacion[]>(`${this.apiUrl}/listar`, { params });
 }
@@ -73,6 +77,8 @@ export class Publicaciones {
       return this.http.request('delete', `${this.apiUrl}/${id}`, { body: { userId, esAdmin } });
     }
 
-  
+  rehabilitarPublicacion(id: string, esAdmin: boolean = true): Observable<any> {
+      return this.http.patch(`${this.apiUrl}/${id}/alta`, { esAdmin });
+    }
 }
 
