@@ -77,27 +77,37 @@ ngOnInit(): void {
 
   cambiarOrden(event: any) {
     this.currentSort.set(event.target.value);
-    this.currentPage = 0; 
-    this.cargarFeedUsuario();
+    if (this.vistaActiva() === 'admin') {
+          this.currentPage = 0; 
+          this.cargarFeedAdmin();
+        } else {
+          this.currentPage = 0; 
+          this.cargarFeedUsuario();
+        }
+    
   }
 
  darLike(id: string) {
-  const userId = this.authService.obtener_usuario();
+    const userId = this.authService.obtener_usuario();
 
-  if (!userId) {
-    this.error.set("Debes iniciar sesión para dar me gusta.");
-    return;
-  }
-
-  this.publi_services.Like_dislike(id, userId).subscribe({
-    next: () => {
-      this.cargarFeedUsuario();
-    }, 
-    error: (error) => {
-      this.error.set("Error al procesar el me gusta: " + (error.error?.message || error.message));
+    if (!userId) {
+      this.error.set("Debes iniciar sesión para dar me gusta.");
+      return;
     }
-  });
-}
+
+    this.publi_services.Like_dislike(id, userId).subscribe({
+      next: () => {
+        if (this.vistaActiva() === 'admin') {
+          this.cargarFeedAdmin();
+        } else {
+          this.cargarFeedUsuario();
+        }
+      },
+      error: (error) => {
+        this.error.set("Error al procesar el me gusta: " + (error.error?.message || error.message));
+      }
+    });
+  }
 
   eliminarPublicacion(id: string ,) {
     const userId = this.authService.obtener_usuario();
@@ -115,16 +125,24 @@ ngOnInit(): void {
     paginaSiguiente() {
       if (this.hasMore() === true) {
         this.currentPage++;
-        this.cargarFeedUsuario();
+        if (this.vistaActiva() === 'admin') {
+          this.cargarFeedAdmin();
+        } else {
+          this.cargarFeedUsuario();
+        }
       }
     }
 
     paginaAnterior() {
       if (this.currentPage > 0) {
         this.currentPage--;
-        this.cargarFeedUsuario();
+        if (this.vistaActiva() === 'admin') {
+          this.cargarFeedAdmin();
+        } else {
+          this.cargarFeedUsuario();
+        }
       }
-  }
+    }
 
   cerrarsesion(){
     this.authService.logout()

@@ -114,6 +114,17 @@
           </div>
         </div>
       }
+      <div class="pagination-container">
+        <button (click)="paginaAnterior()" [disabled]="currentPage === 0" class="btn-pagination">
+          <i class="bi bi-arrow-left"></i>
+        </button>
+
+        <span class="pagination-info">Página {{ currentPage + 1 }}</span>
+
+        <button (click)="paginaSiguiente()" [disabled]="!hasMore()" class="btn-pagination">
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
     </main>
   }
 }
