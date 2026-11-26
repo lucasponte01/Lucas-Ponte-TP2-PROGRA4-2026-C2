@@ -1,21 +1,19 @@
 <header class="bloop-navbar">
-  <a routerLink="/feed" class="nav-link">
-    <i class="bi bi-arrow-left"></i> Volver a Moderación
-  </a>
-  <h1 class="stats-title">Dashboard de Estadísticas</h1>
-</header>
+  <div class="bloop-logo">
+    <a routerLink="/feed">
+        <img src="assets/logo_bloop-removebg-preview.png" alt="Logo Bloop" class="logo-img">
+      </a>
+  </div>
 
-<label for="selectLapso">Lapso de tiempo:</label>
-  <select
-    id="selectLapso"
-    class="feed-select-orden"
-    [value]="lapso()"
-    (change)="seleccionar_lapso($event)">
-    <option value="7d">Últimos 7 días</option>
-    <option value="30d">Últimos 30 días</option>
-    <option value="90d">Últimos 90 días</option>
-    <option value="all">Todo el historial</option>
-  </select>
+  <h1 class="stats-title">Dashboard de Estadísticas</h1>
+
+  <nav class="bloop-nav-links">
+    <a routerLink="/usuarios_admin" class="nav-link">Usuarios</a>
+    <button type="button" (click)="cerrarSesion()" class="btn-cerrar-sesion" title="Cerrar sesión">
+      <i class="bi bi-box-arrow-right"></i>
+    </button>
+  </nav>
+</header>
 
 <main class="stats-container">
   <div class="lapso-bar">
@@ -41,17 +39,23 @@
   <section class="charts-grid">
     <article class="chart-card">
       <h2>Publicaciones por usuario</h2>
-      <canvas #chartPublisUsuario></canvas>
+      <div class="chart-canvas-wrapper">
+        <canvas #chartPublisUsuario></canvas>
+      </div>
     </article>
 
     <article class="chart-card">
       <h2>Comentarios en el período</h2>
-      <canvas #chartComentariosPeriodo></canvas>
+      <div class="chart-canvas-wrapper">
+        <canvas #chartComentariosPeriodo></canvas>
+      </div>
     </article>
 
-    <article class="chart-card">
+    <article class="chart-card chart-card-wide">
       <h2>Comentarios por publicación</h2>
-      <canvas #chartComentariosPubli></canvas>
+      <div class="chart-canvas-wrapper">
+        <canvas #chartComentariosPubli></canvas>
+      </div>
     </article>
   </section>
 </main>

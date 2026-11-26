@@ -2,6 +2,7 @@ import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core'
 import { EstadisticasService } from '../../services/estadisticas/EstadisticasService';
 import { forkJoin } from 'rxjs';
 import { Chart, registerables } from 'chart.js';
+import { AuthService } from '../../services/authServices';
 Chart.register(...registerables);
 
 
@@ -13,6 +14,7 @@ Chart.register(...registerables);
 })
 export class EstadisticasAdmin {
     private statsService = inject(EstadisticasService);
+    private auth = inject(AuthService);
 
   lapso = signal<'7d' | '30d' | '90d' | 'all'>('7d');
 
@@ -170,5 +172,9 @@ seleccionar_lapso(event: Event) {
         },
       });
     }
+  }
+
+  cerrarSesion(){
+    this.auth.logout()
   }
 }
