@@ -39,5 +39,9 @@ export const routes: Routes = [
     {
         path:'usuarios_admin',
         loadComponent: () => import('./pages/usuarios-admin/usuarios-admin').then(m => m.UsuariosAdmin),
+    },
+    {
+        path:'estadisticas_admin',
+        loadComponent: () => import('./pages/estadisticas-admin/estadisticas-admin').then(m => m.EstadisticasAdmin),
     }
 ];

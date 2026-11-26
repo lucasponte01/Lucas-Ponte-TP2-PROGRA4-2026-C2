@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { ModalInactividad } from './components/ui/modal-inactividad/modal-inactividad';
 
 @Component({
-  imports: [RouterOutlet, ModalInactividad],
+  imports: [RouterOutlet],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

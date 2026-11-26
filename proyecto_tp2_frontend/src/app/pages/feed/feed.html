@@ -61,6 +61,7 @@
 
       <nav class="bloop-nav-links">
         <a routerLink="/usuarios_admin" class="nav-link">Usuarios</a>
+        <a routerLink="/estadisticas_admin" class="nav-link">estadisticas</a>
         <button (click)="cerrarsesion()" class="btn-cerrar-sesion"><i class="bi bi-box-arrow-right"></i></button>
       </nav>
     </header>
@@ -79,10 +80,12 @@
 
       @for (publi of publicaciones(); track publi._id) {
         <div class="admin-publi-card" [class.publi-inactiva]="publi.activo === false">
-          <app-publicaciones-ind
-            [publi]="publi"
-            (like)="darLike($event)">
-          </app-publicaciones-ind>
+          <div class="admin-publi-body">
+            <app-publicaciones-ind
+              [publi]="publi"
+              (like)="darLike($event)">
+            </app-publicaciones-ind>
+          </div>
 
           <div class="admin-actions">
             <span class="estado-badge" [class.activa]="publi.activo !== false" [class.baja]="publi.activo === false">
@@ -94,34 +97,24 @@
                 <button
                   type="button"
                   class="btn-baja"
+                  title="Dar de baja"
                   (click)="baja_publi_admin(publiId)">
-                  Dar de baja
+                  <i class="bi bi-ban"></i>                 
                 </button>
               } @else {
                 <button
                   type="button"
                   class="btn-alta"
+                  title="Dar de alta"
                   (click)="alta_publi_admin(publiId)">
-                  Dar de alta
+                  <i class="bi bi-arrow-up-circle"></i>                
                 </button>
               }
             }
           </div>
         </div>
       }
-
-      <div class="pagination-container">
-        <button (click)="paginaAnterior()" [disabled]="currentPage === 0" class="btn-pagination">
-          <i class="bi bi-arrow-left"></i>
-        </button>
-
-        <span class="pagination-info">Página {{ currentPage + 1 }}</span>
-
-        <button (click)="paginaSiguiente()" [disabled]="!hasMore()" class="btn-pagination">
-          <i class="bi bi-arrow-right"></i>
-        </button>
-      </div>
     </main>
   }
-
 }
+  

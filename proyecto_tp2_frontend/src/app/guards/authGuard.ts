@@ -10,8 +10,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (authService.verificacion_logeo()) {
     return true;
   }
-
- 
   router.navigate(['/login']);
   return false;
 };

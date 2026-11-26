@@ -1,0 +1,57 @@
+<header class="bloop-navbar">
+  <a routerLink="/feed" class="nav-link">
+    <i class="bi bi-arrow-left"></i> Volver a Moderación
+  </a>
+  <h1 class="stats-title">Dashboard de Estadísticas</h1>
+</header>
+
+<label for="selectLapso">Lapso de tiempo:</label>
+  <select
+    id="selectLapso"
+    class="feed-select-orden"
+    [value]="lapso()"
+    (change)="seleccionar_lapso($event)">
+    <option value="7d">Últimos 7 días</option>
+    <option value="30d">Últimos 30 días</option>
+    <option value="90d">Últimos 90 días</option>
+    <option value="all">Todo el historial</option>
+  </select>
+
+<main class="stats-container">
+  <div class="lapso-bar">
+    <span>Lapso de tiempo:</span>
+    <button type="button" [class.active]="lapso() === '7d'" (click)="cambiarLapso('7d')">
+      Últimos 7 días
+    </button>
+    <button type="button" [class.active]="lapso() === '30d'" (click)="cambiarLapso('30d')">
+      Últimos 30 días
+    </button>
+    <button type="button" [class.active]="lapso() === '90d'" (click)="cambiarLapso('90d')">
+      Últimos 90 días
+    </button>
+    <button type="button" [class.active]="lapso() === 'all'" (click)="cambiarLapso('all')">
+      Todo el historial
+    </button>
+  </div>
+
+  @if (error()) {
+    <p class="stats-error">{{ error() }}</p>
+  }
+
+  <section class="charts-grid">
+    <article class="chart-card">
+      <h2>Publicaciones por usuario</h2>
+      <canvas #chartPublisUsuario></canvas>
+    </article>
+
+    <article class="chart-card">
+      <h2>Comentarios en el período</h2>
+      <canvas #chartComentariosPeriodo></canvas>
+    </article>
+
+    <article class="chart-card">
+      <h2>Comentarios por publicación</h2>
+      <canvas #chartComentariosPubli></canvas>
+    </article>
+  </section>
+</main>
