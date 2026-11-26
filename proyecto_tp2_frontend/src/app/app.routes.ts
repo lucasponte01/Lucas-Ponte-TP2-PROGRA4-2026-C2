@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/authGuard';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
     {
         path: '',
-        // Apuntamos directo al Splash o componente de carga inicial
+        
         loadComponent: () => import('../app/components/ui/splash-component/splash-component').then(m => m.SplashComponent),
     },
     {
@@ -39,9 +40,11 @@ export const routes: Routes = [
     {
         path:'usuarios_admin',
         loadComponent: () => import('./pages/usuarios-admin/usuarios-admin').then(m => m.UsuariosAdmin),
+        canActivate:[adminGuard]
     },
     {
         path:'estadisticas_admin',
         loadComponent: () => import('./pages/estadisticas-admin/estadisticas-admin').then(m => m.EstadisticasAdmin),
+        canActivate:[adminGuard]
     }
 ];

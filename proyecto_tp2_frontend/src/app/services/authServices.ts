@@ -74,7 +74,7 @@ export class AuthService {
   }
 
   obtener_usuario(): string | null {
-    return localStorage.getItem('userId') , localStorage.getItem('perfil');
+    return localStorage.getItem('userId');
   }
   
   extenderSesion() {
