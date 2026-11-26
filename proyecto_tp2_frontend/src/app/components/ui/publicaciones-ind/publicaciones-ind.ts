@@ -6,9 +6,10 @@ import { TiempoRelativoPipe } from '../pipe/tiempo-relativo-pipe';
 import { TexoLargoPipe } from '../pipe/pipe-texto-largo-pipe';
 import { ArrobaNombrePipe } from '../pipe/arroba-nombre-pipe';
 import { AuthService } from '../../../services/authServices';
+import { SoloAdmin } from '../directives/solo-admin';
 
 @Component({
-  imports: [ RouterLink , TiempoRelativoPipe , TexoLargoPipe , ArrobaNombrePipe],
+  imports: [RouterLink, TiempoRelativoPipe, TexoLargoPipe, ArrobaNombrePipe, SoloAdmin],
   selector: 'app-publicaciones-ind',
   styleUrl: './publicaciones-ind.css',
   templateUrl: './publicaciones-ind.html',

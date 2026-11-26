@@ -23,6 +23,7 @@ export class ComentariosService {
   }
 
 async create(createComentarioDto: CreateComentarioDto) {
+  await this.validarPublicacionActiva(createComentarioDto.publicacionId);
     const nuevoComentario = new this.comentarioModel({
       publicacionId: new Types.ObjectId(createComentarioDto.publicacionId),
       usuario: new Types.ObjectId(createComentarioDto.usuarioId),

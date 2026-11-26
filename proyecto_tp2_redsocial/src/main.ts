@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
 import { ValidationPipe } from '@nestjs/common';
+import { LogeoInterceptor } from './interceptors/logeointerceptor.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -8,6 +9,8 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
+
+  app.useGlobalInterceptors(new LogeoInterceptor());
 
   app.enableCors({
     origin: ["http://localhost:4200", "https://tp2-progra4-frontend.onrender.com"],

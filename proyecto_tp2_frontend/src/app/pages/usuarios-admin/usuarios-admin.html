@@ -44,8 +44,10 @@
                     </span>
                     <span class="usuario-meta">
                       {{ u.correo }} · <strong>{{ u.perfil }}</strong> ·
-                      <span [class.tag-activo]="u.activo" [class.tag-baja]="!u.activo">
-                        {{ u.activo ? 'Activo' : 'Deshabilitado' }}
+                      <span
+                        class="tag-estado"
+                        [appResaltarEstado]="u.activo ? 'activa' : 'baja'">
+                        {{ u.activo ? 'activa' : 'baja' }}
                       </span>
                     </span>
                   </div>

@@ -79,7 +79,7 @@
       </div>
 
       @for (publi of publicaciones(); track publi._id) {
-        <div class="admin-publi-card" [class.publi-inactiva]="publi.activo === false">
+        <div class="admin-publi-card" [appMarcarInactivo]="publi.activo === false">
           <div class="admin-publi-body">
             <app-publicaciones-ind
               [publi]="publi"
@@ -88,7 +88,9 @@
           </div>
 
           <div class="admin-actions">
-            <span class="estado-badge" [class.activa]="publi.activo !== false" [class.baja]="publi.activo === false">
+            <span
+              class="estado-badge"
+              [appResaltarEstado]="publi.activo === false ? 'baja' : 'activa'">
               {{ publi.activo === false ? 'Dada de baja' : 'Activa' }}
             </span>
 

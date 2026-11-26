@@ -7,9 +7,11 @@ import { PublicacionesInd } from '../../components/ui/publicaciones-ind/publicac
 import { AuthService } from '../../services/authServices';
 import { ModalInactividad } from '../../components/ui/modal-inactividad/modal-inactividad';
 import { admin } from '../../services/admin/admin';
+import { ResaltarEstadoDirective } from '../../components/ui/directives/resaltarestado';
+import { MarcarInactivoDirective } from '../../components/ui/directives/marcainactivo';
 
 @Component({
-  imports: [ReactiveFormsModule, RouterLink, PublicacionesInd, ModalInactividad],
+  imports: [ReactiveFormsModule, RouterLink, PublicacionesInd, ModalInactividad , ResaltarEstadoDirective , MarcarInactivoDirective],
   selector: 'app-feed',
   styleUrl: './feed.css',
   templateUrl: './feed.html',
