@@ -6,7 +6,7 @@ import { AdminGuard } from '../auth/admin.guard.js';
 import { TokenGuard } from '../auth/token.guard.js';
 
 @Controller('estadisticas')
-@UseGuards(AdminGuard , TokenGuard)
+@UseGuards(TokenGuard, AdminGuard)
 export class EstadisticasController {
   constructor(private readonly estadisticasService: EstadisticasService) {}
 

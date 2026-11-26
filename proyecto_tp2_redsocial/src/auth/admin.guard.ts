@@ -5,8 +5,11 @@ export class AdminGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest();
     const user = req.user;
-
-
+    
+    if (!user) {
+      throw new UnauthorizedException('Token no válido o usuario no autenticado');
+    }
+    
     if (user.perfil !== 'administrador') {
       throw new ForbiddenException('Acceso denegado: se requiere perfil administrador');
     }
